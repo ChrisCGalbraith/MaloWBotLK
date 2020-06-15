@@ -1,21 +1,18 @@
-mb_config = {}
-
+table.insert(mb_TrustedCharacters, "Odia")
+table.insert(mb_TrustedCharacters, "Maligna")
+table.insert(mb_TrustedCharacters, "Necria")
+table.insert(mb_TrustedCharacters, "Charnel")
+table.insert(mb_TrustedCharacters, "Umbria")
+table.insert(mb_TrustedCharacters, "Pestilina")
+table.insert(mb_TrustedCharacters, "Khalia")
+table.insert(mb_TrustedCharacters, "Gwethriel")
+table.insert(mb_TrustedCharacters, "Kisaana")
+table.insert(mb_TrustedCharacters, "Trudy")
+table.insert(mb_TrustedCharacters, "Arethel")
+table.insert(mb_TrustedCharacters, "Elerien")
 mb_config.tanks = {"Malowtank", "Elerien", "Tunbert", "Maligna"}
 
 mb_config.trustedCharacters = {}
-table.insert(mb_config.trustedCharacters, "Malowtank")
-table.insert(mb_config.trustedCharacters, "Aerer")
-table.insert(mb_config.trustedCharacters, "Rewis")
-table.insert(mb_config.trustedCharacters, "Warde")
-table.insert(mb_config.trustedCharacters, "Ceolmar")
-table.insert(mb_config.trustedCharacters, "Riffin")
-table.insert(mb_config.trustedCharacters, "Tunbert")
-table.insert(mb_config.trustedCharacters, "Ninki")
-table.insert(mb_config.trustedCharacters, "Abith")
-table.insert(mb_config.trustedCharacters, "Puabi")
-table.insert(mb_config.trustedCharacters, "Igal")
-table.insert(mb_config.trustedCharacters, "Verne")
-table.insert(mb_config.trustedCharacters, "Carin")
 
 function mb_IsTrustedCharacter(charName)
     for _, name in pairs(mb_config.trustedCharacters) do

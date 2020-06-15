@@ -5,14 +5,14 @@ function mb_Mage_OnLoad()
     if arcanePoints > firePoints and arcanePoints > frostPoints then
         mb_classSpecificRunFunction = mb_Mage_ArcaneOnUpdate
     elseif frostPoints > arcanePoints and frostPoints > firePoints then
-        mb_classSpecificRunFunction = mb_Mage_FrostOnUpdate
+        mb_sayRaid("Frost spec is not supported yet")
     else
         mb_classSpecificRunFunction = mb_Mage_FireOnUpdate
     end
 
     mb_registerDesiredBuff(BUFF_KINGS)
     mb_registerDesiredBuff(BUFF_WISDOM)
-    mb_registerDesiredBuff(BUFF_SANC)
+    mb_registerDesiredBuff(BUFF_SANCTUARY)
     mb_registerDesiredBuff(BUFF_INTELLECT)
     mb_registerDesiredBuff(BUFF_MOTW)
     mb_registerDesiredBuff(BUFF_FORT)

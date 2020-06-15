@@ -7,12 +7,12 @@ function mb_Warlock_OnLoad()
     elseif destructionPoints > afflictionPoints and destructionPoints > demonologyPoints then
         mb_sayRaid("Destruction spec is not supported yet")
     else
-        mb_classSpecificRunFunction = mb_Warlock_DemonologyOnUpdate
+        mb_sayRaid("Destruction spec is not supported yet")
     end
 
     mb_registerDesiredBuff(BUFF_KINGS)
     mb_registerDesiredBuff(BUFF_WISDOM)
-    mb_registerDesiredBuff(BUFF_SANC)
+    mb_registerDesiredBuff(BUFF_SANCTUARY)
     mb_registerDesiredBuff(BUFF_INTELLECT)
     mb_registerDesiredBuff(BUFF_MOTW)
     mb_registerDesiredBuff(BUFF_FORT)

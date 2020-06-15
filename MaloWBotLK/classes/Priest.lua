@@ -12,7 +12,7 @@ function mb_Priest_OnLoad()
 
     mb_registerDesiredBuff(BUFF_KINGS)
     mb_registerDesiredBuff(BUFF_WISDOM)
-    mb_registerDesiredBuff(BUFF_SANC)
+    mb_registerDesiredBuff(BUFF_SANCTUARY)
     mb_registerDesiredBuff(BUFF_INTELLECT)
     mb_registerDesiredBuff(BUFF_MOTW)
     mb_registerDesiredBuff(BUFF_FORT)

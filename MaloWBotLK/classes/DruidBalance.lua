@@ -14,10 +14,10 @@ function mb_Druid_BalanceOnUpdate()
         return
     end
 
-  --  if UnitAffectingCombat("player") and UnitPower("Khalia") < 1500 then
-  --      mb_castSpellOnFriendly("Khalia", "Innervate")
-  --      return
-  --  end
+    if UnitAffectingCombat("player") and UnitPower("Khalia") < 1500 then
+        mb_castSpellOnFriendly("Khalia", "Innervate")
+        return
+    end
 
     if mb_canCastSpell("Moonfire") and not mb_targetHasMyDebuff("Moonfire") then
         CastSpellByName("Moonfire")

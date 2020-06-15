@@ -15,8 +15,23 @@ function mb_Warlock_AfflictionOnUpdate()
         return
     end
 
-    if mb_warlockIsDemo == true then
-        mb_demoRotation()
+    if not mb_targetHasMyDebuff("Corruption") and mb_castSpellOnTarget("Corruption") then
+        return
+    end
+
+    if UnitBuff("player", "Shadow Trance") and mb_castSpellOnTarget("Shadow Bolt") then
+        return
+    end
+
+    if not mb_targetHasMyDebuff("Curse of Agony") and mb_castSpellOnTarget("Curse of Agony") then
+        return
+    end
+
+    if not mb_targetHasMyDebuff("Unstable Affliction") and mb_castSpellOnTarget("Unstable Affliction") then
+        return
+    end
+
+    if not mb_targetHasMyDebuff("Haunt") and mb_castSpellOnTarget( "Haunt") then
         return
     end
 
@@ -24,40 +39,7 @@ function mb_Warlock_AfflictionOnUpdate()
         if mb_targetHasMyDebuff("Drain Soul") then
             return
         end
-
-        if not mb_targetHasMyDebuff("Drain Soul")then
-            CastSpellByName("Drain Soul")
-            return
-        end
-    end
-
-    if GetUnitName("player") == "Maligna" and mb_canCastSpell("Seed of Corruption") then
-         CastSpellByName("Seed of Corruption")
-        return
-    end
-
-    if mb_canCastSpell("Corruption") and not mb_targetHasMyDebuff("Corruption") then
-        CastSpellByName("Corruption")
-        return
-    end
-
-    if UnitBuff("player", "Shadow Trance") then
-        CastSpellByName("Shadow Bolt")
-        return
-    end
-
-    if mb_canCastSpell("Curse of Agony") and not mb_targetHasMyDebuff("Curse of Agony") then
-        CastSpellByName("Curse of Agony")
-        return
-    end
-
-    if mb_canCastSpell("Unstable Affliction") and not mb_targetHasMyDebuff("Unstable Affliction") then
-        CastSpellByName("Unstable Affliction")
-        return
-    end
-
-    if mb_canCastSpell( "Haunt") and not mb_targetHasMyDebuff("Haunt") then
-        CastSpellByName("Haunt")
+        CastSpellByName("Drain Soul")
         return
     end
 end
