@@ -380,7 +380,6 @@ function mb_IsOnGCD()
         return true
     end
     return false
-end
 
 -- Returns true if you're not on GCD and not currently casting
 function mb_IsReadyForNewCast()
@@ -393,9 +392,17 @@ function mb_IsReadyForNewCast()
     end
     return true
 end
+function mb_cleanseRaid(spell, debuffType1, debuffType2, debuffType3)
+	for i = 1, mb_getNumPartyOrRaidMembers() do
+		local unit = mb_getUnitFromPartyOrRaidIndex(i)
+		if mb_unitHasDebuffOfType(unit, debuffType1, debuffType2, debuffType3) and mb_isUnitValidFriendlyTarget(unit, spell) then
+			return mb_castSpellOnFriendly(unit, spell)
+		end
+	end
+	return false
+end
 
--- Returns the name of your spec
-mb_cache_specName = nil
+-- Returns the name of your specmb_cache_specName = nil
 function mb_GetMySpecName()
     if mb_cache_specName ~= nil then
         return mb_cache_specName
@@ -411,7 +418,25 @@ function mb_GetMySpecName()
     mb_cache_specName = name
     return name
 end
-
+--
+function mb_unitHasDebuffOfType(unit, debuffType1, debuffType2, debuffType3)
+	for i = 1, 40 do
+		local name, _, _, _, type = UnitDebuff(unit, i)
+		if name == nil then
+			return false
+		end
+		if debuffType1 ~= nil and debuffType1 == type then
+			return true
+		end
+		if debuffType2 ~= nil and debuffType2 == type then
+			return true
+		end
+		if debuffType3 ~= nil and debuffType3 == type then
+			return true
+		end
+	end
+	return false
+end
 mb_forceBlockDpsCooldowns = false
 -- Returns true if using CDs is a good idea
 function mb_ShouldUseDpsCooldowns(rangeCheckSpell)
@@ -628,7 +653,6 @@ function mb_Drink(force)
     --end
     return mb_UseItem(waterName)
 end
-
 function mb_StopCast()
     SpellStopCasting()
 end

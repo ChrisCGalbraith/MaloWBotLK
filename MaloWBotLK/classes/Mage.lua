@@ -1,0 +1,35 @@
+function mb_Mage_OnLoad()
+    local _, _, arcanePoints = GetTalentTabInfo(1)
+    local _, _, firePoints = GetTalentTabInfo(2)
+    local _, _, frostPoints = GetTalentTabInfo(3)
+    if arcanePoints > firePoints and arcanePoints > frostPoints then
+        mb_classSpecificRunFunction = mb_Mage_ArcaneOnUpdate
+    elseif frostPoints > arcanePoints and frostPoints > firePoints then
+        mb_classSpecificRunFunction = mb_Mage_FrostOnUpdate
+    else
+        mb_classSpecificRunFunction = mb_Mage_FireOnUpdate
+    end
+
+    mb_registerDesiredBuff(BUFF_KINGS)
+    mb_registerDesiredBuff(BUFF_WISDOM)
+    mb_registerDesiredBuff(BUFF_SANC)
+    mb_registerDesiredBuff(BUFF_INTELLECT)
+    mb_registerDesiredBuff(BUFF_MOTW)
+    mb_registerDesiredBuff(BUFF_FORT)
+    mb_registerDesiredBuff(BUFF_SPIRIT)
+    mb_registerDesiredBuff(BUFF_SHADOW_PROT)
+end
+
+function mb_Mage_handleIntellect(targetPlayerName, greaterSpell, singleSpell)
+    if UnitAffectingCombat("player") then
+        return
+    end
+    if mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), greaterSpell) then
+        return
+    end
+    mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
+end
+
+function mb_Mage_intellectHandler(msg, from)
+    mb_Mage_handleIntellect(from, "Arcane Brilliance", "Arcane Intellect")
+end
