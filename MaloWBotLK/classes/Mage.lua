@@ -10,6 +10,10 @@ function mb_Mage_OnLoad()
         mb_classSpecificRunFunction = mb_Mage_FireOnUpdate
     end
 
+	if UnitName("player") == "Trudy" then
+        mb_registerMessageHandler(BUFF_INTELLECT.requestType, mb_Mage_intellectHandler)
+	end
+
     mb_registerDesiredBuff(BUFF_KINGS)
     mb_registerDesiredBuff(BUFF_WISDOM)
     mb_registerDesiredBuff(BUFF_SANCTUARY)

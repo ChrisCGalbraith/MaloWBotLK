@@ -17,7 +17,7 @@ function mb_Priest_HolyOnUpdate()
     if UnitBuff("player", "Surge of Light") then
         if mb_canCastSpell("Flash Heal") then
             local healUnit, missingHealth =  mb_getMostDamagedFriendly("Flash Heal")
-            if missingHealth > 1000 then
+            if missingHealth > 2000 then
                 mb_castSpellOnFriendly(healUnit, "Flash Heal")
                 return
             end
@@ -26,7 +26,7 @@ function mb_Priest_HolyOnUpdate()
 
     if mb_canCastSpell("Circle of Healing") then
         local healUnit, missingHealth =  mb_getMostDamagedFriendly("Circle of Healing")
-            if missingHealth > 1000 then
+            if missingHealth > 2000 then
                 mb_castSpellOnFriendly(healUnit, "Circle of Healing")
             return
         end

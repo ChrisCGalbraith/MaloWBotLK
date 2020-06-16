@@ -399,10 +399,10 @@ function mb_cleanseRaid(spell, debuffType1, debuffType2, debuffType3)
 			return mb_castSpellOnFriendly(unit, spell)
 		end
 	end
-	return false
 end
-
--- Returns the name of your specmb_cache_specName = nil
+function mb_isOnGCD()
+return false
+-- Returns the name of your spec
 function mb_GetMySpecName()
     if mb_cache_specName ~= nil then
         return mb_cache_specName
@@ -516,9 +516,7 @@ function mb_CheckDurability()
     if lowestDurability < 0.3 then
         mb_SayRaid("I'm low on durability and could use a repair, my lowest item is at " .. tostring(lowestDurability * 100) .. "%")
     end
-end
-
--- Returns true/false depending on if the item is in the table
+end-- Returns true/false depending on if the item is in the table
 function mb_TableContains(table, item)
     for _, v in pairs(table) do
         if v == item then
@@ -526,9 +524,7 @@ function mb_TableContains(table, item)
         end
     end
     return false
-end
-
--- Finds the most damaged member in the raid and casts the spell on that target as long as it doesn't over-heal
+end-- Finds the most damaged member in the raid and casts the spell on that target as long as it doesn't over-heal
 function mb_RaidHeal(spell, acceptedOverheal)
     if acceptedOverheal == nil then
         acceptedOverheal = 1
@@ -538,9 +534,7 @@ function mb_RaidHeal(spell, acceptedOverheal)
         return mb_CastSpellOnFriendly(healUnit, spell)
     end
     return false
-end
-
--- Tries to acquire an offensive target. Will assist the commander unit if it exists.
+end-- Tries to acquire an offensive target. Will assist the commander unit if it exists.
 -- Returns true/false depending on if a valid offensive target was acquired.
 function mb_AcquireOffensiveTarget()
     if mb_commanderUnit == nil then
@@ -552,9 +546,7 @@ function mb_AcquireOffensiveTarget()
     end
     AssistUnit(mb_commanderUnit)
     return mb_IsValidOffensiveUnit("target", true)
-end
-
--- Checks whether it's a good time to buff, returns true/false
+end-- Checks whether it's a good time to buff, returns true/false
 function mb_ShouldBuff()
     if UnitAffectingCombat("player") or mb_IsDrinking() or mb_UnitPowerPercentage("player") < 30 then
         return false

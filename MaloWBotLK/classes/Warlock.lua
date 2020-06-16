@@ -19,3 +19,16 @@ function mb_Warlock_OnLoad()
     mb_registerDesiredBuff(BUFF_SPIRIT)
     mb_registerDesiredBuff(BUFF_SHADOW_PROT)
 end
+
+-- Checks if the player has any pet active, if they don't then summons Felhunter.
+-- Does not differentiate between pets, if you have an Imp summoned, the function will fail.
+function mb_Warlock_handlePetSummon(spell)
+    if not UnitAffectingCombat("player") and not PetHasActionBar() then
+        local _, _, displayName = UnitCastingInfo("player")
+        if displayName == spell then
+            return false
+        end
+        CastSpellByName(spell)
+        return true
+    end
+end

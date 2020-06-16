@@ -2,7 +2,11 @@
 function mb_Warlock_AfflictionOnUpdate()
     AssistUnit(mb_commanderUnit)
 
-    if UnitPower("player") < 1000 then
+    mb_Warlock_handlePetSummon("Summon Felhunter")
+
+    mb_Warlock_handleFelhunterAutoCasts("Shadow Bite", "Fel Intelligence")
+
+    if UnitPower("player") < 1500 then
         CastSpellByName("Life Tap")
     end
 
@@ -12,6 +16,14 @@ function mb_Warlock_AfflictionOnUpdate()
     end
 
     if not mb_hasValidOffensiveTarget() then
+        return
+    end
+
+    if UnitAffectingCombat("player") and mb_isSpellInRange("Corruption", "target")then
+        PetAttack()
+    end
+
+    if not mb_targetHasMyDebuff("Seed of Corruption") and UnitName("player") == "Maligna" and mb_castSpellOnTarget("Seed of Corruption")  then
         return
     end
 
@@ -41,5 +53,18 @@ function mb_Warlock_AfflictionOnUpdate()
         end
         CastSpellByName("Drain Soul")
         return
+    end
+
+    CastSpellByName("Shadow Bolt")
+end
+
+function mb_Warlock_handleFelhunterAutoCasts(spell1, spell2)
+    local _, autostate = GetSpellAutocast(spell1, "pet")
+    local _, autostate2 = GetSpellAutocast(spell2, "pet")
+    if autostate == nil then
+        TogglePetAutocast(6)
+    end
+    if autostate2 == nil then
+        TogglePetAutocast(4)
     end
 end

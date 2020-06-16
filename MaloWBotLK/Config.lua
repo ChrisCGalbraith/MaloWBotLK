@@ -263,6 +263,56 @@ mb_config.statWeights["Rogue"]["Combat"].dps = 0.0
 mb_config.statWeights["Rogue"]["Combat"].socketMeta = 100
 mb_config.statWeights["Rogue"]["Combat"].socketColored = 16
 
-
-
+mb_statWeights["Druid"] = {}
+-- Balance
+mb_statWeights["Druid"]["Balance"] = {}
+mb_statWeights["Druid"]["Balance"].agility = 0.0
+mb_statWeights["Druid"]["Balance"].intellect = 0.22
+mb_statWeights["Druid"]["Balance"].spirit = 0.22
+mb_statWeights["Druid"]["Balance"].strength = 0.0
+mb_statWeights["Druid"]["Balance"].stamina = 0.1
+mb_statWeights["Druid"]["Balance"].critRating = 0.43
+mb_statWeights["Druid"]["Balance"].resilienceRating = 0.0
+mb_statWeights["Druid"]["Balance"].defenseRating = 0.0
+mb_statWeights["Druid"]["Balance"].expertiseRating = 0.0
+mb_statWeights["Druid"]["Balance"].dodgeRating = 0.0
+mb_statWeights["Druid"]["Balance"].parryRating = 0.0
+mb_statWeights["Druid"]["Balance"].blockRating = 0.0
+mb_statWeights["Druid"]["Balance"].armorPenetrationRating = 0.0
+mb_statWeights["Druid"]["Balance"].hitRating = 1.0
+mb_statWeights["Druid"]["Balance"].hasteRating = 0.54
+mb_statWeights["Druid"]["Balance"].attackPower = 0.0
+mb_statWeights["Druid"]["Balance"].armor = 0.0
+mb_statWeights["Druid"]["Balance"].blockValue = 0.0
+mb_statWeights["Druid"]["Balance"].spellPower = 0.66
+mb_statWeights["Druid"]["Balance"].mp5 = 0.0
+mb_statWeights["Druid"]["Balance"].dps = 0.0
+mb_statWeights["Druid"]["Balance"].socketMeta = 100
+mb_statWeights["Druid"]["Balance"].socketColored = 16
+-- Feral
+mb_statWeights["Druid"]["Feral"] = {}
+mb_statWeights["Druid"]["Feral"].agility = 0.70
+mb_statWeights["Druid"]["Feral"].intellect = 0.0
+mb_statWeights["Druid"]["Feral"].spirit = 0.0
+mb_statWeights["Druid"]["Feral"].strength = 0.1
+mb_statWeights["Druid"]["Feral"].stamina = 1.0
+mb_statWeights["Druid"]["Feral"].critRating = 0.03
+mb_statWeights["Druid"]["Feral"].resilienceRating = 0.0
+mb_statWeights["Druid"]["Feral"].defenseRating = 0.1
+mb_statWeights["Druid"]["Feral"].expertiseRating = 0.16
+mb_statWeights["Druid"]["Feral"].dodgeRating = 0.65
+mb_statWeights["Druid"]["Feral"].parryRating = 0.0
+mb_statWeights["Druid"]["Feral"].blockRating = 0.0
+mb_statWeights["Druid"]["Feral"].armorPenetrationRating = 0.0
+mb_statWeights["Druid"]["Feral"].hitRating = 0.08
+mb_statWeights["Druid"]["Feral"].hasteRating = 0.05
+mb_statWeights["Druid"]["Feral"].attackPower = 0.04
+mb_statWeights["Druid"]["Feral"].feralPower = 0.04
+mb_statWeights["Druid"]["Feral"].armor = 0.1
+mb_statWeights["Druid"]["Feral"].blockValue = 0.0
+mb_statWeights["Druid"]["Feral"].spellPower = 0.66
+mb_statWeights["Druid"]["Feral"].mp5 = 0.0
+mb_statWeights["Druid"]["Feral"].dps = 0.0
+mb_statWeights["Druid"]["Feral"].socketMeta = 100
+mb_statWeights["Druid"]["Feral"].socketColored = 16
 

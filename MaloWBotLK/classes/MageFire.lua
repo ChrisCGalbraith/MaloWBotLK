@@ -1,5 +1,11 @@
 
 function mb_Mage_FireOnUpdate()
+    AssistUnit(mb_commanderUnit)
+
+    if not mb_hasValidOffensiveTarget() then
+        return
+    end
+
     if UnitBuff("player", "Hot Streak") then
         CastSpellByName("Pyroblast")
         return

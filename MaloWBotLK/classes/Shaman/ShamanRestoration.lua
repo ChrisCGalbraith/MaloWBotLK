@@ -11,8 +11,13 @@
         return
     end
 
-    if UnitPower("Khalia") < 1000 then
+    if UnitPower("Khalia") < 1000 and UnitAffectingCombat("Khalia")then
         CastSpellByName("Mana Tide Totem")
+        return
+    end
+
+    if mb_unitHealthPercentage("Malowtank") <= 50 then
+        mb_castSpellOnFriendly("Malowtank", "Riptide")
         return
     end
 
