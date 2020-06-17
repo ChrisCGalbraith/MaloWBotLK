@@ -1,6 +1,9 @@
+
     if mb_resurrectRaid("Ancestral Spirit") then
         return
     end
+
+    AssistUnit(mb_commanderUnit)
 
     if mb_Shaman_ApplyWeaponEnchants("Earthliving Weapon") then
         return

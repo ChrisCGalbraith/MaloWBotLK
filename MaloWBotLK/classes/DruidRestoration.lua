@@ -4,6 +4,8 @@ function mb_Druid_RestorationOnUpdate()
         return
     end
 
+    AssistUnit(mb_commanderUnit)
+
     if UnitAffectingCombat("player") and UnitPower("player") < 1500 then
         mb_castSpellOnSelf("Innervate")
     end

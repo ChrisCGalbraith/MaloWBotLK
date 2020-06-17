@@ -418,6 +418,7 @@ function mb_GetMySpecName()
     mb_cache_specName = name
     return name
 end
+
 --
 function mb_unitHasDebuffOfType(unit, debuffType1, debuffType2, debuffType3)
 	for i = 1, 40 do
@@ -469,6 +470,21 @@ function mb_GetSpellIdForName(spellName)
     return tonumber(spellId)
 end
 
+function mb_GetItemLocation(itemName)
+	for bag = 0, 4 do
+		for slot = 1, GetContainerNumSlots(bag) do
+			local texture = GetContainerItemInfo(bag, slot)
+			if texture ~= nil then
+				local name = GetItemInfo(bag, slot)
+				if itemName == name then
+					return bag, slot
+				end
+			end
+		end
+	end
+	return nil
+end
+
 function mb_SetPetAutocast(spell, desiredState)
     local _, autoCastState = GetSpellAutocast(spell, "pet")
     autoCastState = autoCastState == 1
@@ -477,7 +493,15 @@ function mb_SetPetAutocast(spell, desiredState)
     end
     ToggleSpellAutocast(spell, "pet")
 end
-
+-- Uses item in bag by name
+function mb_UseItem(itemName)
+	local bag, slot = mb_GetItemLocation(itemName)
+	if bag ~= nil then
+		UseContainerItem(bag, slot)
+		return true
+	end
+	return false
+end
 function mb_CheckReagentAmount(itemName, desiredItemCount)
     local currentItemCount = mb_GetItemCount(itemName)
     if currentItemCount < desiredItemCount then
@@ -516,7 +540,8 @@ function mb_CheckDurability()
     if lowestDurability < 0.3 then
         mb_SayRaid("I'm low on durability and could use a repair, my lowest item is at " .. tostring(lowestDurability * 100) .. "%")
     end
-end-- Returns true/false depending on if the item is in the table
+end
+-- Returns true/false depending on if the item is in the table
 function mb_TableContains(table, item)
     for _, v in pairs(table) do
         if v == item then
@@ -524,7 +549,8 @@ function mb_TableContains(table, item)
         end
     end
     return false
-end-- Finds the most damaged member in the raid and casts the spell on that target as long as it doesn't over-heal
+end
+-- Finds the most damaged member in the raid and casts the spell on that target as long as it doesn't over-heal
 function mb_RaidHeal(spell, acceptedOverheal)
     if acceptedOverheal == nil then
         acceptedOverheal = 1

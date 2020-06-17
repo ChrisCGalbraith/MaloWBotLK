@@ -6,6 +6,8 @@ function mb_Warlock_AfflictionOnUpdate()
 
     mb_Warlock_handleFelhunterAutoCasts("Shadow Bite", "Fel Intelligence")
 
+    --mb_Warlock_handleStones("Demonic Spellstone")
+
     if UnitPower("player") < 1500 then
         CastSpellByName("Life Tap")
     end
@@ -19,13 +21,13 @@ function mb_Warlock_AfflictionOnUpdate()
         return
     end
 
-    if UnitAffectingCombat("player") and mb_isSpellInRange("Corruption", "target")then
-        PetAttack()
-    end
+  --  if UnitAffectingCombat("player") and mb_isSpellInRange("Corruption", "target")then
+  --      PetAttack("target")
+   -- end
 
-    if not mb_targetHasMyDebuff("Seed of Corruption") and UnitName("player") == "Maligna" and mb_castSpellOnTarget("Seed of Corruption")  then
-        return
-    end
+   -- if not mb_targetHasMyDebuff("Seed of Corruption") and UnitName("player") == "Maligna" and mb_castSpellOnTarget("Seed of Corruption")  then
+   --     return
+   -- end
 
     if not mb_targetHasMyDebuff("Corruption") and mb_castSpellOnTarget("Corruption") then
         return

@@ -10,10 +10,10 @@ function mb_Druid_OnLoad()
         mb_classSpecificRunFunction = mb_Druid_FeralOnUpdate
     end
 
-    if UnitName("player") == "Gwethriel" then
-        mb_registerMessageHandler(BUFF_MOTW.requestType, mb_Druid_motwHandler)
-        return
-    end
+   -- if UnitName("player") == "Gwethriel" then
+   --     mb_registerMessageHandler(BUFF_MOTW.requestType, mb_Druid_motwHandler)
+   --     return
+    -- end
 
 
     mb_registerDesiredBuff(BUFF_KINGS)

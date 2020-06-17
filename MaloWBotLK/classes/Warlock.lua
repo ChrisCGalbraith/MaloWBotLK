@@ -32,3 +32,27 @@ function mb_Warlock_handlePetSummon(spell)
         return true
     end
 end
+
+
+function mb_Warlock_handleStones(itemName)
+    local hasMainHandEnchant = GetWeaponEnchantInfo()
+    if not hasMainHandEnchant then
+        if not mb_GetItemLocation(itemName) then
+            if itemName == "Demonic Spellstone" then
+                CastSpellByName("Create Spellstone")
+                return
+            end
+
+            if itemName == "Fel Firestone" then
+                CastSpellByName("Create Firestone")
+                return
+            end
+
+            return
+        end
+        mb_UseItem(itemName)
+        PickupInventoryItem(16)
+        ReplaceEnchant()
+    end
+    return false
+end

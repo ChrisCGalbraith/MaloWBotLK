@@ -4,6 +4,8 @@ function mb_Priest_HolyOnUpdate()
         return
     end
 
+    AssistUnit(mb_commanderUnit)
+
     if not UnitBuff("player", "Inner Fire") then
         CastSpellByName("Inner Fire")
         return

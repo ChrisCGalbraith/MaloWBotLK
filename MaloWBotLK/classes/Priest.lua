@@ -19,15 +19,15 @@ function mb_Priest_OnLoad()
     mb_registerDesiredBuff(BUFF_SPIRIT)
     mb_registerDesiredBuff(BUFF_SHADOW_PROT)
 
-    if UnitName("player") == "Khalia" then
-        mb_registerMessageHandler(BUFF_FORT.requestType, mb_Priest_fortHandler)
-        mb_registerMessageHandler(BUFF_SPIRIT.requestType, mb_Priest_spiritHandler)
-        mb_registerMessageHandler(BUFF_SHADOW_PROT.requestType, mb_Priest_shadowHandler)
-    end
+   -- if UnitName("player") == "Khalia" then
+    --    mb_registerMessageHandler(BUFF_FORT.requestType, mb_Priest_fortHandler)
+    --    mb_registerMessageHandler(BUFF_SPIRIT.requestType, mb_Priest_spiritHandler)
+    --    mb_registerMessageHandler(BUFF_SHADOW_PROT.requestType, mb_Priest_shadowHandler)
+   -- end
 
 end
 
-function mb_Priest_handlePrayer(targetPlayerName, greaterSpell, singleSpell)
+function mb_Priest_handlePrayer(targetPlayerName, greaterSpell)-- singleSpell)
     if UnitAffectingCombat("player") then
         return
     end
@@ -35,17 +35,17 @@ function mb_Priest_handlePrayer(targetPlayerName, greaterSpell, singleSpell)
         CastSpellByName(greaterSpell)
         return true
     end
-    mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
+  --  mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
 end
 
 function mb_Priest_fortHandler(msg, from)
-    mb_Priest_handlePrayer(from, "Prayer of Fortitude", "Power Word: Fortitude")
+    mb_Priest_handlePrayer(from, "Prayer of Fortitude")-- "Power Word: Fortitude")
 end
 
 function mb_Priest_spiritHandler(msg, from)
-    mb_Priest_handlePrayer(from, "Prayer of Spirit", "Divine Spirit")
+    mb_Priest_handlePrayer(from, "Prayer of Spirit")-- "Divine Spirit")
 end
 
 function mb_Priest_shadowHandler(msg, from)
-    mb_Priest_handlePrayer(from, "Prayer of Shadow Protection", "Shadow Protection")
+    mb_Priest_handlePrayer(from, "Prayer of Shadow Protection")-- "Shadow Protection")
 end
