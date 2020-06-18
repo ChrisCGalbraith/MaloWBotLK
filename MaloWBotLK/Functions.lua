@@ -475,7 +475,7 @@ function mb_GetItemLocation(itemName)
 		for slot = 1, GetContainerNumSlots(bag) do
 			local texture = GetContainerItemInfo(bag, slot)
 			if texture ~= nil then
-				local name = GetItemInfo(bag, slot)
+				local name = GetItemInfo(mb_GetItemStringFromItemLink(GetContainerItemLink(bag, slot)))
 				if itemName == name then
 					return bag, slot
 				end
@@ -493,6 +493,12 @@ function mb_SetPetAutocast(spell, desiredState)
     end
     ToggleSpellAutocast(spell, "pet")
 end
+-- Converts an ItemLink to an ItemString
+function mb_GetItemStringFromItemLink(itemLink)
+	local found, _, itemString = string.find(itemLink, "^|%x+|H(.+)|h%[.+%]")
+	return itemString
+end
+
 -- Uses item in bag by name
 function mb_UseItem(itemName)
 	local bag, slot = mb_GetItemLocation(itemName)
@@ -594,6 +600,8 @@ function mb_ShouldBuff()
     return true
 end
 
+
+
 -- returns the bag and slot indexes for where an item is located
 function mb_GetItemLocation(itemName)
     for bag = 0, 4 do
@@ -622,6 +630,8 @@ function mb_UseItem(itemName)
     UseItemByName(itemName)
     return true
 end
+
+
 
 function mb_IsDrinking()
     return UnitBuff("player", "Drink") ~= nil
