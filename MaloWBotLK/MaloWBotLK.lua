@@ -112,6 +112,7 @@ f:RegisterEvent("RESURRECT_REQUEST")
 f:RegisterEvent("QUEST_ACCEPT_CONFIRM")
 f:RegisterEvent("QUEST_DETAIL")
 f:RegisterEvent("GROUP_ROSTER_CHANGED")
+f:RegisterEvent("READY_CHECK")
 f:RegisterEvent("UI_ERROR_MESSAGE")
 f:RegisterEvent("UNIT_SPELLCAST_SENT")
 f:RegisterEvent("READY_CHECK")
@@ -119,7 +120,6 @@ f:RegisterEvent("UNIT_SPELLCAST_START")
 f:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START")
 f:RegisterEvent("UNIT_TARGET")
 f:SetScript("OnEvent", mb_OnEvent)
-
 mb_hasInitiated = false
 mb_classSpecificRunFunction = nil
 mb_originalErrorHandler = nil

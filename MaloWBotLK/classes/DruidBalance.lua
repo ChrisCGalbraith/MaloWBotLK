@@ -5,6 +5,10 @@ mb_druid_lastEclipseLunar = false
 function mb_Druid_BalanceOnUpdate()
     AssistUnit(mb_commanderUnit)
 
+    if mb_DrinkIfGood() then
+        return
+    end
+
     if not mb_hasValidOffensiveTarget() then
         return
     end
@@ -16,6 +20,10 @@ function mb_Druid_BalanceOnUpdate()
 
     if UnitAffectingCombat("player") and UnitPower("Khalia") < 1500 then
         mb_castSpellOnFriendly("Khalia", "Innervate")
+        return
+    end
+
+    if mb_cleanseRaid("Remove Curse", "Curse") then
         return
     end
 

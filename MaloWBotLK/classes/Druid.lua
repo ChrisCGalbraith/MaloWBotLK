@@ -10,11 +10,9 @@ function mb_Druid_OnLoad()
         mb_classSpecificRunFunction = mb_Druid_FeralOnUpdate
     end
 
-   -- if UnitName("player") == "Gwethriel" then
-   --     mb_registerMessageHandler(BUFF_MOTW.requestType, mb_Druid_motwHandler)
-   --     return
-    -- end
-
+    if UnitName("player") == "Elerien" then
+        mb_registerMessageHandler(BUFF_MOTW.requestType, mb_Druid_motwHandler)
+    end
 
     mb_registerDesiredBuff(BUFF_KINGS)
     mb_registerDesiredBuff(BUFF_WISDOM)
@@ -27,7 +25,7 @@ function mb_Druid_OnLoad()
     mb_registerDesiredBuff(BUFF_SHADOW_PROT)
 end
 
-function mb_Druid_handleMotw(targetPlayerName, greaterSpell, singleSpell)
+function mb_Druid_handleMotw(targetPlayerName, greaterSpell)
     if UnitAffectingCombat("player") then
         return
     end
@@ -36,9 +34,10 @@ function mb_Druid_handleMotw(targetPlayerName, greaterSpell, singleSpell)
         CastSpellByName("Gift of the Wild")
         return
     end
-    mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
+   -- mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
 end
 
 function mb_Druid_motwHandler(msg, from)
-    mb_Druid_handleMotw(from, "Gift of the Wild",  "Mark of the Wild")
+    mb_Druid_handleMotw(from, "Gift of the Wild")
 end
+

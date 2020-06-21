@@ -24,16 +24,25 @@ function mb_Mage_OnLoad()
     mb_registerDesiredBuff(BUFF_SHADOW_PROT)
 end
 
-function mb_Mage_handleIntellect(targetPlayerName, greaterSpell, singleSpell)
+function mb_Mage_handleIntellect(targetPlayerName, greaterSpell)--, singleSpell)
     if UnitAffectingCombat("player") then
         return
     end
     if mb_castSpellOnSelf(greaterSpell) then
         return
     end
-    mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
+    --mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
 end
 
 function mb_Mage_intellectHandler(msg, from)
-    mb_Mage_handleIntellect(from, "Arcane Brilliance", "Arcane Intellect")
+    mb_Mage_handleIntellect(from, "Arcane Brilliance")--, "Arcane Intellect")
+end
+
+function mb_Mage_handleManaGem(itemName)
+    if not mb_GetItemLocation(itemName) then
+        CastSpellByName("Conjure Mana Gem")
+        return true
+    end
+
+    return false
 end

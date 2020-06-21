@@ -2,6 +2,17 @@
 function mb_Mage_FireOnUpdate()
     AssistUnit(mb_commanderUnit)
 
+    if mb_DrinkIfGood() then
+        return
+    end
+
+    if not UnitBuff("player", "Molten Armor") then
+        CastSpellByName("Molten Armor")
+        return
+    end
+
+    mb_Mage_handleManaGem("Mana Sapphire")
+
     if not mb_hasValidOffensiveTarget() then
         return
     end

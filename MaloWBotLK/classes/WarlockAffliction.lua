@@ -8,12 +8,15 @@ function mb_Warlock_AfflictionOnUpdate()
 
     --mb_Warlock_handleStones("Demonic Spellstone")
 
-    if UnitPower("player") < 1500 then
-        CastSpellByName("Life Tap")
-    end
+    mb_Warlock_handleLifeTap()
 
     if not UnitBuff("player", "Fel Armor") then
         CastSpellByName("Fel Armor")
+        return
+    end
+
+    if mb_unitPowerPercentage("player") < 15 then
+        CastSpellByName("Life Tap")
         return
     end
 
@@ -21,11 +24,7 @@ function mb_Warlock_AfflictionOnUpdate()
         return
     end
 
-  --  if UnitAffectingCombat("player") and mb_isSpellInRange("Corruption", "target")then
-  --      PetAttack("target")
-   -- end
-
-   -- if not mb_targetHasMyDebuff("Seed of Corruption") and UnitName("player") == "Maligna" and mb_castSpellOnTarget("Seed of Corruption")  then
+   -- if not mb_targetHasMyDebuff("Seed of Corruption") and mb_castSpellOnTarget("Seed of Corruption") then
    --     return
    -- end
 

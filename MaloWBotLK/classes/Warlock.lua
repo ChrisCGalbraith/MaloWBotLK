@@ -7,7 +7,7 @@ function mb_Warlock_OnLoad()
     elseif destructionPoints > afflictionPoints and destructionPoints > demonologyPoints then
         mb_sayRaid("Destruction spec is not supported yet")
     else
-        mb_sayRaid("Destruction spec is not supported yet")
+        mb_sayRaid("Demonology spec is not supported yet")
     end
 
     mb_registerDesiredBuff(BUFF_KINGS)
@@ -33,7 +33,7 @@ function mb_Warlock_handlePetSummon(spell)
     end
 end
 
-
+-- NEEDS WORKING ON RETURN FUNCTIONS
 function mb_Warlock_handleStones(itemName)
     local hasMainHandEnchant = GetWeaponEnchantInfo()
     if not hasMainHandEnchant then
@@ -55,4 +55,17 @@ function mb_Warlock_handleStones(itemName)
         ReplaceEnchant()
     end
     return false
+end
+
+-- Rank 1 Life Tap out of combat to maintain spellpower buff.
+function mb_Warlock_handleLifeTap()
+    if not UnitBuff("player", "Life Tap") and not UnitAffectingCombat("player") and mb_unitPowerPercentage("player") > 95 then
+        CastSpellByName("Life Tap(Rank 1)")
+        return
+    end
+
+    if mb_unitPowerPercentage("player") < 95 and not UnitAffectingCombat("player") then
+        CastSpellByName("Life Tap")
+        return
+    end
 end

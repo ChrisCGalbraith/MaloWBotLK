@@ -206,6 +206,31 @@ mb_config.statWeights["Shaman"]["Enhancement"].mp5 = 0.0
 mb_config.statWeights["Shaman"]["Enhancement"].dps = 0.0
 mb_config.statWeights["Shaman"]["Enhancement"].socketMeta = 100
 mb_config.statWeights["Shaman"]["Enhancement"].socketColored = 16
+-- Restoration
+mb_statWeights["Shaman"]["Restoration"] = {}
+mb_statWeights["Shaman"]["Restoration"].agility = 0.0
+mb_statWeights["Shaman"]["Restoration"].intellect = 0.85
+mb_statWeights["Shaman"]["Restoration"].spirit = 0.0
+mb_statWeights["Shaman"]["Restoration"].strength = 0.0
+mb_statWeights["Shaman"]["Restoration"].stamina = 0.01
+mb_statWeights["Shaman"]["Restoration"].critRating = 0.62
+mb_statWeights["Shaman"]["Restoration"].resilienceRating = 0.0
+mb_statWeights["Shaman"]["Restoration"].defenseRating = 0.0
+mb_statWeights["Shaman"]["Restoration"].expertiseRating = 0.0
+mb_statWeights["Shaman"]["Restoration"].dodgeRating = 0.0
+mb_statWeights["Shaman"]["Restoration"].parryRating = 0.0
+mb_statWeights["Shaman"]["Restoration"].blockRating = 0.0
+mb_statWeights["Shaman"]["Restoration"].armorPenetrationRating = 0.0
+mb_statWeights["Shaman"]["Restoration"].hitRating = 0.0
+mb_statWeights["Shaman"]["Restoration"].hasteRating = 0.35
+mb_statWeights["Shaman"]["Restoration"].attackPower = 0.0
+mb_statWeights["Shaman"]["Restoration"].armor = 0.0
+mb_statWeights["Shaman"]["Restoration"].blockValue = 0.0
+mb_statWeights["Shaman"]["Restoration"].spellPower = 0.75
+mb_statWeights["Shaman"]["Restoration"].mp5 = 1.0
+mb_statWeights["Shaman"]["Restoration"].dps = 0.0
+mb_statWeights["Shaman"]["Restoration"].socketMeta = 100
+mb_statWeights["Shaman"]["Restoration"].socketColored = 16
 
 -- Warrior
 mb_config.statWeights["Warrior"] = {}
@@ -270,7 +295,7 @@ mb_statWeights["Druid"]["Balance"].agility = 0.0
 mb_statWeights["Druid"]["Balance"].intellect = 0.22
 mb_statWeights["Druid"]["Balance"].spirit = 0.22
 mb_statWeights["Druid"]["Balance"].strength = 0.0
-mb_statWeights["Druid"]["Balance"].stamina = 0.1
+mb_statWeights["Druid"]["Balance"].stamina = 0.01
 mb_statWeights["Druid"]["Balance"].critRating = 0.43
 mb_statWeights["Druid"]["Balance"].resilienceRating = 0.0
 mb_statWeights["Druid"]["Balance"].defenseRating = 0.0
@@ -307,12 +332,149 @@ mb_statWeights["Druid"]["Feral"].armorPenetrationRating = 0.0
 mb_statWeights["Druid"]["Feral"].hitRating = 0.08
 mb_statWeights["Druid"]["Feral"].hasteRating = 0.05
 mb_statWeights["Druid"]["Feral"].attackPower = 0.04
-mb_statWeights["Druid"]["Feral"].feralPower = 0.04
-mb_statWeights["Druid"]["Feral"].armor = 0.1
+mb_statWeights["Druid"]["Feral"].armor = 0.25
 mb_statWeights["Druid"]["Feral"].blockValue = 0.0
 mb_statWeights["Druid"]["Feral"].spellPower = 0.66
 mb_statWeights["Druid"]["Feral"].mp5 = 0.0
 mb_statWeights["Druid"]["Feral"].dps = 0.0
 mb_statWeights["Druid"]["Feral"].socketMeta = 100
 mb_statWeights["Druid"]["Feral"].socketColored = 16
+-- Restoration
+mb_statWeights["Druid"]["Restoration"] = {}
+mb_statWeights["Druid"]["Restoration"].agility = 0.0
+mb_statWeights["Druid"]["Restoration"].intellect = 0.51
+mb_statWeights["Druid"]["Restoration"].spirit = 0.32
+mb_statWeights["Druid"]["Restoration"].strength = 0.0
+mb_statWeights["Druid"]["Restoration"].stamina = 0.01
+mb_statWeights["Druid"]["Restoration"].critRating = 0.11
+mb_statWeights["Druid"]["Restoration"].resilienceRating = 0.0
+mb_statWeights["Druid"]["Restoration"].defenseRating = 0.0
+mb_statWeights["Druid"]["Restoration"].expertiseRating = 0.0
+mb_statWeights["Druid"]["Restoration"].dodgeRating = 0.0
+mb_statWeights["Druid"]["Restoration"].parryRating = 0.0
+mb_statWeights["Druid"]["Restoration"].blockRating = 0.0
+mb_statWeights["Druid"]["Restoration"].armorPenetrationRating = 0.0
+mb_statWeights["Druid"]["Restoration"].hitRating = 0.0
+mb_statWeights["Druid"]["Restoration"].hasteRating = 0.57
+mb_statWeights["Druid"]["Restoration"].attackPower = 0.0
+mb_statWeights["Druid"]["Restoration"].armor = 0.0
+mb_statWeights["Druid"]["Restoration"].blockValue = 0.0
+mb_statWeights["Druid"]["Restoration"].spellPower = 1.0
+mb_statWeights["Druid"]["Restoration"].mp5 = 0.73
+mb_statWeights["Druid"]["Restoration"].dps = 0.0
+mb_statWeights["Druid"]["Restoration"].socketMeta = 100
+mb_statWeights["Druid"]["Restoration"].socketColored = 16
+
+-- Mage
+mb_statWeights["Mage"] = {}
+-- Arcane
+mb_statWeights["Mage"]["Arcane"] = {}
+mb_statWeights["Mage"]["Arcane"].agility = 0.0
+mb_statWeights["Mage"]["Arcane"].intellect = 0.34
+mb_statWeights["Mage"]["Arcane"].spirit = 0.14
+mb_statWeights["Mage"]["Arcane"].strength = 0.0
+mb_statWeights["Mage"]["Arcane"].stamina = 0.01
+mb_statWeights["Mage"]["Arcane"].critRating = 0.37
+mb_statWeights["Mage"]["Arcane"].resilienceRating = 0.0
+mb_statWeights["Mage"]["Arcane"].defenseRating = 0.0
+mb_statWeights["Mage"]["Arcane"].expertiseRating = 0.0
+mb_statWeights["Mage"]["Arcane"].dodgeRating = 0.0
+mb_statWeights["Mage"]["Arcane"].parryRating = 0.0
+mb_statWeights["Mage"]["Arcane"].blockRating = 0.0
+mb_statWeights["Mage"]["Arcane"].armorPenetrationRating = 0.0
+mb_statWeights["Mage"]["Arcane"].hitRating = 1.0
+mb_statWeights["Mage"]["Arcane"].hasteRating = 0.54
+mb_statWeights["Mage"]["Arcane"].attackPower = 0.0
+mb_statWeights["Mage"]["Arcane"].armor = 0.0
+mb_statWeights["Mage"]["Arcane"].blockValue = 0.0
+mb_statWeights["Mage"]["Arcane"].spellPower = 0.49
+mb_statWeights["Mage"]["Arcane"].mp5 = 0.0
+mb_statWeights["Mage"]["Arcane"].dps = 0.0
+mb_statWeights["Mage"]["Arcane"].socketMeta = 100
+mb_statWeights["Mage"]["Arcane"].socketColored = 16
+
+-- Priest
+mb_statWeights["Priest"] = {}
+-- Holy
+mb_statWeights["Priest"]["Holy"] = {}
+mb_statWeights["Priest"]["Holy"].agility = 0.0
+mb_statWeights["Priest"]["Holy"].intellect = 0.69
+mb_statWeights["Priest"]["Holy"].spirit = 0.52
+mb_statWeights["Priest"]["Holy"].strength = 0.0
+mb_statWeights["Priest"]["Holy"].stamina = 0.01
+mb_statWeights["Priest"]["Holy"].critRating = 0.38
+mb_statWeights["Priest"]["Holy"].resilienceRating = 0.0
+mb_statWeights["Priest"]["Holy"].defenseRating = 0.0
+mb_statWeights["Priest"]["Holy"].expertiseRating = 0.0
+mb_statWeights["Priest"]["Holy"].dodgeRating = 0.0
+mb_statWeights["Priest"]["Holy"].parryRating = 0.0
+mb_statWeights["Priest"]["Holy"].blockRating = 0.0
+mb_statWeights["Priest"]["Holy"].armorPenetrationRating = 0.0
+mb_statWeights["Priest"]["Holy"].hitRating = 0.0
+mb_statWeights["Priest"]["Holy"].hasteRating = 0.31
+mb_statWeights["Priest"]["Holy"].attackPower = 0.0
+mb_statWeights["Priest"]["Holy"].armor = 0.0
+mb_statWeights["Priest"]["Holy"].blockValue = 0.0
+mb_statWeights["Priest"]["Holy"].spellPower = 0.60
+mb_statWeights["Priest"]["Holy"].mp5 = 1.0
+mb_statWeights["Priest"]["Holy"].dps = 0.0
+mb_statWeights["Priest"]["Holy"].socketMeta = 100
+mb_statWeights["Priest"]["Holy"].socketColored = 16
+
+-- Warlock
+mb_statWeights["Warlock"] = {}
+-- Affliction
+mb_statWeights["Warlock"]["Affliction"] = {}
+mb_statWeights["Warlock"]["Affliction"].agility = 0.0
+mb_statWeights["Warlock"]["Affliction"].intellect = 0.15
+mb_statWeights["Warlock"]["Affliction"].spirit = 0.34
+mb_statWeights["Warlock"]["Affliction"].strength = 0.0
+mb_statWeights["Warlock"]["Affliction"].stamina = 0.01
+mb_statWeights["Warlock"]["Affliction"].critRating = 0.38
+mb_statWeights["Warlock"]["Affliction"].resilienceRating = 0.0
+mb_statWeights["Warlock"]["Affliction"].defenseRating = 0.0
+mb_statWeights["Warlock"]["Affliction"].expertiseRating = 0.0
+mb_statWeights["Warlock"]["Affliction"].dodgeRating = 0.0
+mb_statWeights["Warlock"]["Affliction"].parryRating = 0.0
+mb_statWeights["Warlock"]["Affliction"].blockRating = 0.0
+mb_statWeights["Warlock"]["Affliction"].armorPenetrationRating = 0.0
+mb_statWeights["Warlock"]["Affliction"].hitRating = 1.0
+mb_statWeights["Warlock"]["Affliction"].hasteRating = 0.61
+mb_statWeights["Warlock"]["Affliction"].attackPower = 0.0
+mb_statWeights["Warlock"]["Affliction"].armor = 0.0
+mb_statWeights["Warlock"]["Affliction"].blockValue = 0.0
+mb_statWeights["Warlock"]["Affliction"].spellPower = 0.72
+mb_statWeights["Warlock"]["Affliction"].mp5 = 0.0
+mb_statWeights["Warlock"]["Affliction"].dps = 0.0
+mb_statWeights["Warlock"]["Affliction"].socketMeta = 100
+mb_statWeights["Warlock"]["Affliction"].socketColored = 16
+-- Demonology
+mb_statWeights["Warlock"]["Demonology"] = {}
+mb_statWeights["Warlock"]["Demonology"].agility = 0.0
+mb_statWeights["Warlock"]["Demonology"].intellect = 0.13
+mb_statWeights["Warlock"]["Demonology"].spirit = 0.29
+mb_statWeights["Warlock"]["Demonology"].strength = 0.0
+mb_statWeights["Warlock"]["Demonology"].stamina = 0.01
+mb_statWeights["Warlock"]["Demonology"].critRating = 0.31
+mb_statWeights["Warlock"]["Demonology"].resilienceRating = 0.0
+mb_statWeights["Warlock"]["Demonology"].defenseRating = 0.0
+mb_statWeights["Warlock"]["Demonology"].expertiseRating = 0.0
+mb_statWeights["Warlock"]["Demonology"].dodgeRating = 0.0
+mb_statWeights["Warlock"]["Demonology"].parryRating = 0.0
+mb_statWeights["Warlock"]["Demonology"].blockRating = 0.0
+mb_statWeights["Warlock"]["Demonology"].armorPenetrationRating = 0.0
+mb_statWeights["Warlock"]["Demonology"].hitRating = 1.0
+mb_statWeights["Warlock"]["Demonology"].hasteRating = 0.50
+mb_statWeights["Warlock"]["Demonology"].attackPower = 0.0
+mb_statWeights["Warlock"]["Demonology"].armor = 0.0
+mb_statWeights["Warlock"]["Demonology"].blockValue = 0.0
+mb_statWeights["Warlock"]["Demonology"].spellPower = 0.8
+mb_statWeights["Warlock"]["Demonology"].mp5 = 0.0
+mb_statWeights["Warlock"]["Demonology"].dps = 0.0
+mb_statWeights["Warlock"]["Demonology"].socketMeta = 100
+mb_statWeights["Warlock"]["Demonology"].socketColored = 16
+
+
+
+
 
