@@ -1,5 +1,6 @@
 
 function mb_Warlock_AfflictionOnUpdate()
+
     AssistUnit(mb_commanderUnit)
 
     mb_Warlock_handlePetSummon("Summon Felhunter")
@@ -8,10 +9,20 @@ function mb_Warlock_AfflictionOnUpdate()
 
     --mb_Warlock_handleStones("Demonic Spellstone")
 
+    local _, _, text = UnitCastingInfo("player")
+    if text == "Channeling" then
+        return
+    end
+
     mb_Warlock_handleLifeTap()
 
-    if not UnitBuff("player", "Fel Armor") then
+    if not GetUnitName("player") == "Maligna" and not UnitBuff("player", "Fel Armor") then
         CastSpellByName("Fel Armor")
+        return
+    end
+
+    if GetUnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
+        CastSpellByName("Demon Armor")
         return
     end
 
@@ -26,7 +37,7 @@ function mb_Warlock_AfflictionOnUpdate()
 
    -- if not mb_targetHasMyDebuff("Seed of Corruption") and mb_castSpellOnTarget("Seed of Corruption") then
    --     return
-   -- end
+  --  end
 
     if not mb_targetHasMyDebuff("Corruption") and mb_castSpellOnTarget("Corruption") then
         return
@@ -46,6 +57,12 @@ function mb_Warlock_AfflictionOnUpdate()
 
     if not mb_targetHasMyDebuff("Haunt") and mb_castSpellOnTarget( "Haunt") then
         return
+    end
+
+    if mb_unitHealthPercentage("player") < 50 then
+        if mb_castSpellOnTarget("Drain Life") then
+            return
+        end
     end
 
     if mb_unitHealthPercentage("target") < 25 then

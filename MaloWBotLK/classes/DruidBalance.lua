@@ -19,8 +19,9 @@ function mb_Druid_BalanceOnUpdate()
     end
 
     if UnitAffectingCombat("player") and UnitPower("Khalia") < 1500 then
-        mb_castSpellOnFriendly("Khalia", "Innervate")
-        return
+        if mb_castSpellOnFriendly("Khalia", "Innervate") then
+            return
+        end
     end
 
     if mb_cleanseRaid("Remove Curse", "Curse") then

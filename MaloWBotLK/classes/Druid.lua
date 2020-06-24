@@ -14,6 +14,11 @@ function mb_Druid_OnLoad()
         mb_registerMessageHandler(BUFF_MOTW.requestType, mb_Druid_motwHandler)
     end
 
+    if UnitName("player") == "Elerien" then
+        mb_registerMessageHandler("taunt", mb_Druid_TauntHandler)
+    end
+
+
     mb_registerDesiredBuff(BUFF_KINGS)
     mb_registerDesiredBuff(BUFF_WISDOM)
     mb_registerDesiredBuff(BUFF_MIGHT)
@@ -30,6 +35,10 @@ function mb_Druid_handleMotw(targetPlayerName, greaterSpell)
         return
     end
 
+    if mb_buffMode == false then
+        return
+    end
+
     if mb_castSpellOnSelf(greaterSpell) then
         CastSpellByName("Gift of the Wild")
         return
@@ -41,3 +50,7 @@ function mb_Druid_motwHandler(msg, from)
     mb_Druid_handleMotw(from, "Gift of the Wild")
 end
 
+function mb_Druid_TauntHandler(msg, from)
+    mb_sayRaid("Im taunting!")
+    mb_castSpellOnTarget("Growl")
+end

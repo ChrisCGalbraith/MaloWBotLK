@@ -21,7 +21,7 @@ function mb_Mage_ArcaneOnUpdate()
         mb_castSpellOnFriendly("Kisaana", "Focus Magic")
     end
 
-    if mb_cleanseRaid("Cleanse Spirit", "Curse", "Poison", "Disease") then
+    if mb_cleanseRaid("Remove Curse", "Curse", "Poison", "Disease") then
         return
     end
 

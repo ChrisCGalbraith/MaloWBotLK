@@ -1,7 +1,11 @@
 
+mb_earthBindTime = 0
     if mb_DrinkIfGood() then
         return
     end
+
+   -- mb_mainTank = "Elerien"
+   -- mb_offTank = "Malowtank"
 
     if mb_resurrectRaid("Ancestral Spirit") then
         return
@@ -16,21 +20,44 @@
         return
     end
 
+   -- if mb_canCastSpell("Earthbind Totem") then
+   --     if mb_earthBindTime + 45 < mb_time then
+  --          if mb_castSpellOnSelf("Earthbind Totem") then
+   --             mb_earthBindTime = mb_time
+   --             return
+   --         end
+   --     end
+    --end
     AssistUnit(mb_commanderUnit)
 
     if not mb_unitHasMyBuff(mb_mainTank, "Earth Shield") then
-        mb_castSpellOnFriendly(mb_mainTank, "Earth Shield")
-        return
+        if mb_castSpellOnFriendly(mb_mainTank, "Earth Shield") then
+            return
+        end
     end
 
-    if mb_unitHealthPercentage(mb_mainTank) < 35 and UnitAffectingCombat(mb_mainTank) then
-        mb_castSpellOnFriendly(mb_mainTank, "Lesser Healing Wave")
-        return
+    if mb_unitHealthPercentage(mb_mainTank) <= 80 and not mb_unitHasMyBuff(mb_mainTank, "Riptide") then
+        if mb_castSpellOnFriendly(mb_mainTank, "Riptide") then
+            return
+        end
     end
 
-    if mb_unitHealthPercentage(mb_mainTank) < 50 and UnitBuff("player", "Tidal Waves") then
-        mb_castSpellOnFriendly(mb_mainTank, "Lesser Healing Wave")
-        return
+    if mb_unitHealthPercentage(mb_offTank) <= 80 and not mb_unitHasMyBuff(mb_offTank, "Riptide") then
+        if mb_castSpellOnFriendly(mb_offTank, "Riptide")then
+            return
+        end
+    end
+
+    if mb_unitHealthPercentage(mb_mainTank) < 35 and UnitBuff("player", "Tidal Waves") then
+        if mb_castSpellOnFriendly(mb_mainTank, "Healing Wave") then
+            return
+        end
+    end
+
+    if mb_unitHealthPercentage(mb_mainTank) < 80 and UnitBuff("player", "Tidal Waves") then
+        if mb_castSpellOnFriendly(mb_mainTank, "Lesser Healing Wave") then
+            return
+        end
     end
 
     if mb_cleanseRaid("Cleanse Spirit", "Curse", "Poison", "Disease") then
@@ -42,13 +69,16 @@
         return
     end
 
-    if mb_unitHealthPercentage(mb_mainTank) <= 65 then
-        mb_castSpellOnFriendly(mb_mainTank, "Riptide")
-        return
-    end
-
     if mb_Shaman_ChainHealRaid() then
         return
     end
 end
 
+function mb_Shaman_handleFocusHealing()
+    local healUnit, missingHealth = mb_getMostDamagedFriendly("Riptide")
+    if missingHealth > mb_getSpellEffect("Lesser Healing Wave") then
+        mb_castSpellOnFriendly(healUnit, "Lesser Healing Wave")
+        return true
+    end
+    return false
+end

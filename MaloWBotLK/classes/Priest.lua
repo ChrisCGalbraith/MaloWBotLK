@@ -31,6 +31,11 @@ function mb_Priest_handlePrayer(targetPlayerName, greaterSpell)-- singleSpell)
     if UnitAffectingCombat("player") then
         return
     end
+
+    if mb_buffMode == false then
+        return
+    end
+
     if mb_castSpellOnSelf(greaterSpell) then
         CastSpellByName(greaterSpell)
         return true

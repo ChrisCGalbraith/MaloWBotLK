@@ -28,6 +28,11 @@ function mb_Mage_handleIntellect(targetPlayerName, greaterSpell)--, singleSpell)
     if UnitAffectingCombat("player") then
         return
     end
+
+    if mb_buffMode == false then
+        return
+    end
+
     if mb_castSpellOnSelf(greaterSpell) then
         return
     end
