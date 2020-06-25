@@ -392,16 +392,7 @@ function mb_IsReadyForNewCast()
     end
     return true
 end
-function mb_cleanseRaid(spell, debuffType1, debuffType2, debuffType3)
-	for i = 1, mb_getNumPartyOrRaidMembers() do
-		local unit = mb_getUnitFromPartyOrRaidIndex(i)
-		if mb_unitHasDebuffOfType(unit, debuffType1, debuffType2, debuffType3) and mb_isUnitValidFriendlyTarget(unit, spell) then
-			return mb_castSpellOnFriendly(unit, spell)
-		end
-	end
-end
-function mb_isOnGCD()
-return false
+
 -- Returns the name of your spec
 function mb_GetMySpecName()
     if mb_cache_specName ~= nil then
@@ -420,23 +411,23 @@ function mb_GetMySpecName()
 end
 
 --
-function mb_unitHasDebuffOfType(unit, debuffType1, debuffType2, debuffType3)
-	for i = 1, 40 do
-		local name, _, _, _, type = UnitDebuff(unit, i)
-		if name == nil then
-			return false
-		end
-		if debuffType1 ~= nil and debuffType1 == type then
-			return true
-		end
-		if debuffType2 ~= nil and debuffType2 == type then
-			return true
-		end
-		if debuffType3 ~= nil and debuffType3 == type then
-			return true
-		end
-	end
-	return false
+function mb_UnitHasDebuffOfType(unit, debuffType1, debuffType2, debuffType3)
+    for i = 1, 40 do
+        local name, _, _, _, type = UnitDebuff(unit, i)
+        if name == nil then
+            return false
+        end
+        if debuffType1 ~= nil and debuffType1 == type then
+            return true
+        end
+        if debuffType2 ~= nil and debuffType2 == type then
+            return true
+        end
+        if debuffType3 ~= nil and debuffType3 == type then
+            return true
+        end
+    end
+    return false
 end
 mb_forceBlockDpsCooldowns = false
 -- Returns true if using CDs is a good idea
@@ -469,6 +460,7 @@ function mb_GetSpellIdForName(spellName)
     local spellId = string.sub(link, 1, string.find(link, "|") - 1)
     return tonumber(spellId)
 end
+end
 
 function mb_GetItemLocation(itemName)
 	for bag = 0, 4 do
@@ -493,6 +485,7 @@ function mb_SetPetAutocast(spell, desiredState)
     end
     ToggleSpellAutocast(spell, "pet")
 end
+
 -- Converts an ItemLink to an ItemString
 function mb_GetItemStringFromItemLink(itemLink)
 	local found, _, itemString = string.find(itemLink, "^|%x+|H(.+)|h%[.+%]")
@@ -508,6 +501,7 @@ function mb_UseItem(itemName)
 	end
 	return false
 end
+
 function mb_CheckReagentAmount(itemName, desiredItemCount)
     local currentItemCount = mb_GetItemCount(itemName)
     if currentItemCount < desiredItemCount then
@@ -547,6 +541,7 @@ function mb_CheckDurability()
         mb_SayRaid("I'm low on durability and could use a repair, my lowest item is at " .. tostring(lowestDurability * 100) .. "%")
     end
 end
+
 -- Returns true/false depending on if the item is in the table
 function mb_TableContains(table, item)
     for _, v in pairs(table) do
@@ -556,8 +551,8 @@ function mb_TableContains(table, item)
     end
     return false
 end
--- Finds the most damaged member in the raid and casts the spell on that target as long as it doesn't over-heal
-function mb_RaidHeal(spell, acceptedOverheal)
+
+-- Finds the most damaged member in the raid and casts the spell on that target as long as it doesn't over-healfunction mb_RaidHeal(spell, acceptedOverheal)
     if acceptedOverheal == nil then
         acceptedOverheal = 1
     end
@@ -566,7 +561,10 @@ function mb_RaidHeal(spell, acceptedOverheal)
         return mb_CastSpellOnFriendly(healUnit, spell)
     end
     return false
-end-- Tries to acquire an offensive target. Will assist the commander unit if it exists.
+end
+
+
+-- Tries to acquire an offensive target. Will assist the commander unit if it exists.
 -- Returns true/false depending on if a valid offensive target was acquired.
 function mb_AcquireOffensiveTarget()
     if mb_commanderUnit == nil then
@@ -578,7 +576,8 @@ function mb_AcquireOffensiveTarget()
     end
     AssistUnit(mb_commanderUnit)
     return mb_IsValidOffensiveUnit("target", true)
-end-- Checks whether it's a good time to buff, returns true/false
+end
+-- Checks whether it's a good time to buff, returns true/false
 function mb_ShouldBuff()
     if UnitAffectingCombat("player") or mb_IsDrinking() or mb_UnitPowerPercentage("player") < 30 then
         return false
@@ -599,8 +598,6 @@ function mb_ShouldBuff()
     end
     return true
 end
-
-
 
 -- returns the bag and slot indexes for where an item is located
 function mb_GetItemLocation(itemName)
@@ -630,8 +627,6 @@ function mb_UseItem(itemName)
     UseItemByName(itemName)
     return true
 end
-
-
 
 function mb_IsDrinking()
     return UnitBuff("player", "Drink") ~= nil
@@ -681,6 +676,7 @@ function mb_Drink(force)
     --end
     return mb_UseItem(waterName)
 end
+
 function mb_StopCast()
     SpellStopCasting()
 end

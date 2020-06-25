@@ -1,11 +1,8 @@
 
-function mb_Warlock_AfflictionOnUpdate()
+function mb_Warlock_Affliction_OnUpdate()
+    mb_Warlock_HandlePetSummon("Summon Felhunter")
 
-    AssistUnit(mb_commanderUnit)
-
-    mb_Warlock_handlePetSummon("Summon Felhunter")
-
-    mb_Warlock_handleFelhunterAutoCasts("Shadow Bite", "Fel Intelligence")
+    mb_Warlock_HandleFelhunterAutoCasts("Shadow Bite", "Fel Intelligence")
 
     --mb_Warlock_handleStones("Demonic Spellstone")
 
@@ -14,59 +11,59 @@ function mb_Warlock_AfflictionOnUpdate()
         return
     end
 
-    mb_Warlock_handleLifeTap()
+    mb_Warlock_HandleLifeTap()
 
-    if not GetUnitName("player") == "Maligna" and not UnitBuff("player", "Fel Armor") then
+    if  not UnitBuff("player", "Fel Armor") then
         CastSpellByName("Fel Armor")
         return
     end
 
-    if GetUnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
-        CastSpellByName("Demon Armor")
-        return
-    end
+  --  if GetUnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
+  --      CastSpellByName("Demon Armor")
+  --      return
+  --  end
 
-    if mb_unitPowerPercentage("player") < 15 then
+    if mb_UnitPowerPercentage("player") < 15 then
         CastSpellByName("Life Tap")
         return
     end
 
-    if not mb_hasValidOffensiveTarget() then
+    if not mb_AcquireOffensiveTarget() then
         return
     end
 
-   -- if not mb_targetHasMyDebuff("Seed of Corruption") and mb_castSpellOnTarget("Seed of Corruption") then
+   -- if not mb_TargetHasMyDebuff("Seed of Corruption") and mb_CastSpellOnTarget("Seed of Corruption") then
    --     return
   --  end
 
-    if not mb_targetHasMyDebuff("Corruption") and mb_castSpellOnTarget("Corruption") then
+    if not mb_TargetHasMyDebuff("Corruption") and mb_CastSpellOnTarget("Corruption") then
         return
     end
 
-    if UnitBuff("player", "Shadow Trance") and mb_castSpellOnTarget("Shadow Bolt") then
+    if UnitBuff("player", "Shadow Trance") and mb_CastSpellOnTarget("Shadow Bolt") then
         return
     end
 
-    if not mb_targetHasMyDebuff("Curse of Agony") and mb_castSpellOnTarget("Curse of Agony") then
+    if not mb_TargetHasMyDebuff("Curse of Agony") and mb_CastSpellOnTarget("Curse of Agony") then
         return
     end
 
-    if not mb_targetHasMyDebuff("Unstable Affliction") and mb_castSpellOnTarget("Unstable Affliction") then
+    if not mb_TargetHasMyDebuff("Unstable Affliction") and mb_CastSpellOnTarget("Unstable Affliction") then
         return
     end
 
-    if not mb_targetHasMyDebuff("Haunt") and mb_castSpellOnTarget( "Haunt") then
+    if not mb_TargetHasMyDebuff("Haunt") and mb_CastSpellOnTarget( "Haunt") then
         return
     end
 
-    if mb_unitHealthPercentage("player") < 50 then
-        if mb_castSpellOnTarget("Drain Life") then
+    if mb_UnitHealthPercentage("player") < 50 then
+        if mb_CastSpellOnTarget("Drain Life") then
             return
         end
     end
 
-    if mb_unitHealthPercentage("target") < 25 then
-        if mb_targetHasMyDebuff("Drain Soul") then
+    if mb_UnitHealthPercentage("target") < 25 then
+        if mb_TargetHasMyDebuff("Drain Soul") then
             return
         end
         CastSpellByName("Drain Soul")
@@ -76,7 +73,7 @@ function mb_Warlock_AfflictionOnUpdate()
     CastSpellByName("Shadow Bolt")
 end
 
-function mb_Warlock_handleFelhunterAutoCasts(spell1, spell2)
+function mb_Warlock_HandleFelhunterAutoCasts(spell1, spell2)
     local _, autostate = GetSpellAutocast(spell1, "pet")
     local _, autostate2 = GetSpellAutocast(spell2, "pet")
     if autostate == nil then

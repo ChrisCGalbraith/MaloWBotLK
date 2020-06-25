@@ -3,54 +3,49 @@ function mb_Priest_OnLoad()
     local _, _, holyPoints = GetTalentTabInfo(2)
     local _, _, shadowPoints = GetTalentTabInfo(3)
     if disciplinePoints > holyPoints and disciplinePoints > shadowPoints then
-        mb_sayRaid("Discipline spec is not supported yet")
+        mb_SayRaid("Discipline spec is not supported yet")
     elseif shadowPoints > disciplinePoints and shadowPoints > holyPoints then
-        mb_sayRaid("Shadow spec is not supported yet")
+        mb_SayRaid("Shadow spec is not supported yet")
     else
-        mb_classSpecificRunFunction = mb_Priest_HolyOnUpdate
+        mb_classSpecificRunFunction = mb_Priest_Holy_OnUpdate
     end
 
-    mb_registerDesiredBuff(BUFF_KINGS)
-    mb_registerDesiredBuff(BUFF_WISDOM)
-    mb_registerDesiredBuff(BUFF_SANCTUARY)
-    mb_registerDesiredBuff(BUFF_INTELLECT)
-    mb_registerDesiredBuff(BUFF_MOTW)
-    mb_registerDesiredBuff(BUFF_FORT)
-    mb_registerDesiredBuff(BUFF_SPIRIT)
-    mb_registerDesiredBuff(BUFF_SHADOW_PROT)
+    mb_RegisterDesiredBuff(BUFF_KINGS)
+    mb_RegisterDesiredBuff(BUFF_WISDOM)
+    mb_RegisterDesiredBuff(BUFF_SANCTUARY)
+    mb_RegisterDesiredBuff(BUFF_INTELLECT)
+    mb_RegisterDesiredBuff(BUFF_MOTW)
+    mb_RegisterDesiredBuff(BUFF_FORT)
+    mb_RegisterDesiredBuff(BUFF_SPIRIT)
+    mb_RegisterDesiredBuff(BUFF_SHADOW_PROT)
 
     if UnitName("player") == "Khalia" then
-        mb_registerMessageHandler(BUFF_FORT.requestType, mb_Priest_fortHandler)
-        mb_registerMessageHandler(BUFF_SPIRIT.requestType, mb_Priest_spiritHandler)
-        mb_registerMessageHandler(BUFF_SHADOW_PROT.requestType, mb_Priest_shadowHandler)
+        mb_RegisterMessageHandler(BUFF_FORT.requestType, mb_Priest_FortHandler)
+        mb_RegisterMessageHandler(BUFF_SPIRIT.requestType, mb_Priest_SpiritHandler)
+        mb_RegisterMessageHandler(BUFF_SHADOW_PROT.requestType, mb_Priest_ShadowHandler)
     end
 
 end
 
-function mb_Priest_handlePrayer(targetPlayerName, greaterSpell)-- singleSpell)
-    if UnitAffectingCombat("player") then
+function mb_Priest_HandlePrayer(targetPlayerName, greaterSpell)-- singleSpell)
+    if not mb_ShouldBuff() then
         return
     end
 
-    if mb_buffMode == false then
+    if mb_CastSpellWithoutTarget(greaterSpell) then
         return
     end
-
-    if mb_castSpellOnSelf(greaterSpell) then
-        CastSpellByName(greaterSpell)
-        return true
-    end
-  --  mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
+  --  mb_CastSpellWithoutTarget(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
 end
 
-function mb_Priest_fortHandler(msg, from)
-    mb_Priest_handlePrayer(from, "Prayer of Fortitude")-- "Power Word: Fortitude")
+function mb_Priest_FortHandler(msg, from)
+    mb_Priest_HandlePrayer(from, "Prayer of Fortitude")-- "Power Word: Fortitude")
 end
 
-function mb_Priest_spiritHandler(msg, from)
-    mb_Priest_handlePrayer(from, "Prayer of Spirit")-- "Divine Spirit")
+function mb_Priest_SpiritHandler(msg, from)
+    mb_Priest_HandlePrayer(from, "Prayer of Spirit")-- "Divine Spirit")
 end
 
-function mb_Priest_shadowHandler(msg, from)
-    mb_Priest_handlePrayer(from, "Prayer of Shadow Protection")-- "Shadow Protection")
+function mb_Priest_ShadowHandler(msg, from)
+    mb_Priest_HandlePrayer(from, "Prayer of Shadow Protection")-- "Shadow Protection")
 end

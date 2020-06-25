@@ -3,54 +3,50 @@ function mb_Druid_OnLoad()
     local _, _, feralPoints = GetTalentTabInfo(2)
     local _, _, restorationPoints = GetTalentTabInfo(3)
     if balancePoints > feralPoints and balancePoints > restorationPoints then
-        mb_classSpecificRunFunction = mb_Druid_BalanceOnUpdate
+        mb_classSpecificRunFunction = mb_Druid_Balance_OnUpdate
     elseif restorationPoints > balancePoints and restorationPoints > feralPoints then
-        mb_classSpecificRunFunction = mb_Druid_RestorationOnUpdate
+        mb_classSpecificRunFunction = mb_Druid_Restoration_OnUpdate
     else
-        mb_classSpecificRunFunction = mb_Druid_FeralOnUpdate
+        mb_classSpecificRunFunction = mb_Druid_Feral_OnUpdate
     end
 
     if UnitName("player") == "Elerien" then
-        mb_registerMessageHandler(BUFF_MOTW.requestType, mb_Druid_motwHandler)
+        mb_RegisterMessageHandler(BUFF_MOTW.requestType, mb_Druid_motwHandler)
     end
 
     if UnitName("player") == "Elerien" then
-        mb_registerMessageHandler("taunt", mb_Druid_TauntHandler)
+        mb_RegisterMessageHandler("taunt", mb_Druid_TauntHandler)
     end
 
 
-    mb_registerDesiredBuff(BUFF_KINGS)
-    mb_registerDesiredBuff(BUFF_WISDOM)
-    mb_registerDesiredBuff(BUFF_MIGHT)
-    mb_registerDesiredBuff(BUFF_SANCTUARY)
-    mb_registerDesiredBuff(BUFF_INTELLECT)
-    mb_registerDesiredBuff(BUFF_MOTW)
-    mb_registerDesiredBuff(BUFF_FORT)
-    mb_registerDesiredBuff(BUFF_SPIRIT)
-    mb_registerDesiredBuff(BUFF_SHADOW_PROT)
+    mb_RegisterDesiredBuff(BUFF_KINGS)
+    mb_RegisterDesiredBuff(BUFF_WISDOM)
+    mb_RegisterDesiredBuff(BUFF_MIGHT)
+    mb_RegisterDesiredBuff(BUFF_SANCTUARY)
+    mb_RegisterDesiredBuff(BUFF_INTELLECT)
+    mb_RegisterDesiredBuff(BUFF_MOTW)
+    mb_RegisterDesiredBuff(BUFF_FORT)
+    mb_RegisterDesiredBuff(BUFF_SPIRIT)
+    mb_RegisterDesiredBuff(BUFF_SHADOW_PROT)
 end
 
-function mb_Druid_handleMotw(targetPlayerName, greaterSpell)
-    if UnitAffectingCombat("player") then
+function mb_Druid_HandleMotw(targetPlayerName, greaterSpell)
+    if not mb_ShouldBuff() then
         return
     end
 
-    if mb_buffMode == false then
-        return
-    end
-
-    if mb_castSpellOnSelf(greaterSpell) then
+    if mb_CastSpellOnSelf(greaterSpell) then
         CastSpellByName("Gift of the Wild")
         return
     end
    -- mb_castSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell)
 end
 
-function mb_Druid_motwHandler(msg, from)
-    mb_Druid_handleMotw(from, "Gift of the Wild")
+function mb_Druid_MotwHandler(msg, from)
+    mb_Druid_HandleMotw(from, "Gift of the Wild")
 end
 
 function mb_Druid_TauntHandler(msg, from)
-    mb_sayRaid("Im taunting!")
-    mb_castSpellOnTarget("Growl")
+    mb_SayRaid("Im taunting!")
+    mb_CastSpellOnTarget("Growl")
 end

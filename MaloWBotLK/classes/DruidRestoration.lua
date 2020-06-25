@@ -1,17 +1,19 @@
 
-function mb_Druid_RestorationOnUpdate()
-    if mb_DrinkIfGood() then
+function mb_Druid_Restoration_OnUpdate()
+    if not mb_IsReadyForNewCast() then
         return
     end
 
-    if mb_resurrectRaid("Revive") then
+    if mb_Drink() then
         return
     end
 
-  --  mb_mainTank = "Ceolmar"
-  --  mb_offTank = "Maligna"
+    if mb_ResurrectRaid("Revive") then
+        return
+    end
 
-    AssistUnit(mb_commanderUnit)
+  --  mb_config.mainTank = "Ceolmar"
+  --  mb_config.offTank = "Maligna"
 
     local nStance = GetShapeshiftForm();
     if nStance ~= 5 then
@@ -20,82 +22,82 @@ function mb_Druid_RestorationOnUpdate()
     end
 
     if UnitAffectingCombat("player") and UnitPower("player") < 1500 then
-        mb_castSpellOnSelf("Innervate")
+        mb_CastSpellWithoutTarget("Innervate")
     end
 
-    if mb_unitHealthPercentage(mb_mainTank) <= 25 then
-        if mb_canCastSpell("Nature's Swiftness") then
+    if mb_UnitHealthPercentage(mb_config.mainTank) <= 25 then
+        if mb_CanCastSpell("Nature's Swiftness") then
             CastSpellByName("Nature's Swiftness")
-            if mb_castSpellOnFriendly(mb_mainTank, "Healing Touch") then
+            if mb_CastSpellOnFriendly(mb_config.mainTank, "Healing Touch") then
                 return
             end
         end
     end
 
-    if mb_unitHealthPercentage(mb_mainTank) <= 30 and mb_canCastSpell("Swiftmend") and mb_unitHasMyBuff(mb_mainTank, "Rejuvenation")then
-        if mb_castSpellOnFriendly(mb_mainTank, "Swiftmend") then
+    if mb_UnitHealthPercentage(mb_config.mainTank) <= 30 and mb_CanCastSpell("Swiftmend") and mb_UnitHasMyBuff(mb_config.mainTank, "Rejuvenation")then
+        if mb_CastSpellOnFriendly(mb_config.mainTank, "Swiftmend") then
             return
         end
     end
 
-    if mb_unitHealthPercentage(mb_mainTank) <= 80 and not mb_unitHasMyBuff(mb_mainTank, "Regrowth") then
-        if mb_castSpellOnFriendly(mb_mainTank, "Regrowth") then
+    if mb_UnitHealthPercentage(mb_config.mainTank) <= 80 and not mb_UnitHasMyBuff(mb_config.mainTank, "Regrowth") then
+        if mb_CastSpellOnFriendly(mb_config.mainTank, "Regrowth") then
             return
         end
     end
 
-   -- if mb_unitHealthPercentage(mb_offTank) <= 80 and not mb_unitHasMyBuff(mb_offTank, "Regrowth") then
-   --     if mb_castSpellOnFriendly(mb_offTank, "Regrowth") then
+   -- if mb_UnitHealthPercentage(mb_config.offTank) <= 80 and not mb_UnitHasMyBuff(mb_config.offTank, "Regrowth") then
+   --     if mb_CastSpellOnFriendly(mb_config.offTank, "Regrowth") then
    --         return
    --     end
    -- end
 
-    if not mb_unitHasMyBuff(mb_mainTank, "Rejuvenation") then
-        if mb_castSpellOnFriendly(mb_mainTank, "Rejuvenation") then
+    if not mb_UnitHasMyBuff(mb_config.mainTank, "Rejuvenation") then
+        if mb_CastSpellOnFriendly(mb_config.mainTank, "Rejuvenation") then
             return
         end
     end
 
-   -- if not mb_unitHasMyBuff(mb_offTank, "Rejuvenation") then
-   --    if mb_castSpellOnFriendly(mb_offTank, "Rejuvenation") then
+   -- if not mb_UnitHasMyBuff(mb_config.offTank, "Rejuvenation") then
+   --    if mb_CastSpellOnFriendly(mb_config.offTank, "Rejuvenation") then
    --        return
    --     end
    -- end
 
-    if not mb_unitHasMyBuff(mb_mainTank, "Lifebloom") then
-        if mb_castSpellOnFriendly(mb_mainTank, "Lifebloom") then
+    if not mb_UnitHasMyBuff(mb_config.mainTank, "Lifebloom") then
+        if mb_CastSpellOnFriendly(mb_config.mainTank, "Lifebloom") then
             return
         end
     end
 
-    if mb_unitHealthPercentage(mb_mainTank) <= 60 and mb_canCastSpell("Swiftmend") and mb_unitHasMyBuff(mb_mainTank, "Rejuvenation")then
-        if mb_castSpellOnFriendly(mb_mainTank, "Swiftmend") then
+    if mb_UnitHealthPercentage(mb_config.mainTank) <= 60 and mb_CanCastSpell("Swiftmend") and mb_UnitHasMyBuff(mb_config.mainTank, "Rejuvenation")then
+        if mb_CastSpellOnFriendly(mb_config.mainTank, "Swiftmend") then
             return
         end
     end
 
-    if mb_unitHealthPercentage(mb_mainTank) <= 80 and mb_canCastSpell("Nourish") then
-        if mb_castSpellOnFriendly(mb_mainTank, "Nourish") then
+    if mb_UnitHealthPercentage(mb_config.mainTank) <= 80 and mb_CanCastSpell("Nourish") then
+        if mb_CastSpellOnFriendly(mb_config.mainTank, "Nourish") then
             return
         end
     end
 
-    if mb_canCastSpell("Wild Growth") then
-        local healUnit, missingHealth =  mb_getMostDamagedFriendly("Wild Growth")
+    if mb_CanCastSpell("Wild Growth") then
+        local healUnit, missingHealth =  mb_GetMostDamagedFriendly("Wild Growth")
         if missingHealth > 3500 then
-            mb_castSpellOnFriendly(healUnit, "Wild Growth")
+            mb_CastSpellOnFriendly(healUnit, "Wild Growth")
             return
         end
     end
 
-    if mb_cleanseRaid("Remove Curse", "Curse") then
+    if mb_CleanseRaid("Remove Curse", "Curse") then
         return
     end
 
-    if mb_canCastSpell("Rejuvenation") then
-        local healUnit, missingHealth =  mb_getMostDamagedFriendly("Rejuvenation")
-        if missingHealth > 4000 and not mb_unitHasMyBuff(healUnit, "Rejuvenation") then
-            mb_castSpellOnFriendly(healUnit, "Rejuvenation")
+    if mb_CanCastSpell("Rejuvenation") then
+        local healUnit, missingHealth =  mb_GetMostDamagedFriendly("Rejuvenation")
+        if missingHealth > 4000 and not mb_UnitHasMyBuff(healUnit, "Rejuvenation") then
+            mb_CastSpellOnFriendly(healUnit, "Rejuvenation")
             return
         end
     end
