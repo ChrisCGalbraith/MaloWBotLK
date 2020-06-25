@@ -3,12 +3,15 @@ function mb_Priest_OnLoad()
     local _, _, holyPoints = GetTalentTabInfo(2)
     local _, _, shadowPoints = GetTalentTabInfo(3)
     if disciplinePoints > holyPoints and disciplinePoints > shadowPoints then
-        mb_SayRaid("Discipline spec is not supported yet")
+        mb_classSpecificRunFunction = mb_Priest_Discipline_OnUpdate
     elseif shadowPoints > disciplinePoints and shadowPoints > holyPoints then
         mb_SayRaid("Shadow spec is not supported yet")
     else
         mb_classSpecificRunFunction = mb_Priest_Holy_OnUpdate
     end
+
+
+
 
     mb_RegisterDesiredBuff(BUFF_KINGS)
     mb_RegisterDesiredBuff(BUFF_WISDOM)

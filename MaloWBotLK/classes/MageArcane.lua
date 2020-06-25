@@ -3,8 +3,8 @@ function mb_Mage_Arcane_OnUpdate()
     if mb_Drink() then
         return
     end
-    
-    local _, _, text = UnitCastingInfo("player")
+
+    local _, _, text = UnitChannelInfo("player")
     if text == "Channeling" then
         return
     end
@@ -16,8 +16,8 @@ function mb_Mage_Arcane_OnUpdate()
 
     mb_Mage_HandleManaGem("Mana Sapphire")
 
-    if not UnitBuff("Kisaana", "Focus Magic") then
-        mb_CastSpellOnFriendly("Kisaana", "Focus Magic")
+    if not UnitBuff("Ceolmar", "Focus Magic") then
+        mb_CastSpellOnFriendly("Ceolmar", "Focus Magic")
     end
 
     if mb_CleanseRaid("Remove Curse", "Curse", "Poison", "Disease") then
@@ -28,17 +28,28 @@ function mb_Mage_Arcane_OnUpdate()
         return
     end
 
-    if mb_UnitPowerPercentage("player") < 50 and mb_CanCastSpell("Evocation") then
+    if mb_UnitPowerPercentage("player") < 35 and mb_CanCastSpell("Evocation") then
         CastSpellByName("Evocation")
         return
     end
 
-   --if UnitPowerPercentage("player") < 70 and mb_UseItem("Mana Sapphire") then
-   --     return
-  --  end
+    if mb_UnitPowerPercentage("player") < 75 and UnitAffectingCombat("player") then
+        mb_UseItem("Mana Sapphire")
+    end
 
-    if UnitHealth("target") > (UnitHealthMax("player") * 3) and UnitAffectingCombat("player") then
-        mb_CastSpellOnTarget("Arcane Power")
+    if UnitHealth("target") > (UnitHealthMax("player") * 50) and UnitAffectingCombat("player") then
+        if mb_CanCastSpell("Arcane Power") then
+            mb_CastSpellWithoutTarget("Arcane Power")
+        end
+
+        if mb_CanCastSpell("Icy Veins") then
+            mb_CastSpellWithoutTarget("Icy Veins")
+        end
+
+        if mb_CanCastSpell("Mirror Image") then
+            mb_CastSpellWithoutTarget("Mirror Image")
+            return
+        end
     end
 
     local _, _, _, count = UnitDebuff("player", "Arcane Blast")

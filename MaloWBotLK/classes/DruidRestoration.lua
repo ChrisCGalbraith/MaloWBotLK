@@ -12,7 +12,7 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
-  --  mb_config.mainTank = "Ceolmar"
+   -- mb_config.mainTank = "Ceolmar"
   --  mb_config.offTank = "Maligna"
 
     local nStance = GetShapeshiftForm();

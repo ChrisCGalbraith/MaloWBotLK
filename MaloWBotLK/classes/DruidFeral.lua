@@ -1,8 +1,8 @@
 
 function mb_Druid_Feral_OnUpdate()
     local nStance = GetShapeshiftForm();
-    if nStance ~= 1 then
-        CastShapeshiftForm(1)
+    if nStance ~= 3 then
+        CastShapeshiftForm(3)
         return
     end
 

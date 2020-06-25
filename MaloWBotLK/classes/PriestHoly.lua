@@ -12,8 +12,8 @@ function mb_Priest_Holy_OnUpdate()
         return
     end
 
-    --mb_config.mainTank = "Ceolmar"
- --   mb_config.offTank = "Maligna"
+   -- mb_config.mainTank = "Ceolmar"
+   -- mb_config.offTank = "Maligna"
 
     if not UnitBuff("player", "Inner Fire") then
         CastSpellByName("Inner Fire")
@@ -34,13 +34,13 @@ function mb_Priest_Holy_OnUpdate()
         end
     end
 
-  --  if mb_UnitHealthPercentage(mb_config.offTank) <= 40 and not mb_UnitHasDebuffOfType(mb_config.offTank, "Weakened Soul") then
-   --     if UnitAffectingCombat(mb_config.offTank) then
-   --         if mb_CastSpellOnFriendly(mb_config.offTank, "Power Word: Shield") then
-   --             return
-  --          end
-  --      end
-  --  end
+    if mb_UnitHealthPercentage(mb_config.offTank) <= 40 and not mb_UnitHasDebuffOfType(mb_config.offTank, "Weakened Soul") then
+        if UnitAffectingCombat(mb_config.offTank) then
+            if mb_CastSpellOnFriendly(mb_config.offTank, "Power Word: Shield") then
+                return
+            end
+        end
+    end
     
     if not mb_UnitHasMyBuff(mb_config.mainTank, "Prayer of Mending") and UnitAffectingCombat(mb_config.mainTank) then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Prayer of Mending") then

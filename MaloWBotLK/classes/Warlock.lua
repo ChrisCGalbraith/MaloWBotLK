@@ -37,24 +37,26 @@ end
 function mb_Warlock_HandleStones(itemName)
     local hasMainHandEnchant = GetWeaponEnchantInfo()
     if not hasMainHandEnchant then
-        if not mb_GetItemLocation(itemName) then
-            if itemName == "Demonic Spellstone" then
-                CastSpellByName("Create Spellstone")
-                return
-            end
-
-            if itemName == "Fel Firestone" then
-                CastSpellByName("Create Firestone")
-                return
-            end
-
-            return
+        if mb_UseItem(itemName) then
+            PickupInventoryItem(16)
+            ReplaceEnchant()
+            return true
         end
-        mb_UseItem(itemName)
-        PickupInventoryItem(16)
-        ReplaceEnchant()
+
+        if mb_GetItemLocation(itemName) == nil then
+            if itemName == "Grand Spellstone" then
+                CastSpellByName("Create Spellstone")
+                return false
+            end
+
+            if itemName == "Grand Firestone" then
+                CastSpellByName("Create Firestone")
+                return false
+            end
+        end
+
     end
-    return false
+    return true
 end
 
 -- Rank 1 Life Tap out of combat to maintain spellpower buff.

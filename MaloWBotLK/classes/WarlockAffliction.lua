@@ -4,21 +4,27 @@ function mb_Warlock_Affliction_OnUpdate()
 
     mb_Warlock_HandleFelhunterAutoCasts("Shadow Bite", "Fel Intelligence")
 
-    --mb_Warlock_handleStones("Demonic Spellstone")
+    if not mb_Warlock_HandleStones("Grand Spellstone") then
+        return
+    end
 
-    local _, _, text = UnitCastingInfo("player")
+    if UnitExists("playerpet") then
+        PetPassiveMode()
+    end
+
+    local _, _, text = UnitChannelInfo("player")
     if text == "Channeling" then
         return
     end
 
     mb_Warlock_HandleLifeTap()
 
-    if  not UnitBuff("player", "Fel Armor") then
+    if not UnitBuff("player", "Fel Armor") then
         CastSpellByName("Fel Armor")
         return
     end
 
-  --  if GetUnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
+  -- if UnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
   --      CastSpellByName("Demon Armor")
   --      return
   --  end
@@ -32,9 +38,13 @@ function mb_Warlock_Affliction_OnUpdate()
         return
     end
 
-   -- if not mb_TargetHasMyDebuff("Seed of Corruption") and mb_CastSpellOnTarget("Seed of Corruption") then
-   --     return
-  --  end
+    if UnitExists("playerpet") then
+        PetAttack()
+    end
+
+    if mb_cleaveMode > 0 and not mb_TargetHasMyDebuff("Seed of Corruption") and mb_CastSpellOnTarget("Seed of Corruption") then
+        return
+    end
 
     if not mb_TargetHasMyDebuff("Corruption") and mb_CastSpellOnTarget("Corruption") then
         return

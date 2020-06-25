@@ -40,7 +40,7 @@ function mb_Mage_IntellectHandler(msg, from)
 end
 
 function mb_Mage_HandleManaGem(itemName)
-    if not mb_GetItemLocation(itemName) then
+    if mb_GetItemLocation(itemName) == nil then
         CastSpellByName("Conjure Mana Gem")
         return true
     end
