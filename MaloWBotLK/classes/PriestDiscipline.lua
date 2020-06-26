@@ -25,5 +25,12 @@ function mb_Priest_Discipline_OnUpdate()
 end
 
 function mb_Priest_GetRaptureTime()
-    local time = mb_time
+    if mb_lastRaptureTime + 12 < mb_time then
+        return
+    end
+
+    if mb_GetDebuffTimeRemaining(mb_config.mainTank, "Weakened Soul") then
+        return
+    end
 end
+

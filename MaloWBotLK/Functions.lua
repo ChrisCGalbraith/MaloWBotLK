@@ -552,7 +552,8 @@ function mb_TableContains(table, item)
     return false
 end
 
--- Finds the most damaged member in the raid and casts the spell on that target as long as it doesn't over-healfunction mb_RaidHeal(spell, acceptedOverheal)
+-- Finds the most damaged member in the raid and casts the spell on that target as long as it doesn't over-heal
+function mb_RaidHeal(spell, acceptedOverheal)
     if acceptedOverheal == nil then
         acceptedOverheal = 1
     end
