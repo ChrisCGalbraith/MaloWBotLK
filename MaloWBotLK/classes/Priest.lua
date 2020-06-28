@@ -10,9 +10,6 @@ function mb_Priest_OnLoad()
         mb_classSpecificRunFunction = mb_Priest_Holy_OnUpdate
     end
 
-
-
-
     mb_RegisterDesiredBuff(BUFF_KINGS)
     mb_RegisterDesiredBuff(BUFF_WISDOM)
     mb_RegisterDesiredBuff(BUFF_SANCTUARY)

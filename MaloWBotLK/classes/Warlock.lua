@@ -66,7 +66,7 @@ function mb_Warlock_HandleLifeTap()
         return
     end
 
-    if mb_UnitPowerPercentage("player") < 95 and not UnitAffectingCombat("player") then
+    if mb_UnitPowerPercentage("player") < 95 and not UnitAffectingCombat("player") and mb_UnitHealthPercentage("player") > 30 then
         CastSpellByName("Life Tap")
         return
     end

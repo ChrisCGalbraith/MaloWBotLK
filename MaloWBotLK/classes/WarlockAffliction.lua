@@ -29,7 +29,7 @@ function mb_Warlock_Affliction_OnUpdate()
   --      return
   --  end
 
-    if mb_UnitPowerPercentage("player") < 15 then
+    if mb_UnitPowerPercentage("player") < 15  and mb_UnitHealthPercentage("player") > 30 then
         CastSpellByName("Life Tap")
         return
     end
@@ -40,6 +40,10 @@ function mb_Warlock_Affliction_OnUpdate()
 
     if UnitExists("playerpet") then
         PetAttack()
+    end
+
+    if mb_ShouldUseDpsCooldowns("Corruption") and UnitAffectingCombat("player") then
+        mb_UseItemCooldowns()
     end
 
     if mb_cleaveMode > 0 and not mb_TargetHasMyDebuff("Seed of Corruption") and mb_CastSpellOnTarget("Seed of Corruption") then
@@ -91,5 +95,16 @@ function mb_Warlock_HandleFelhunterAutoCasts(spell1, spell2)
     end
     if autostate2 == nil then
         TogglePetAutocast(4)
+    end
+end
+
+function mb_Warlock_HandleFelguardAutoCasts(spell1, spell2)
+    local _, autostate = GetSpellAutocast(spell1, "pet")
+    local _, autostate2 = GetSpellAutocast(spell2, "pet")
+    if autostate ~= nil then
+        TogglePetAutocast(6) -- Toggle Anguish OFF
+    end
+    if autostate2 == nil then
+        TogglePetAutocast(5) -- Toggle Cleave ON
     end
 end

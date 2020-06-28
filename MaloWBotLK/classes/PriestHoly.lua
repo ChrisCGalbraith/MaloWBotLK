@@ -1,4 +1,9 @@
 
+function mb_Priest_Holy_OnLoad()
+    mb_RegisterExclusiveRequestHandler("healcd", mb_Priest_HealCdAcceptor, mb_Priest_HealCdExecutor)
+end
+
+mb_Priest_Holy_useCooldownsCommandTime = 0
 function mb_Priest_Holy_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -15,9 +20,21 @@ function mb_Priest_Holy_OnUpdate()
    -- mb_config.mainTank = "Ceolmar"
    -- mb_config.offTank = "Maligna"
 
+    local _, _, text = UnitChannelInfo("player")
+    if text == "Divine Hymn" or text == "Hymn of Hope" then
+        return
+    end
+
     if not UnitBuff("player", "Inner Fire") then
         CastSpellByName("Inner Fire")
         return
+    end
+
+    if mb_UnitPowerPercentage("player") < 50 and UnitAffectingCombat("player") and mb_CanCastSpell("Shadowfiend)") then
+        AssistUnit(mb_commanderUnit)
+        if mb_CastSpellOnTarget("Shadowfiend") then
+            return
+        end
     end
 
     if UnitAffectingCombat(mb_config.mainTank) and mb_UnitHealthPercentage(mb_config.mainTank) <= 30 then
@@ -26,21 +43,21 @@ function mb_Priest_Holy_OnUpdate()
         end
     end
 
-    if not mb_UnitHasDebuffOfType(mb_config.mainTank, "Weakened Soul") then
-        if UnitAffectingCombat(mb_config.mainTank) then
-            if mb_CastSpellOnFriendly(mb_config.mainTank, "Power Word: Shield") then
-                return
-            end
-        end
-    end
+  --  if not mb_UnitHasDebuffOfType(mb_config.mainTank, "Weakened Soul") then
+  --      if UnitAffectingCombat(mb_config.mainTank) then
+  --          if mb_CastSpellOnFriendly(mb_config.mainTank, "Power Word: Shield") then
+  --              return
+  --          end
+  --      end
+  --  end
 
-    if mb_UnitHealthPercentage(mb_config.offTank) <= 40 and not mb_UnitHasDebuffOfType(mb_config.offTank, "Weakened Soul") then
-        if UnitAffectingCombat(mb_config.offTank) then
-            if mb_CastSpellOnFriendly(mb_config.offTank, "Power Word: Shield") then
-                return
-            end
-        end
-    end
+   -- if mb_UnitHealthPercentage(mb_config.offTank) <= 40 and not mb_UnitHasDebuffOfType(mb_config.offTank, "Weakened Soul") then
+   --     if UnitAffectingCombat(mb_config.offTank) then
+   --         if mb_CastSpellOnFriendly(mb_config.offTank, "Power Word: Shield") then
+   --             return
+   --         end
+   --     end
+   -- end
     
     if not mb_UnitHasMyBuff(mb_config.mainTank, "Prayer of Mending") and UnitAffectingCombat(mb_config.mainTank) then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Prayer of Mending") then
@@ -69,7 +86,7 @@ function mb_Priest_Holy_OnUpdate()
     if UnitBuff("player", "Surge of Light") then
         if mb_CanCastSpell("Flash Heal") then
             local healUnit, missingHealth =  mb_GetMostDamagedFriendly("Flash Heal")
-            if missingHealth > 3500 then
+            if missingHealth > 4000 then
                 mb_CastSpellOnFriendly(healUnit, "Flash Heal")
                 return
             end
@@ -84,12 +101,27 @@ function mb_Priest_Holy_OnUpdate()
         end
     end
 
-    if mb_CanCastSpell("Renew") then
-        local healUnit, missingHealth =  mb_GetMostDamagedFriendly("Renew")
-        if missingHealth > 5000 and not mb_UnitHasMyBuff(healUnit, "Renew") then
-            if mb_CastSpellOnFriendly(healUnit, "Renew") then
-                return
-            end
+
+    local healUnit, missingHealth = mb_GetMostDamagedFriendly("Flash Heal")
+    if missingHealth > 4000 then
+        if mb_CastSpellOnFriendly(healUnit, "Flash Heal") then
+            return
         end
     end
+end
+
+function mb_Priest_HealCdAcceptor(message, from)
+    if not mb_CanCastSpell("Divine Hymn") then
+        return false
+    end
+    if mb_UnitPowerPercentage("player") < 15 then
+        return false
+    end
+    return true
+end
+
+function mb_Priest_HealCdExecutor(message, from)
+    mb_SayRaid("Using Divine Hymn!")
+    mb_Priest_Holy_useCooldownsCommandTime = mb_time
+    return true
 end

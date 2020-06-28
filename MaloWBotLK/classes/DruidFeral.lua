@@ -17,7 +17,7 @@ function mb_Druid_Feral_OnUpdate()
         end
     end
 
-    if nStance == 3 and  not mb_TargetHasMyDebuff("Rip") and GetComboPoints("player", "target") == 5 then
+    if nStance == 3 and not mb_TargetHasMyDebuff("Rip") and GetComboPoints("player", "target") == 5 then
         if mb_CastSpellOnTarget("Rip") then
             return
         end
@@ -40,6 +40,7 @@ function mb_Druid_Feral_OnUpdate()
     end
 
     if mb_UnitHealthPercentage("player") < 60 then
+        mb_UseItemCooldowns()
         if mb_CastSpellWithoutTarget("Barkskin") then
             return
         end
@@ -65,7 +66,5 @@ function mb_Druid_Feral_OnUpdate()
         CastSpellByName("Swipe (Bear)()")
         return
     end
-
-    
 end
 
