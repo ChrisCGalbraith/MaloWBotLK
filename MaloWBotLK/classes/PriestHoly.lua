@@ -1,6 +1,7 @@
 
 function mb_Priest_Holy_OnLoad()
     mb_RegisterExclusiveRequestHandler("healcd", mb_Priest_HealCdAcceptor, mb_Priest_HealCdExecutor)
+    mb_RegisterExclusiveRequestHandler("external", mb_Priest_Holy_ExternalRequestAcceptor, mb_Priest_Holy_ExternalRequestExecutor)
 end
 
 mb_Priest_Holy_useCooldownsCommandTime = 0
@@ -25,6 +26,7 @@ function mb_Priest_Holy_OnUpdate()
         return
     end
 
+
     if not UnitBuff("player", "Inner Fire") then
         CastSpellByName("Inner Fire")
         return
@@ -33,6 +35,13 @@ function mb_Priest_Holy_OnUpdate()
     if mb_UnitPowerPercentage("player") < 50 and UnitAffectingCombat("player") and mb_CanCastSpell("Shadowfiend)") then
         AssistUnit(mb_commanderUnit)
         if mb_CastSpellOnTarget("Shadowfiend") then
+            return
+        end
+    end
+
+    if mb_Priest_Holy_useCooldownsCommandTime + 20 > mb_time then
+        mb_UseItemCooldowns()
+        if mb_CastSpellWithoutTarget("Divine Hymn") then
             return
         end
     end
@@ -110,18 +119,26 @@ function mb_Priest_Holy_OnUpdate()
     end
 end
 
-function mb_Priest_HealCdAcceptor(message, from)
-    if not mb_CanCastSpell("Divine Hymn") then
-        return false
+function mb_Priest_Holy_ExternalRequestAcceptor(message, from)
+    if mb_IsUsableSpell("Guardian Spirit") and mb_GetRemainingSpellCooldown("Guardian Spirit") < 1.5 then
+        if mb_IsUnitValidFriendlyTarget(from, "Guardian Spirit") then
+            return true
+        end
     end
-    if mb_UnitPowerPercentage("player") < 15 then
-        return false
-    end
-    return true
+
+    return false
 end
 
-function mb_Priest_HealCdExecutor(message, from)
-    mb_SayRaid("Using Divine Hymn!")
-    mb_Priest_Holy_useCooldownsCommandTime = mb_time
-    return true
+function mb_Priest_Holy_ExternalRequestExecutor(message, from)
+    if not mb_IsReadyForNewCast() then
+        return false
+    end
+
+    local targetUnit = mb_GetUnitForPlayerName(from)
+    if mb_CastSpellOnFriendly(targetUnit, "Guardian Spirit") then
+        mb_SayRaid("Casting Guardian Spirit")
+        return true
+    end
+
+    return false
 end

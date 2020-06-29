@@ -151,6 +151,43 @@ function mb_GetMostDamagedFriendly(spell)
     end
 end
 
+function mb_GetLowestHealthFriendly(spell, filterFunc)
+    local healTarget = 0
+    local lowestHealthTarget = 9999999999
+    local members = mb_GetNumPartyOrRaidMembers()
+    for i = 1, members do
+        local unit = mb_GetUnitFromPartyOrRaidIndex(i)
+        local lowestHealth = UnitHealth(unit)
+        if filterFunc == nil or not filterFunc(unit) then
+            if lowestHealth < lowestHealthTarget then
+                if mb_IsUnitValidFriendlyTarget(unit, spell) then
+                    if mb_Paladin_Holy_beaconUnit == nil or mb_Paladin_Holy_beaconUnit ~= unit then -- Used for Holy paladins to make them never heal their beacon
+                        lowestHealthTarget = lowestHealth
+                        healTarget = i
+                    end
+                end
+            end
+        end
+    end
+    if UnitExists("focus") then
+        local lowestHealth = UnitHealth("focus")
+        if filterFunc == nil or not filterFunc("focus") then
+            if lowestHealth < lowestHealthTarget and mb_IsUnitValidFriendlyTarget("focus", spell) then
+                return "focus", lowestHealth
+            end
+        end
+    end
+    if healTarget == 0 then
+        if filterFunc == nil or not filterFunc("player") then
+            return "player", lowestHealthTarget
+        end
+
+        return nil
+    else
+        return mb_GetUnitFromPartyOrRaidIndex(healTarget), lowestHealthTarget
+    end
+end
+
 function mb_UnitHealthPercentage(unit)
     return (UnitHealth(unit) * 100) / UnitHealthMax(unit)
 end

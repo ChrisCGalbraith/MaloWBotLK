@@ -47,6 +47,120 @@ mb_spellEffectBaseValues["Chain Heal"][4] = 691
 mb_spellEffectBaseValues["Chain Heal"][5] = 942
 mb_spellEffectBaseValues["Chain Heal"][6] = 1034
 mb_spellEffectBaseValues["Chain Heal"][7] = 1205
+-- Riptide
+mb_spellEffectBaseValues["Riptide"] = {}
+mb_spellEffectBaseValues["Riptide"].coefficient = 0.4
+mb_spellEffectBaseValues["Riptide"][1] = 691
+mb_spellEffectBaseValues["Riptide"][2] = 919
+mb_spellEffectBaseValues["Riptide"][3] = 1492
+-- Lesser Healing Wave
+mb_spellEffectBaseValues["Lesser Healing Wave"] = {}
+mb_spellEffectBaseValues["Lesser Healing Wave"].coefficient = 0.81
+mb_spellEffectBaseValues["Lesser Healing Wave"][1] = 186
+mb_spellEffectBaseValues["Lesser Healing Wave"][2] = 281
+mb_spellEffectBaseValues["Lesser Healing Wave"][3] = 381
+mb_spellEffectBaseValues["Lesser Healing Wave"][4] = 514
+mb_spellEffectBaseValues["Lesser Healing Wave"][5] = 705
+mb_spellEffectBaseValues["Lesser Healing Wave"][6] = 928
+mb_spellEffectBaseValues["Lesser Healing Wave"][7] = 1185
+mb_spellEffectBaseValues["Lesser Healing Wave"][8] = 1578
+-- Healing Wave
+mb_spellEffectBaseValues["Healing Wave"] = {}
+mb_spellEffectBaseValues["Healing Wave"].coefficient = 1.61
+mb_spellEffectBaseValues["Healing Wave"][1] = 44
+mb_spellEffectBaseValues["Healing Wave"][2] = 78
+mb_spellEffectBaseValues["Healing Wave"][3] = 155
+mb_spellEffectBaseValues["Healing Wave"][4] = 316
+mb_spellEffectBaseValues["Healing Wave"][5] = 440
+mb_spellEffectBaseValues["Healing Wave"][6] = 622
+mb_spellEffectBaseValues["Healing Wave"][7] = 854
+mb_spellEffectBaseValues["Healing Wave"][8] = 1167
+mb_spellEffectBaseValues["Healing Wave"][9] = 1561
+mb_spellEffectBaseValues["Healing Wave"][10] = 1850
+mb_spellEffectBaseValues["Healing Wave"][11] = 1969
+mb_spellEffectBaseValues["Healing Wave"][12] = 2436
+mb_spellEffectBaseValues["Healing Wave"][13] = 2996
+-- Penance
+mb_spellEffectBaseValues["Penance"] = {}
+mb_spellEffectBaseValues["Penance"].coefficient = 1.61
+mb_spellEffectBaseValues["Penance"][1] = 2286
+mb_spellEffectBaseValues["Penance"][2] = 2865
+mb_spellEffectBaseValues["Penance"][3] = 4545
+mb_spellEffectBaseValues["Penance"][4] = 5280
+-- Flash Heal
+mb_spellEffectBaseValues["Flash Heal"] = {}
+mb_spellEffectBaseValues["Flash Heal"].coefficient = 0.81
+mb_spellEffectBaseValues["Flash Heal"][1] = 261
+mb_spellEffectBaseValues["Flash Heal"][2] = 346
+mb_spellEffectBaseValues["Flash Heal"][3] = 433
+mb_spellEffectBaseValues["Flash Heal"][4] = 526
+mb_spellEffectBaseValues["Flash Heal"][5] = 678
+mb_spellEffectBaseValues["Flash Heal"][6] = 841
+mb_spellEffectBaseValues["Flash Heal"][7] = 1054
+mb_spellEffectBaseValues["Flash Heal"][8] = 1165
+mb_spellEffectBaseValues["Flash Heal"][9] = 1407
+mb_spellEffectBaseValues["Flash Heal"][10] = 2016
+mb_spellEffectBaseValues["Flash Heal"][11] = 2413
+-- Nourish
+mb_spellEffectBaseValues["Nourish"] = {}
+mb_spellEffectBaseValues["Nourish"].coefficient = 0.81
+mb_spellEffectBaseValues["Nourish"][1] = 2406
+-- Healing Touch
+mb_spellEffectBaseValues["Healing Touch"] = {}
+mb_spellEffectBaseValues["Healing Touch"].coefficient = 1.61
+mb_spellEffectBaseValues["Healing Touch"][1] = 57
+mb_spellEffectBaseValues["Healing Touch"][2] = 124
+mb_spellEffectBaseValues["Healing Touch"][3] = 268
+mb_spellEffectBaseValues["Healing Touch"][4] = 490
+mb_spellEffectBaseValues["Healing Touch"][5] = 654
+mb_spellEffectBaseValues["Healing Touch"][6] = 843
+mb_spellEffectBaseValues["Healing Touch"][7] = 1056
+mb_spellEffectBaseValues["Healing Touch"][8] = 1570
+mb_spellEffectBaseValues["Healing Touch"][9] = 1693
+mb_spellEffectBaseValues["Healing Touch"][10] = 2104
+mb_spellEffectBaseValues["Healing Touch"][11] = 2524
+mb_spellEffectBaseValues["Healing Touch"][12] = 2632
+mb_spellEffectBaseValues["Healing Touch"][13] = 3013
+mb_spellEffectBaseValues["Healing Touch"][14] = 4186
+mb_spellEffectBaseValues["Healing Touch"][15] = 4871
+-- Swiftmend
+mb_spellEffectBaseValues["Swiftmend"] = {}
+mb_spellEffectBaseValues["Swiftmend"].coefficient = 1.61
+mb_spellEffectBaseValues["Swiftmend"][1] = 5577
+-- Rejuvenation
+mb_spellEffectBaseValues["Rejuvenation"] = {}
+mb_spellEffectBaseValues["Rejuvenation"].coefficient = 0.45
+mb_spellEffectBaseValues["Rejuvenation"][1] = 52
+mb_spellEffectBaseValues["Rejuvenation"][2] = 94
+mb_spellEffectBaseValues["Rejuvenation"][3] = 194
+mb_spellEffectBaseValues["Rejuvenation"][4] = 305
+mb_spellEffectBaseValues["Rejuvenation"][5] = 415
+mb_spellEffectBaseValues["Rejuvenation"][6] = 515
+mb_spellEffectBaseValues["Rejuvenation"][7] = 662
+mb_spellEffectBaseValues["Rejuvenation"][8] = 829
+mb_spellEffectBaseValues["Rejuvenation"][9] = 1034
+mb_spellEffectBaseValues["Rejuvenation"][10] = 1286
+mb_spellEffectBaseValues["Rejuvenation"][11] = 1512
+mb_spellEffectBaseValues["Rejuvenation"][12] = 1585
+mb_spellEffectBaseValues["Rejuvenation"][13] = 1806
+mb_spellEffectBaseValues["Rejuvenation"][14] = 2032
+mb_spellEffectBaseValues["Rejuvenation"][15] = 2305
+-- Regrowth
+mb_spellEffectBaseValues["Regrowth"] = {}
+mb_spellEffectBaseValues["Regrowth"].coefficient = 0.30
+mb_spellEffectBaseValues["Regrowth"][1] = 108
+mb_spellEffectBaseValues["Regrowth"][2] = 207
+mb_spellEffectBaseValues["Regrowth"][3] = 302
+mb_spellEffectBaseValues["Regrowth"][4] = 396
+mb_spellEffectBaseValues["Regrowth"][5] = 503
+mb_spellEffectBaseValues["Regrowth"][6] = 633
+mb_spellEffectBaseValues["Regrowth"][7] = 797
+mb_spellEffectBaseValues["Regrowth"][8] = 996
+mb_spellEffectBaseValues["Regrowth"][9] = 1231
+mb_spellEffectBaseValues["Regrowth"][10] = 1491
+mb_spellEffectBaseValues["Regrowth"][11] = 2099
+mb_spellEffectBaseValues["Regrowth"][12] = 2744
+
 
 function mb_GetSpellEffect(spell)
     local _, rank = GetSpellInfo(spell)

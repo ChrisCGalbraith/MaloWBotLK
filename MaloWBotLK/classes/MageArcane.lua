@@ -1,4 +1,5 @@
 function mb_Mage_Arcane_OnUpdate()
+    local _, _, _, count = UnitDebuff("player", "Arcane Blast")
 
     if mb_Drink() then
         return
@@ -22,7 +23,7 @@ function mb_Mage_Arcane_OnUpdate()
         end
     end
 
-    if mb_CleanseRaid("Remove Curse", "Curse", "Poison", "Disease") then
+    if mb_CleanseRaid("Remove Curse", "Curse") then
         return
     end
 
@@ -35,7 +36,7 @@ function mb_Mage_Arcane_OnUpdate()
         return
     end
 
-    if mb_UnitPowerPercentage("player") < 75 and UnitAffectingCombat("player") then
+    if mb_UnitPowerPercentage("player") < 65 and UnitAffectingCombat("player") then
         mb_UseItem("Mana Sapphire")
     end
 
@@ -48,7 +49,7 @@ function mb_Mage_Arcane_OnUpdate()
         end
     end
 
-    local _, _, _, count = UnitDebuff("player", "Arcane Blast")
+
     if UnitDebuff("player", "Arcane Blast") ~= nil and UnitAffectingCombat("player") then
         if mb_UnitPowerPercentage("player") > 65 then
             if count > 3 then

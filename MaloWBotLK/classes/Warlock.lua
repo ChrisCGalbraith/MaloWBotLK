@@ -7,7 +7,7 @@ function mb_Warlock_OnLoad()
     elseif destructionPoints > afflictionPoints and destructionPoints > demonologyPoints then
         mb_SayRaid("Destruction spec is not supported yet")
     else
-        mb_SayRaid("Demonology spec is not supported yet")
+        mb_classSpecificRunFunction = mb_Warlock_Demonology_OnUpdate
     end
 
     mb_RegisterDesiredBuff(BUFF_KINGS)
@@ -66,8 +66,30 @@ function mb_Warlock_HandleLifeTap()
         return
     end
 
-    if mb_UnitPowerPercentage("player") < 95 and not UnitAffectingCombat("player") and mb_UnitHealthPercentage("player") > 30 then
+    if mb_UnitPowerPercentage("player") < 95 and not UnitAffectingCombat("player") and mb_UnitHealthPercentage("player") > 80 then
         CastSpellByName("Life Tap")
         return
+    end
+end
+
+function mb_Warlock_HandleFelhunterAutoCasts(spell1, spell2)
+    local _, autostate = GetSpellAutocast(spell1, "pet")
+    local _, autostate2 = GetSpellAutocast(spell2, "pet")
+    if autostate == nil then
+        TogglePetAutocast(6)
+    end
+    if autostate2 == nil then
+        TogglePetAutocast(4)
+    end
+end
+
+function mb_Warlock_HandleFelguardAutoCasts(spell1, spell2)
+    local _, autostate = GetSpellAutocast(spell1, "pet")
+    local _, autostate2 = GetSpellAutocast(spell2, "pet")
+    if autostate ~= nil then
+        TogglePetAutocast(6) -- Toggle Anguish OFF
+    end
+    if autostate2 == nil then
+        TogglePetAutocast(5) -- Toggle Cleave ON
     end
 end

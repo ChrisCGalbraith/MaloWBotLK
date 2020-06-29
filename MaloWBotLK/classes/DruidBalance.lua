@@ -33,17 +33,21 @@ function mb_Druid_Balance_OnUpdate()
         end
     end
 
-    if mb_CanCastSpell("Moonfire") and not mb_TargetHasMyDebuff("Moonfire") then
+    if mb_cleaveMode > 0 and mb_CastSpellWithoutTarget("Starfall") then
+        return
+    end
+
+    if mb_CanCastSpell("Moonfire") and mb_GetMyDebuffTimeRemaining("target", "Moonfire") == 0 then
         CastSpellByName("Moonfire")
         return
     end
 
-    if mb_CanCastSpell("Insect Swarm") and not mb_TargetHasMyDebuff("Insect Swarm") then
+    if mb_CanCastSpell("Insect Swarm") and mb_GetMyDebuffTimeRemaining("target", "Insect Swarm") == 0 then
         CastSpellByName("Insect Swarm")
         return
     end
 
-    if mb_CanCastSpell("Faerie Fire") and not mb_TargetHasMyDebuff("Faerie Fire") then
+    if mb_CanCastSpell("Faerie Fire") and mb_GetMyDebuffTimeRemaining("target", "Faerie Fire") == 0 then
         CastSpellByName("Faerie Fire")
         return
     end

@@ -1,8 +1,8 @@
 
 function mb_Druid_Feral_OnUpdate()
     local nStance = GetShapeshiftForm();
-    if nStance ~= 3 then
-        CastShapeshiftForm(3)
+    if nStance ~= 1 then
+        CastShapeshiftForm(1)
         return
     end
 
@@ -17,13 +17,13 @@ function mb_Druid_Feral_OnUpdate()
         end
     end
 
-    if nStance == 3 and not mb_TargetHasMyDebuff("Rip") and GetComboPoints("player", "target") == 5 then
+    if nStance == 3 and mb_GetMyDebuffTimeRemaining("target","Rip") == 0 and GetComboPoints("player", "target") == 5 then
         if mb_CastSpellOnTarget("Rip") then
             return
         end
     end
 
-    if nStance == 3 and not mb_TargetHasMyDebuff("Rake") then
+    if nStance == 3 and mb_GetMyDebuffTimeRemaining("target","Rake") == 0 then
         if mb_CastSpellOnTarget("Rake") then
             return
         end

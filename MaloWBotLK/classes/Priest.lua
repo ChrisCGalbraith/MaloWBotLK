@@ -4,10 +4,12 @@ function mb_Priest_OnLoad()
     local _, _, shadowPoints = GetTalentTabInfo(3)
     if disciplinePoints > holyPoints and disciplinePoints > shadowPoints then
         mb_classSpecificRunFunction = mb_Priest_Discipline_OnUpdate
+        mb_Priest_Discipline_OnLoad()
     elseif shadowPoints > disciplinePoints and shadowPoints > holyPoints then
         mb_SayRaid("Shadow spec is not supported yet")
     else
         mb_classSpecificRunFunction = mb_Priest_Holy_OnUpdate
+        mb_Priest_Holy_OnLoad()
     end
 
     mb_RegisterDesiredBuff(BUFF_KINGS)
@@ -48,4 +50,21 @@ end
 
 function mb_Priest_ShadowHandler(msg, from)
     mb_Priest_HandlePrayer(from, "Prayer of Shadow Protection")-- "Shadow Protection")
+end
+
+function mb_Priest_HealCdAcceptor(message, from)
+    if not mb_CanCastSpell("Divine Hymn") then
+        return false
+    end
+    if mb_UnitPowerPercentage("player") < 15 then
+        return false
+    end
+    return true
+end
+
+function mb_Priest_HealCdExecutor(message, from)
+    mb_SayRaid("Using Divine Hymn!")
+    mb_SayRaid("Do not falter my brave Heroes! Let my music heal your Hearts!")
+    mb_Priest_Holy_useCooldownsCommandTime = mb_time
+    return true
 end

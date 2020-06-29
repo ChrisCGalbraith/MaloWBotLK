@@ -1,5 +1,5 @@
 
-function mb_Warlock_DemonologyOnUpdate()
+function mb_Warlock_Demonology_OnUpdate()
     mb_Warlock_HandlePetSummon("Summon Felguard")
 
     mb_Warlock_HandleFelhunterAutoCasts("Anguish", "Cleave")
@@ -24,7 +24,7 @@ function mb_Warlock_DemonologyOnUpdate()
         return
     end
 
-    if mb_UnitPowerPercentage("player") < 15  and mb_UnitHealthPercentage("player") > 30 then
+    if mb_UnitPowerPercentage("player") < 15  and mb_UnitHealthPercentage("player") > 90 then
         CastSpellByName("Life Tap")
         return
     end
@@ -41,11 +41,11 @@ function mb_Warlock_DemonologyOnUpdate()
         mb_UseItemCooldowns()
     end
 
-    if mb_cleaveMode > 0 and not mb_TargetHasMyDebuff("Seed of Corruption") and mb_CastSpellOnTarget("Seed of Corruption") then
+    if mb_cleaveMode > 0 and not mb_GetMyDebuffTimeRemaining("target", "Seed of Corruption") == 0 and mb_CastSpellOnTarget("Seed of Corruption") then
         return
     end
 
-    if not mb_TargetHasMyDebuff("Corruption") and mb_CastSpellOnTarget("Corruption") then
+    if mb_GetMyDebuffTimeRemaining("target", "Corruption") == 0 and mb_CastSpellOnTarget("Corruption") then
         return
     end
 
@@ -61,7 +61,7 @@ function mb_Warlock_DemonologyOnUpdate()
         end
     end
 
-    if not mb_TargetHasMyDebuff("Immolate") and mb_CastSpellOnTarget("Immolate") then
+    if mb_GetMyDebuffTimeRemaining("target", "Immolate") < 0.75 and mb_CastSpellOnTarget("Immolate") then
         return
     end
 

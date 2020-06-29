@@ -40,25 +40,25 @@ function mb_Shaman_Restoration_OnUpdate()
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.mainTank) <= 80 and not mb_UnitHasMyBuff(mb_config.mainTank, "Riptide") then
+    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Riptide") and not mb_UnitHasMyBuff(mb_config.mainTank, "Riptide") then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Riptide") then
             return
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.offTank) <= 80 and not mb_UnitHasMyBuff(mb_config.offTank, "Riptide") then
+    if mb_GetMissingHealth(mb_config.offTank) > mb_GetSpellEffect("Riptide") and not mb_UnitHasMyBuff(mb_config.offTank, "Riptide") then
         if mb_CastSpellOnFriendly(mb_config.offTank, "Riptide")then
             return
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.mainTank) < 35 and UnitBuff("player", "Tidal Waves") then
+    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Healing Wave") and UnitBuff("player", "Tidal Waves") then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Healing Wave") then
             return
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.mainTank) < 80 and UnitBuff("player", "Tidal Waves") then
+    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Lesser Healing Wave") and UnitBuff("player", "Tidal Waves") then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Lesser Healing Wave") then
             return
         end
@@ -68,7 +68,7 @@ function mb_Shaman_Restoration_OnUpdate()
         return
     end
 
-    if mb_UnitPowerPercentage("Khalia") < 50 and UnitAffectingCombat("Khalia") then
+    if mb_UnitPowerPercentage("Kisaana") < 50 and UnitAffectingCombat("Khalia") then
         CastSpellByName("Mana Tide Totem")
         return
     end

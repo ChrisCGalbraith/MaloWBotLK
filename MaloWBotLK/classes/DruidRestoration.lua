@@ -21,8 +21,18 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
-    if UnitAffectingCombat("player") and UnitPower("player") < 1500 then
-        mb_CastSpellWithoutTarget("Innervate")
+    if UnitAffectingCombat("Khalia") and UnitPower("Khalia") < 10000 then
+        if mb_CastSpellWithoutTarget("Innervate") then
+            return
+        end
+    end
+
+    if mb_CanCastSpell("Wild Growth") then
+        local healUnit, missingHealth =  mb_GetMostDamagedFriendly("Wild Growth")
+        if missingHealth > 0 then
+            mb_CastSpellOnFriendly(healUnit, "Wild Growth")
+            return
+        end
     end
 
     if mb_UnitHealthPercentage(mb_config.mainTank) <= 25 then
@@ -40,7 +50,7 @@ function mb_Druid_Restoration_OnUpdate()
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.mainTank) <= 80 and not mb_UnitHasMyBuff(mb_config.mainTank, "Regrowth") then
+    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Regrowth") and not mb_UnitHasMyBuff(mb_config.mainTank, "Regrowth") then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Regrowth") then
             return
         end
@@ -64,28 +74,20 @@ function mb_Druid_Restoration_OnUpdate()
         end
     end
 
+    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Swiftmend") and mb_UnitHasMyBuff(mb_config.mainTank, "Rejuvenation")then
+        if mb_CastSpellOnFriendly(mb_config.mainTank, "Swiftmend") then
+            return
+        end
+    end
+
     if not mb_UnitHasMyBuff(mb_config.mainTank, "Lifebloom") then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Lifebloom") then
             return
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.mainTank) <= 60 and mb_CanCastSpell("Swiftmend") and mb_UnitHasMyBuff(mb_config.mainTank, "Rejuvenation")then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Swiftmend") then
-            return
-        end
-    end
-
-    if mb_UnitHealthPercentage(mb_config.mainTank) <= 60 and mb_CanCastSpell("Nourish") then
+    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Nourish") then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Nourish") then
-            return
-        end
-    end
-
-    if mb_CanCastSpell("Wild Growth") then
-        local healUnit, missingHealth =  mb_GetMostDamagedFriendly("Wild Growth")
-        if missingHealth > 3500 then
-            mb_CastSpellOnFriendly(healUnit, "Wild Growth")
             return
         end
     end
