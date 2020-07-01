@@ -64,6 +64,11 @@ function mb_SayRaid(message)
     SendChatMessage(message, "RAID")
 end
 
+-- Player speaks the message in /s
+function mb_Say(message)
+	SendChatMessage(message, "SAY", "Common")
+end
+
 function mb_CreateMacro(name, body, actionSlot)
     local macroId = GetMacroIndexByName(name)
     if macroId > 0 then

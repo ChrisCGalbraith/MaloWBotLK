@@ -8,10 +8,11 @@ function mb_Druid_OnLoad()
     end
 
     if mb_GetMySpecName() == "Balance" then
-        mb_RegisterMessageHandler(BUFF_MOTW.requestType, mb_Druid_motwHandler)
+        mb_RegisterMessageHandler(BUFF_MOTW.requestType, mb_Druid_MotwHandler)
+        mb_RegisterMessageHandler(BUFF_THORNS.requestType, mb_Druid_ThornsHandler)
     end
 
-    if mb_GetMySpecName() == "Balance" then
+    if mb_GetMySpecName() == "Feral Combat" then
         mb_RegisterMessageHandler("taunt", mb_Druid_TauntHandler)
     end
 

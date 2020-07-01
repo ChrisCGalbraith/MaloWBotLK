@@ -3,8 +3,10 @@ function mb_Priest_Holy_OnLoad()
     mb_RegisterExclusiveRequestHandler("external", mb_Priest_Holy_ExternalRequestAcceptor, mb_Priest_Holy_ExternalRequestExecutor)
 end
 
+mb_Priest_roleplayThrottle = 0
 mb_Priest_Holy_useCooldownsCommandTime = 0
 function mb_Priest_Holy_OnUpdate()
+    mb_Priest_HandleRoleplay()
     if not mb_IsReadyForNewCast() then
         return
     end
@@ -135,4 +137,19 @@ function mb_Priest_Holy_ExternalRequestExecutor(message, from)
     end
 
     return false
+end
+
+-- Experimental handling of Roleplay stuff
+function mb_Priest_HandleRoleplay()
+    if mb_GetNumAlivePartyOrRaidMembers() < 13 then
+        if mb_Priest_roleplayThrottle + 5 > mb_time then
+            return
+        end
+
+        --mb_Say(mb_roleplay.fearfulGossip[math.random(#mb_roleplay.fearfulGossip["First"][1])])
+        for _, fearfulGossip in pairs(mb_roleplay) do
+            mb_Say(fearfulGossip)
+           -- mb_Priest_roleplayThrottle = mb_time
+        end
+    end
 end
