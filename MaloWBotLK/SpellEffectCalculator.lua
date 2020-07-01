@@ -53,6 +53,7 @@ mb_spellEffectBaseValues["Riptide"].coefficient = 0.4
 mb_spellEffectBaseValues["Riptide"][1] = 691
 mb_spellEffectBaseValues["Riptide"][2] = 919
 mb_spellEffectBaseValues["Riptide"][3] = 1492
+mb_spellEffectBaseValues["Riptide"][4] = 1736
 -- Lesser Healing Wave
 mb_spellEffectBaseValues["Lesser Healing Wave"] = {}
 mb_spellEffectBaseValues["Lesser Healing Wave"].coefficient = 0.81
@@ -64,6 +65,7 @@ mb_spellEffectBaseValues["Lesser Healing Wave"][5] = 705
 mb_spellEffectBaseValues["Lesser Healing Wave"][6] = 928
 mb_spellEffectBaseValues["Lesser Healing Wave"][7] = 1185
 mb_spellEffectBaseValues["Lesser Healing Wave"][8] = 1578
+mb_spellEffectBaseValues["Lesser Healing Wave"][9] = 1834
 -- Healing Wave
 mb_spellEffectBaseValues["Healing Wave"] = {}
 mb_spellEffectBaseValues["Healing Wave"].coefficient = 1.61
@@ -80,6 +82,7 @@ mb_spellEffectBaseValues["Healing Wave"][10] = 1850
 mb_spellEffectBaseValues["Healing Wave"][11] = 1969
 mb_spellEffectBaseValues["Healing Wave"][12] = 2436
 mb_spellEffectBaseValues["Healing Wave"][13] = 2996
+mb_spellEffectBaseValues["Healing Wave"][14] = 3466
 -- Penance
 mb_spellEffectBaseValues["Penance"] = {}
 mb_spellEffectBaseValues["Penance"].coefficient = 1.61

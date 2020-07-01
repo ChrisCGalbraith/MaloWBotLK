@@ -497,7 +497,6 @@ function mb_GetSpellIdForName(spellName)
     local spellId = string.sub(link, 1, string.find(link, "|") - 1)
     return tonumber(spellId)
 end
-end
 
 function mb_GetItemLocation(itemName)
 	for bag = 0, 4 do

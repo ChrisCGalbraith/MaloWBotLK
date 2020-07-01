@@ -9,4 +9,14 @@ function mb_Hunter_OnLoad()
         mb_classSpecificRunFunction = mb_Hunter_Survival_OnUpdate
         mb_SpecNotSupported("Survival Hunters are not yet supported")
     end
+
+    mb_RegisterDesiredBuff(BUFF_KINGS)
+    mb_RegisterDesiredBuff(BUFF_WISDOM)
+    mb_RegisterDesiredBuff(BUFF_MIGHT)
+    mb_RegisterDesiredBuff(BUFF_SANCTUARY)
+    mb_RegisterDesiredBuff(BUFF_INTELLECT)
+    mb_RegisterDesiredBuff(BUFF_MOTW)
+    mb_RegisterDesiredBuff(BUFF_FORT)
+    mb_RegisterDesiredBuff(BUFF_SPIRIT)
+    mb_RegisterDesiredBuff(BUFF_SHADOW_PROT)
 end

@@ -1,6 +1,6 @@
 mb_BossModule_Gluth_lastExternalRequest = 0
 function mb_BossModule_Gluth_PreOnUpdate()
-    if mb_IsTank() then
+    if mb_IsTank() and UnitName("target") == "Gluth" then
         return mb_BossModule_Gluth_Tank_OnUpdate()
     end
     if mb_GetClass("player") == "WARLOCK" then
@@ -55,6 +55,24 @@ function mb_BossModule_Gluth_Tank_OnUpdate()
                 return true
             end
         end
+    end
+    if mb_GetClass("player") == "WARLOCK" then
+        TargetUnit("Zombie Chow")
+        if UnitName("target") == "Zombie Chow" and mb_UnitHealthPercentage("target") < 20 then
+            mb_CastSpellOnTarget("Seed of Corruption")
+            return true
+        end
+        TargetUnit("Gluth")
+    end
+    if mb_GetClass("player") == "DRUID" and mb_GetMySpecName() == "Balance" then
+        TargetUnit("Zombie Chow")
+        if UnitName("target") == "Zombie Chow" and mb_UnitHealthPercentage("target") < 20 then
+            if mb_GetRemainingSpellCooldown("Starfall") then
+                mb_CastSpellWithoutTarget("Starfall")
+                return true
+            end
+        end
+        TargetUnit("Gluth")
     end
     return false
 end
