@@ -1,12 +1,11 @@
 function mb_Priest_Holy_OnLoad()
-    mb_RegisterExclusiveRequestHandler("healcd", mb_Priest_HealCdAcceptor, mb_Priest_HealCdExecutor)
-    mb_RegisterExclusiveRequestHandler("external", mb_Priest_Holy_ExternalRequestAcceptor, mb_Priest_Holy_ExternalRequestExecutor)
+
 end
 
-mb_Priest_roleplayThrottle = 0
 mb_Priest_Holy_useCooldownsCommandTime = 0
 function mb_Priest_Holy_OnUpdate()
-    mb_Priest_HandleRoleplay()
+    --mb_HandleRoleplay()
+
     if not mb_IsReadyForNewCast() then
         return
     end
@@ -140,16 +139,27 @@ function mb_Priest_Holy_ExternalRequestExecutor(message, from)
 end
 
 -- Experimental handling of Roleplay stuff
-function mb_Priest_HandleRoleplay()
-    if mb_GetNumAlivePartyOrRaidMembers() < 13 then
-        if mb_Priest_roleplayThrottle + 5 > mb_time then
-            return
-        end
+function mb_HandleRoleplay()
+    if mb_isRoleplaying == false then
+        return
+    end
 
-        --mb_Say(mb_roleplay.fearfulGossip[math.random(#mb_roleplay.fearfulGossip["First"][1])])
-        for _, fearfulGossip in pairs(mb_roleplay) do
-            mb_Say(fearfulGossip)
-           -- mb_Priest_roleplayThrottle = mb_time
-        end
+    if not UnitAffectingCombat("player") then
+        return
+    end
+
+    if mb_roleplayThrottle + math.random(60, 120) > mb_time then
+        return
+    end
+
+    if mb_GetNumAlivePartyOrRaidMembers() < 13 then
+        mb_Say(mb_roleplay.fearfulGossip[math.random(#mb_roleplay.fearfulGossip)])
+        mb_roleplayThrottle = mb_time
+    elseif mb_GetNumAlivePartyOrRaidMembers() > 13 and mb_GetNumPartyOrRaidMembers() <= 24 then
+        mb_Say(mb_roleplay.waveringGossip[math.random(#mb_roleplay.waveringGossip)])
+        mb_roleplayThrottle = mb_time
+    else
+        mb_Say(mb_roleplay.courageousGossip[math.random(#mb_roleplay.courageousGossip)])
+        mb_roleplayThrottle = mb_time
     end
 end

@@ -9,7 +9,7 @@ function mb_Shaman_Restoration_OnUpdate()
         return
     end
 
-   -- mb_config.mainTank = "Elerien"
+    --mb_config.mainTank = "Elerien"
    -- mb_config.offTank = "Malowtank"
 
     if mb_ResurrectRaid("Ancestral Spirit") then
@@ -71,6 +71,18 @@ function mb_Shaman_Restoration_OnUpdate()
     if mb_UnitPowerPercentage("Kisaana") < 50 and UnitAffectingCombat("Khalia") then
         CastSpellByName("Mana Tide Totem")
         return
+    end
+
+    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Lesser Healing Wave") then
+        if mb_CastSpellOnFriendly(mb_config.mainTank, "Lesser Healing Wave") then
+            return
+        end
+    end
+
+    if mb_GetMissingHealth(mb_config.offTank) > mb_GetSpellEffect("Lesser Healing Wave") then
+        if mb_CastSpellOnFriendly(mb_config.offTank, "Lesser Healing Wave") then
+            return
+        end
     end
 
     if mb_Shaman_ChainHealRaid() then

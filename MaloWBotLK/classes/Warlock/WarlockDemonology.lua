@@ -1,5 +1,8 @@
 mb_Warlock_lastImmolateTime = 0
 function mb_Warlock_Demonology_OnUpdate()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
     mb_Warlock_HandlePetSummon("Summon Felguard")
 
     mb_Warlock_HandleFelhunterAutoCasts("Anguish", "Cleave")

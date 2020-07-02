@@ -27,7 +27,6 @@ end
 -- List of waters that should be drunk
 mb_config.waters = {}
 table.insert(mb_config.waters, "Conjured Mana Strudel")
-table.insert(mb_config.waters, "Our hope was a lie, an empty lie to lure us to our graves!")
 
 -- List of profession CD's to use automatically (in order)
 mb_config.professionCooldowns = {}

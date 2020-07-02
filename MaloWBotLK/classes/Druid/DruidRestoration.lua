@@ -11,8 +11,8 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
-    --mb_config.mainTank = "Ceolmar"
-    --mb_config.offTank = "Maligna"
+    mb_config.mainTank = "Elerien"
+    mb_config.offTank = "Malowtank"
 
     local nStance = GetShapeshiftForm();
     if nStance ~= 5 then
@@ -108,4 +108,6 @@ function mb_Druid_Restoration_OnUpdate()
             return
         end
     end
+
+
 end

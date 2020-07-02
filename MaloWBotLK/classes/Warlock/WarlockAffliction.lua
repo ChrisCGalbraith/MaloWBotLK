@@ -1,5 +1,9 @@
 mb_Warlock_lastUnstableTime = 0
 function mb_Warlock_Affliction_OnUpdate()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
+
     mb_Warlock_HandlePetSummon("Summon Felhunter")
 
     mb_Warlock_HandleFelhunterAutoCasts("Shadow Bite", "Fel Intelligence")

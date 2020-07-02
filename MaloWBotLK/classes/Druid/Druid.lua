@@ -17,7 +17,7 @@ function mb_Druid_OnLoad()
     end
 
 
-
+    mb_RegisterDesiredBuff(BUFF_THORNS)
     mb_RegisterDesiredBuff(BUFF_KINGS)
     mb_RegisterDesiredBuff(BUFF_WISDOM)
     mb_RegisterDesiredBuff(BUFF_MIGHT)
@@ -46,7 +46,7 @@ function mb_Druid_HandleThorns(targetPlayerName, singleSpell)
         return
     end
 
-    if mb_CastSpellOnFriendly(mb_getUnitForPlayerName(targetPlayerName), singleSpell) then
+    if mb_CastSpellOnFriendly(mb_GetUnitForPlayerName(targetPlayerName), singleSpell) then
         return
     end
 end

@@ -1,6 +1,14 @@
+function mb_Druid_Feral_OnLoad()
+    mb_EnableIWTDistanceClosing("Lacerate")
+end
+
 function mb_Druid_Feral_OnUpdate()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
+
     local nStance = GetShapeshiftForm();
-    if nStance ~= 1 then
+    if nStance ~= 3 then
         CastShapeshiftForm(1)
         return
     end

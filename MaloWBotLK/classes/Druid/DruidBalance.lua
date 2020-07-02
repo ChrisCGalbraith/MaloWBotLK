@@ -3,6 +3,10 @@ mb_druid_lastEclipseLunar = false
 
 
 function mb_Druid_Balance_OnUpdate()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
+
     if mb_Drink() then
         return
     end
