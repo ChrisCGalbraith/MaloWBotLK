@@ -7,38 +7,54 @@ function mb_Druid_Feral_OnUpdate()
         return
     end
 
-    local nStance = GetShapeshiftForm();
-    if nStance ~= 3 then
-        CastShapeshiftForm(1)
-        return
-    end
-
     if not mb_AcquireOffensiveTarget() then
         return
     end
 
-    if nStance == 3 and UnitAffectingCombat("player") and UnitPower("player") <= 30 then
+    local nStance = GetShapeshiftForm();
+
+    if nStance == 1 then
+        mb_Druid_Bear_OnUpdate()
+        return
+    end
+
+    if nStance == 3 then
+        mb_Druid_Cat_OnUpdate()
+        return
+    end
+end
+
+function mb_Druid_Cat_OnUpdate()
+
+    if not mb_isAutoAttacking then
+        InteractUnit("target")
+    end
+
+    if UnitAffectingCombat("player") and UnitPower("player") <= 30 then
         if mb_CanCastSpell("Tiger's Fury") then
             CastSpellByName("Tiger's Fury")
             return
         end
     end
 
-    if nStance == 3 and mb_GetMyDebuffTimeRemaining("target","Rip") == 0 and GetComboPoints("player", "target") == 5 then
+    if mb_GetMyDebuffTimeRemaining("target","Rip") == 0 and GetComboPoints("player", "target") == 5 then
         if mb_CastSpellOnTarget("Rip") then
             return
         end
     end
 
-    if nStance == 3 and mb_GetMyDebuffTimeRemaining("target","Rake") == 0 then
+    if mb_GetMyDebuffTimeRemaining("target","Rake") == 0 then
         if mb_CastSpellOnTarget("Rake") then
             return
         end
     end
 
-    if nStance == 3 and mb_CastSpellOnTarget("Mangle (Cat)()") then
+    if mb_CastSpellOnTarget("Mangle (Cat)()") then
         return
     end
+end
+
+function mb_Druid_Bear_OnUpdate()
 
     if mb_UnitHealthPercentage("player") < 30 then
         if mb_CastSpellWithoutTarget("Survival Instincts") then
@@ -74,4 +90,3 @@ function mb_Druid_Feral_OnUpdate()
         return
     end
 end
-
