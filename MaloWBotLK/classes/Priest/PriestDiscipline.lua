@@ -1,5 +1,4 @@
 function mb_Priest_Discipline_OnLoad()
-    mb_RegisterExclusiveRequestHandler("healcd", mb_Priest_HealCdAcceptor, mb_Priest_HealCdExecutor)
     mb_RegisterExclusiveRequestHandler("external", mb_Priest_Discipline_ExternalRequestAcceptor, mb_Priest_Discipline_ExternalRequestExecutor)
 end
 
@@ -27,6 +26,13 @@ function mb_Priest_Discipline_OnUpdate()
         return
     end
 
+    if mb_Priest_useCooldownsCommandTime + 20 > mb_time then
+        mb_UseItemCooldowns()
+        if mb_CastSpellWithoutTarget("Divine Hymn") then
+            return
+        end
+    end
+
     if UnitAffectingCombat(mb_config.mainTank) and mb_GetDebuffTimeRemaining(mb_config.mainTank, "Weakened Soul") == 0 then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Power Word: Shield") then
             return
@@ -43,7 +49,7 @@ function mb_Priest_Discipline_OnUpdate()
     --    if mb_CastSpellOnFriendly(mb_config.mainTank, "Prayer of Mending") then
     --        return
     --    end
-    -- end
+    --end
 
     if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Penance") then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Penance") then

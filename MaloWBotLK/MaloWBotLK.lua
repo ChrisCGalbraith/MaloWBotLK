@@ -251,6 +251,7 @@ mb_isCommanding = false
 mb_commanderUnit = nil
 mb_isRoleplaying = false
 mb_roleplayThrottle = 0
+mb_ShouldCombatRess = false
 -- "none" = Never follows, not allowed to move if out of range of target, free to turn to face the right way
 -- "lenient" = Only follow-spams when commander is more than 11 yards away, free to turn or move if out of range of target automatically if within those 11 yards of commander
 -- "strict" = Spams follow constantly, not free to turn or move

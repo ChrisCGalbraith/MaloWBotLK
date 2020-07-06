@@ -896,13 +896,14 @@ function mb_FollowUnit(unit)
     mb_isFollowing = false
     return false
 end
-
+function mb_IsHealer()
+	return mb_GetMySpecName() == "Holy" or mb_GetMySpecName() == "Restoration" or mb_GetMySpecName() == "Discipline"
+end
 function mb_BreakFollow()
     mb_isFollowing = false
     TurnLeftStart()
     TurnLeftStop()
 end
-
 mb_crowdControlSpells = {
     "Fear",
     "Polymorph",

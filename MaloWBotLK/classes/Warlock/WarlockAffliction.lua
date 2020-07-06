@@ -28,17 +28,17 @@ function mb_Warlock_Affliction_OnUpdate()
   --        return
   --   end
 
-    if mb_UnitPowerPercentage("player") < 50  and mb_UnitHealthPercentage("player") > 60 then
-        CastSpellByName("Life Tap")
-        return
-    end
-
     if not mb_AcquireOffensiveTarget() then
         return
     end
 
     if UnitExists("playerpet") then
         PetAttack()
+    end
+
+    if mb_UnitPowerPercentage("player") < 50  and mb_UnitHealthPercentage("player") > 60 then
+        CastSpellByName("Life Tap")
+        return
     end
 
     if mb_ShouldUseDpsCooldowns("Corruption") and UnitAffectingCombat("player") then
@@ -54,8 +54,7 @@ function mb_Warlock_Affliction_OnUpdate()
         return
     end
 
-    if mb_GetMyDebuffTimeRemaining("target","Unstable Affliction") < 1.2 and mb_Warlock_lastUnstableTime + 2.0 < mb_time and mb_CastSpellOnTarget("Unstable Affliction") then
-        mb_Warlock_lastUnstableTime = mb_time
+    if UnitDebuff("target", "Shadow Mastery") and mb_GetMyDebuffTimeRemaining("target", "Corruption") == 0 and mb_CastSpellOnTarget("Corruption") then
         return
     end
 
@@ -63,11 +62,12 @@ function mb_Warlock_Affliction_OnUpdate()
         return
     end
 
-    if mb_GetMyDebuffTimeRemaining("target","Curse of Agony") == 0 and mb_CastSpellOnTarget("Curse of Agony") then
+    if mb_GetMyDebuffTimeRemaining("target","Unstable Affliction") < 1.2 and mb_Warlock_lastUnstableTime + 2.0 < mb_time and mb_CastSpellOnTarget("Unstable Affliction") then
+        mb_Warlock_lastUnstableTime = mb_time
         return
     end
 
-    if mb_GetMyDebuffTimeRemaining("target","Corruption") == 0 and mb_CastSpellOnTarget("Corruption") then
+    if mb_GetMyDebuffTimeRemaining("target","Curse of Agony") == 0 and mb_CastSpellOnTarget("Curse of Agony") then
         return
     end
 
@@ -82,6 +82,11 @@ function mb_Warlock_Affliction_OnUpdate()
     end
 
     if mb_UnitHealthPercentage("target") < 25 then
+        if mb_GetMyDebuffTimeRemaining("target", "Corruption") == 0 then
+            if mb_CastSpellOnTarget("Corruption") then
+                return
+            end
+        end
         if mb_GetMyDebuffTimeRemaining("target","Drain Soul") == 0 then
             if mb_CastSpellOnTarget("Drain Soul") then
                 return

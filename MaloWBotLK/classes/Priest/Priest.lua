@@ -22,9 +22,11 @@ function mb_Priest_OnLoad()
         mb_RegisterMessageHandler(BUFF_SPIRIT.requestType, mb_Priest_SpiritHandler)
         mb_RegisterMessageHandler(BUFF_SHADOW_PROT.requestType, mb_Priest_ShadowHandler)
     end
+
     mb_RegisterExclusiveRequestHandler("healcd", mb_Priest_HealCdAcceptor, mb_Priest_HealCdExecutor)
-    mb_RegisterExclusiveRequestHandler("external", mb_Priest_Holy_ExternalRequestAcceptor, mb_Priest_Holy_ExternalRequestExecutor)
 end
+
+mb_Priest_useCooldownsCommandTime = 0
 
 function mb_Priest_HandlePrayer(targetPlayerName, greaterSpell)-- singleSpell)
     if not mb_ShouldBuff() then
@@ -61,7 +63,7 @@ end
 
 function mb_Priest_HealCdExecutor(message, from)
     mb_SayRaid("Using Divine Hymn!")
-    --mb_SayRaid("Do not falter my brave Heroes! Let my music heal your Hearts!")
+    mb_Say("Do not falter my brave Heroes! Let my music heal your Hearts!")
     mb_Priest_Holy_useCooldownsCommandTime = mb_time
     return true
 end

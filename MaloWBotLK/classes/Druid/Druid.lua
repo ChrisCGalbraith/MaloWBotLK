@@ -63,3 +63,18 @@ function mb_Druid_TauntHandler(msg, from)
     mb_SayRaid("Im taunting!")
     mb_CastSpellOnTarget("Growl")
 end
+
+function mb_Druid_HandleCombatRess(msg, from)
+    mb_Druid_CombatRessHandler(from)
+end
+
+function mb_Druid_CombatRessHandler(targetPlayerName)
+    if mb_ShouldCombatRess == false then
+        return
+    end
+
+    if mb_CastSpellOnFriendly(targetPlayerName, "Rebirth") then
+        mb_SayRaid("Combat Resurrecting " .. targetPlayerName)
+        return
+    end
+end

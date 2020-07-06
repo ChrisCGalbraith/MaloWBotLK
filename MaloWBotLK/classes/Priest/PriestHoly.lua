@@ -1,8 +1,7 @@
 function mb_Priest_Holy_OnLoad()
-
+    mb_RegisterExclusiveRequestHandler("external", mb_Priest_Holy_ExternalRequestAcceptor, mb_Priest_Holy_ExternalRequestExecutor)
 end
 
-mb_Priest_Holy_useCooldownsCommandTime = 0
 function mb_Priest_Holy_OnUpdate()
     --mb_HandleRoleplay()
 
@@ -38,7 +37,7 @@ function mb_Priest_Holy_OnUpdate()
         end
     end
 
-    if mb_Priest_Holy_useCooldownsCommandTime + 20 > mb_time then
+    if mb_Priest_useCooldownsCommandTime + 20 > mb_time then
         mb_UseItemCooldowns()
         if mb_CastSpellWithoutTarget("Divine Hymn") then
             return
@@ -75,7 +74,7 @@ function mb_Priest_Holy_OnUpdate()
         end
     end
 
-    if not mb_UnitHasMyBuff(mb_config.offTank, "Renew") and UnitAffectingCombat(mb_config.offTank) then
+    if mb_UnitHasMyBuff(mb_config.offTank, "Renew") == 0 and UnitAffectingCombat(mb_config.offTank) then
         if mb_CastSpellOnFriendly(mb_config.offTank, "Renew")then
             return
         end

@@ -9,8 +9,8 @@ function mb_Shaman_Restoration_OnUpdate()
         return
     end
 
-    --mb_config.mainTank = "Elerien"
-   -- mb_config.offTank = "Malowtank"
+    --mb_config.mainTank = "Odia"
+    --mb_config.offTank = "Necria"
 
     if mb_ResurrectRaid("Ancestral Spirit") then
         return

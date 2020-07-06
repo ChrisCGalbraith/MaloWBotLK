@@ -1,4 +1,5 @@
 mb_Warlock_lastImmolateTime = 0
+mb_Warlock_shadowMastery = false
 function mb_Warlock_Demonology_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -27,12 +28,8 @@ function mb_Warlock_Demonology_OnUpdate()
         return
     end
 
-    if mb_UnitPowerPercentage("player") < 40  and mb_UnitHealthPercentage("player") > 60 then
-        CastSpellByName("Life Tap")
-        return
-    end
-
     if not mb_AcquireOffensiveTarget() then
+        mb_Warlock_shadowMastery = false
         return
     end
 
@@ -40,9 +37,18 @@ function mb_Warlock_Demonology_OnUpdate()
         PetAttack()
     end
 
+    if mb_UnitPowerPercentage("player") < 50  and mb_UnitHealthPercentage("player") > 60 then
+        CastSpellByName("Life Tap")
+        return
+    end
+
     if mb_ShouldUseDpsCooldowns("Shadow Bolt") and UnitAffectingCombat("player") then
         mb_UseItemCooldowns()
         CastSpellByName("Demonic Empowerment")
+    end
+
+    if mb_CastSpellWithoutTarget("Demonic Empowerment") then
+        return
     end
 
     if mb_cleaveMode > 0 and mb_GetMyDebuffTimeRemaining("target", "Seed of Corruption") == 0 and mb_CastSpellOnTarget("Seed of Corruption") then
@@ -50,7 +56,8 @@ function mb_Warlock_Demonology_OnUpdate()
     end
 
     -- First spell cast is Shadow Bolt to apply 5% crit debuff to target, then the affliction locks get better Corruptions.
-    if not UnitDebuff("target", "Shadow Mastery") and mb_CastSpellOnTarget("Shadow Bolt") then
+    if not mb_Warlock_shadowMastery and mb_CastSpellOnTarget("Shadow Bolt") then
+        mb_Warlock_shadowMastery = true
         return
     end
 
