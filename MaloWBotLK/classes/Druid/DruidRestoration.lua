@@ -11,8 +11,8 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
-    --mb_config.mainTank = "Elerien"
-    --mb_config.offTank = "Malowtank"
+  --  mb_config.mainTank = "Ceolmar"
+  -- mb_config.offTank = "Maligna"
 
     local nStance = GetShapeshiftForm();
     if nStance ~= 5 then
@@ -28,7 +28,7 @@ function mb_Druid_Restoration_OnUpdate()
 
     if mb_CanCastSpell("Wild Growth") then
         local healUnit, missingHealth =  mb_GetMostDamagedFriendly("Wild Growth")
-        if missingHealth > 0 then
+        if missingHealth > 3000 then
             mb_CastSpellOnFriendly(healUnit, "Wild Growth")
             return
         end
@@ -40,12 +40,6 @@ function mb_Druid_Restoration_OnUpdate()
             if mb_CastSpellOnFriendly(mb_config.mainTank, "Healing Touch") then
                 return
             end
-        end
-    end
-
-    if mb_UnitHealthPercentage(mb_config.mainTank) <= 30 and mb_CanCastSpell("Swiftmend") and mb_UnitHasMyBuff(mb_config.mainTank, "Rejuvenation")then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Swiftmend") then
-            return
         end
     end
 

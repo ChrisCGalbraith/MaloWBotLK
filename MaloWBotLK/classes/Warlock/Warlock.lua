@@ -1,3 +1,4 @@
+mb_Warlock_petAttack = false
 function mb_Warlock_OnLoad()
     if mb_GetMySpecName() == "Affliction" then
         mb_classSpecificRunFunction = mb_Warlock_Affliction_OnUpdate

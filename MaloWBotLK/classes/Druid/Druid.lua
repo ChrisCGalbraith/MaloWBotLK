@@ -27,6 +27,8 @@ function mb_Druid_OnLoad()
     mb_RegisterDesiredBuff(BUFF_FORT)
     mb_RegisterDesiredBuff(BUFF_SPIRIT)
     mb_RegisterDesiredBuff(BUFF_SHADOW_PROT)
+
+    mb_CheckReagentAmount("Wild Spineleaf", 100)
 end
 
 function mb_Druid_HandleMotw(targetPlayerName, greaterSpell)

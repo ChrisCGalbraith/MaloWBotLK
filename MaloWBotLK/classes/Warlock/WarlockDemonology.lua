@@ -12,6 +12,8 @@ function mb_Warlock_Demonology_OnUpdate()
         return
     end
 
+   -- local crit = mb_GetRealSpellCrit(6, "target")
+
     if UnitExists("playerpet") then
         PetPassiveMode()
     end
@@ -33,7 +35,7 @@ function mb_Warlock_Demonology_OnUpdate()
         return
     end
 
-    if UnitExists("playerpet") then
+    if UnitExists("playerpet") and mb_Warlock_petAttack then
         PetAttack()
     end
 
@@ -62,6 +64,7 @@ function mb_Warlock_Demonology_OnUpdate()
     end
 
     if mb_GetMyDebuffTimeRemaining("target", "Corruption") == 0 and mb_CastSpellOnTarget("Corruption") then
+		--mb_SayRaid(crit)
         return
     end
 

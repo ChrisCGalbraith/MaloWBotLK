@@ -471,7 +471,7 @@ function mb_UnitHasDebuffOfType(unit, debuffType1, debuffType2, debuffType3)
     end
     return false
 end
-mb_forceBlockDpsCooldowns = false
+
 -- Returns true if using CDs is a good idea
 function mb_ShouldUseDpsCooldowns(rangeCheckSpell)
     if mb_forceBlockDpsCooldowns then
@@ -541,6 +541,24 @@ function mb_UseItem(itemName)
 		return true
 	end
 	return false
+end
+
+-- Returns the count of item with specified name
+function mb_GetItemCount(itemName)
+	local totalItemCount = 0
+	for bag = 0, 4 do
+		for slot = 1, GetContainerNumSlots(bag) do
+			local itemLink = GetContainerItemLink(bag, slot)
+			if itemLink ~= nil then
+				local name = GetItemInfo(itemLink)
+				if name == itemName then
+					local _, itemCount = GetContainerItemInfo(bag, slot);
+					totalItemCount = totalItemCount + itemCount
+				end
+			end
+		end
+	end
+	return totalItemCount
 end
 
 function mb_CheckReagentAmount(itemName, desiredItemCount)
@@ -904,7 +922,9 @@ function mb_BreakFollow()
     TurnLeftStart()
     TurnLeftStop()
 end
-mb_crowdControlSpells = {
+
+mb_crowdControlSpells =
+{
     "Fear",
     "Polymorph",
     "Death Coil",
@@ -913,6 +933,7 @@ mb_crowdControlSpells = {
     "Blind",
     "Repentance"
 }
+
 function mb_CrowdControl(unit)
     for _, ccSpell in pairs(mb_crowdControlSpells) do
         if mb_GetDebuffTimeRemaining(unit, ccSpell) > 0 then
@@ -1025,5 +1046,29 @@ function mb_GetTanks(rangeCheckSpell)
     return tanks
 end
 
+mb_critDebuffs =
+{
+	{name = "Shadow Mastery", value = 5},
+	{name = "Improved Scorch", value = 5},
+	{name = "Heart of the Crusader", value = 3},
+	{name = "Shadow Embrace", value = 1}
+}
+mb_dmgBuffs =
+{
+	{name = "Death's Embrace", value = 12},
+	{name = "Shadow Embrace", value = 5}
+}
 
 
+
+-- 1: Physical, 2: Holy, 3: Fire, 4: Nature, 5: Frost, 6: Shadow, 7: Arcane
+function mb_GetRealSpellCrit(spellSchool, unit)
+	local crit = GetSpellCritChance(spellSchool)
+
+	for _, debuff in pairs(mb_critDebuffs) do
+		if UnitDebuff(unit, debuff.name) then
+			crit = crit + (mb_GetDebuffStackCount(unit, debuff.name) * debuff.value)
+		end
+	end
+	return crit
+end

@@ -92,10 +92,6 @@ table.insert(mb_config.raidLayout["25man"][5], "Pestilina")
 table.insert(mb_config.raidLayout["25man"][5], "Umbria")
 table.insert(mb_config.raidLayout["25man"][5], "Igal")
 
-
-
-
-
 -- -----------------------------------------------
 -- Stat Weights
 -- -----------------------------------------------

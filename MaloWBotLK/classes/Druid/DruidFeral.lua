@@ -1,5 +1,5 @@
 function mb_Druid_Feral_OnLoad()
-    mb_EnableIWTDistanceClosing("Lacerate")
+
 end
 
 function mb_Druid_Feral_OnUpdate()
@@ -19,6 +19,7 @@ function mb_Druid_Feral_OnUpdate()
     end
 
     if nStance == 3 then
+		mb_EnableIWTDistanceClosing("Claw")
         mb_Druid_Cat_OnUpdate()
         return
     end
@@ -33,6 +34,12 @@ function mb_Druid_Cat_OnUpdate()
     if UnitAffectingCombat("player") and UnitPower("player") <= 30 then
         if mb_CanCastSpell("Tiger's Fury") then
             CastSpellByName("Tiger's Fury")
+            return
+        end
+    end
+
+	if not UnitBuff("player", "Savage Roar") and GetComboPoints("player", "target") == 5 then
+        if mb_CastSpellWithoutTarget("Savage Roar") then
             return
         end
     end

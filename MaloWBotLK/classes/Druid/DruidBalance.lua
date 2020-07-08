@@ -1,7 +1,6 @@
 mb_druid_lastEclipseSolar = false
 mb_druid_lastEclipseLunar = false
 
-
 function mb_Druid_Balance_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -16,8 +15,8 @@ function mb_Druid_Balance_OnUpdate()
         return
     end
 
-    if UnitAffectingCombat("player") and UnitPower("Khalia") < 5000 then
-        if mb_CastSpellOnFriendly("Khalia", "Innervate") then
+    if UnitAffectingCombat("player") and UnitPower("Arethel") < 10000 then
+        if mb_CastSpellOnFriendly("Arethel", "Innervate") then
             return
         end
     end
@@ -31,27 +30,30 @@ function mb_Druid_Balance_OnUpdate()
     end
 
     if mb_ShouldUseDpsCooldowns("Wrath") and UnitAffectingCombat("player") then
-        mb_UseItemCooldowns()
+		mb_UseItemCooldowns()
+		if mb_CastSpellWithoutTarget("Starfall") then
+			return
+		end
     end
 
     if mb_cleaveMode > 0 and mb_CastSpellWithoutTarget("Starfall") then
         return
     end
 
-    if mb_CanCastSpell("Moonfire") and mb_GetMyDebuffTimeRemaining("target", "Moonfire") == 0 then
+    if UnitHealth("target") > 100000 and mb_CanCastSpell("Moonfire") and mb_GetMyDebuffTimeRemaining("target", "Moonfire") == 0 then
         CastSpellByName("Moonfire")
         return
     end
 
-    if mb_CanCastSpell("Insect Swarm") and mb_GetMyDebuffTimeRemaining("target", "Insect Swarm") == 0 then
+    if UnitHealth("target") > 100000 and mb_CanCastSpell("Insect Swarm") and mb_GetMyDebuffTimeRemaining("target", "Insect Swarm") == 0 then
         CastSpellByName("Insect Swarm")
         return
     end
 
-    if mb_CanCastSpell("Faerie Fire") and mb_GetMyDebuffTimeRemaining("target", "Faerie Fire") == 0 then
-        CastSpellByName("Faerie Fire")
-        return
-    end
+  --  if UnitHealth("target") > 100000 and mb_CanCastSpell("Faerie Fire") and mb_GetMyDebuffTimeRemaining("target", "Faerie Fire") == 0 then
+  --     CastSpellByName("Faerie Fire")
+   --     return
+  --  end
 
     if UnitBuff("player", "Eclipse (Solar)") then
         mb_druid_lastEclipseSolar = true

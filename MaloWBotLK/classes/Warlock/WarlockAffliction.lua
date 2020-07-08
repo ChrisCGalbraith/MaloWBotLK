@@ -1,3 +1,8 @@
+--TODO
+-- Snapshotting of Corruption. Calculate current statistics, crit% based on target debuffs and my buffs
+   -- Store current total crit chance as a variable, and check it each frame, if
+
+
 mb_Warlock_lastUnstableTime = 0
 function mb_Warlock_Affliction_OnUpdate()
     if not mb_IsReadyForNewCast() then
@@ -23,16 +28,16 @@ function mb_Warlock_Affliction_OnUpdate()
         return
     end
 
-  --   if UnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
-  --        CastSpellByName("Demon Armor")
-  --        return
-  --   end
+  --  if UnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
+  --       CastSpellByName("Demon Armor")
+  --       return
+  --  end
 
     if not mb_AcquireOffensiveTarget() then
         return
     end
 
-    if UnitExists("playerpet") then
+    if UnitExists("playerpet") and mb_Warlock_petAttack then
         PetAttack()
     end
 

@@ -1,9 +1,16 @@
 -- Outdated, unusable as of 29/06/2020
 
-function mb_Mage_FireOnUpdate()
-    AssistUnit(mb_commanderUnit)
+function mb_Mage_Fire_OnUpdate()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
 
-    if mb_DrinkIfGood() then
+    if mb_Drink() then
+        return
+    end
+
+    local _, _, text = UnitChannelInfo("player")
+    if text == "Channeling" then
         return
     end
 
@@ -12,10 +19,37 @@ function mb_Mage_FireOnUpdate()
         return
     end
 
-    mb_Mage_handleManaGem("Mana Sapphire")
-
-    if not mb_hasValidOffensiveTarget() then
+    if mb_Mage_HandleManaGem("Mana Sapphire") then
         return
+    end
+
+    if mb_CleanseRaid("Remove Curse", "Curse") then
+        return
+    end
+
+    if not mb_AcquireOffensiveTarget() then
+        return
+    end
+
+    if mb_ShouldUseDpsCooldowns("Fireball") and UnitAffectingCombat("player") then
+        mb_UseItemCooldowns()
+        mb_UseItem("Mana Sapphire")
+        mb_CastSpellWithoutTarget("Combustion")
+        if mb_CastSpellWithoutTarget("Mirror Image") then
+            return
+        end
+    end
+
+    if mb_UnitPowerPercentage("player") < 35 and mb_CanCastSpell("Evocation") then
+        if mb_CastSpellOnTarget("Evocation") then
+            return
+        end
+    end
+
+    if mb_GetMyDebuffTimeRemaining("target", "Living Bomb") == 0 then
+        if mb_CastSpellOnTarget("Living Bomb") then
+            return
+        end
     end
 
     if UnitBuff("player", "Hot Streak") then
@@ -23,16 +57,8 @@ function mb_Mage_FireOnUpdate()
         return
     end
 
-    if not UnitDebuff("target", "Improved Scorch") then
-        CastSpellByName("Scorch")
+    if mb_IsMoving() and mb_CastSpellOnTarget("Fire Blast") then
         return
-    end
-
-    if UnitHealth("target") > UnitHealthMax("player") and UnitDebuff("target", "Improved Scorch") then
-        if GetSpellCooldown("Combustion") == 0 then
-            CastSpellByName("Combustion")
-            return
-        end
     end
 
     CastSpellByName("Fireball")

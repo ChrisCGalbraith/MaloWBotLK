@@ -15,7 +15,7 @@ function mb_BossModule_Kelthuzad_PreOnUpdate()
     mb_BossModule_Kelthuzad_DoRangeCheckAndMindControlCC()
     return false
 end
-
+ 
 mb_BossModule_Kelthuzad_positionPreManaDetonation = nil
 function mb_BossModule_Kelthuzad_ManaDetonation()
     if mb_GetDebuffTimeRemaining("player", "Detonate Mana") > 0 then
@@ -41,7 +41,7 @@ function mb_BossModule_Kelthuzad_ManaDetonation()
     end
     return false
 end
-
+ 
 mb_BossModule_Kelthuzad_safeManaDetonationSpots = {
     { x = 0.31086, y = 0.17621 }, -- NW
     { x = 0.30254, y = 0.24763 }, -- W
@@ -68,7 +68,7 @@ function mb_BossModule_Kelthuzad_GetClosestSafeManaDetonationSpot()
     end
     return minDistanceSpot.x, minDistanceSpot.y
 end
-
+ 
 mb_BossModule_Kelthuzad_lastDetectedVoidZone = 0
 mb_BossModule_Kelthuzad_isMovingFromVoidZone = false
 function mb_BossModule_Kelthuzad_VoidZone()
@@ -93,7 +93,7 @@ function mb_BossModule_Kelthuzad_VoidZone()
         mb_BossModule_Kelthuzad_isMovingFromVoidZone = false
     end
 end
-
+ 
 mb_BossModule_Kelthuzad_lastRangeCheck = 0
 function mb_BossModule_Kelthuzad_DoRangeCheckAndMindControlCC()
     if mb_BossModule_Kelthuzad_lastRangeCheck + 1 > mb_time then
@@ -118,7 +118,7 @@ function mb_BossModule_Kelthuzad_DoRangeCheckAndMindControlCC()
     end
     return
 end
-
+ 
 function mb_BossModule_Kelthuzad_CombatLogCallback(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15)
     if arg6 == "Kel'Thuzad" and arg4 == "SPELL_CAST_SUCCESS" and arg12 == "Shadow Fissure" then
         local targetUnit = mb_GetUnitForPlayerName(arg9)
@@ -130,11 +130,11 @@ function mb_BossModule_Kelthuzad_CombatLogCallback(arg1, arg2, arg3, arg4, arg5,
         end
     end
 end
-
+ 
 function mb_BossModule_Kelthuzad_OnLoad()
     mb_BossModule_PreOnUpdate = mb_BossModule_Kelthuzad_PreOnUpdate
     mb_CombatLogModule_Enable()
     mb_CombatLogModule_SetCallback(mb_BossModule_Kelthuzad_CombatLogCallback)
 end
-
+ 
 mb_BossModule_RegisterModule("kelthuzad", mb_BossModule_Kelthuzad_OnLoad)

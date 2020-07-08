@@ -1,10 +1,13 @@
 function mb_Priest_OnLoad()
     if mb_GetMySpecName() == "Discipline" then
         mb_classSpecificRunFunction = mb_Priest_Discipline_OnUpdate
+        mb_Priest_Discipline_OnLoad()
     elseif mb_GetMySpecName() == "Holy" then
         mb_classSpecificRunFunction = mb_Priest_Holy_OnUpdate
+        mb_Priest_Holy_OnLoad()
     else
         mb_classSpecificRunFunction = mb_Priest_Shadow_OnUpdate
+        mb_Priest_Shadow_OnLoad()
         mb_SpecNotSupported("Shadow Priests are not yet supported")
     end
 
@@ -23,6 +26,7 @@ function mb_Priest_OnLoad()
         mb_RegisterMessageHandler(BUFF_SHADOW_PROT.requestType, mb_Priest_ShadowHandler)
     end
 
+    mb_CheckReagentAmount("Devout Candle", 200)
     mb_RegisterExclusiveRequestHandler("healcd", mb_Priest_HealCdAcceptor, mb_Priest_HealCdExecutor)
 end
 

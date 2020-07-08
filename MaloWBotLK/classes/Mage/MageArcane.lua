@@ -1,4 +1,8 @@
 function mb_Mage_Arcane_OnUpdate()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
+
     local _, _, _, count = UnitDebuff("player", "Arcane Blast")
 
     if mb_Drink() then
@@ -46,34 +50,39 @@ function mb_Mage_Arcane_OnUpdate()
         mb_UseItem("Mana Sapphire")
     end
 
+--	if mb_cleaveMode > 0 and mb_CastSpellWithoutTarget("Arcane Explosion") then
+ --       return
+ --   end
+
     if mb_ShouldUseDpsCooldowns("Arcane Blast") and UnitAffectingCombat("player") then
         mb_UseItemCooldowns()
-        mb_CastSpellWithoutTarget("Arcane Power")
-        mb_CastSpellWithoutTarget("Icy Veins")
         if mb_CastSpellWithoutTarget("Mirror Image") then
             return
         end
+
+        if mb_CastSpellWithoutTarget("Icy Veins") then
+            mb_SendExclusiveRequest("power_infusion", "")
+        end
+        mb_CastSpellWithoutTarget("Arcane Power")
     end
 
-
     if UnitDebuff("player", "Arcane Blast") ~= nil and UnitAffectingCombat("player") then
-        if mb_UnitPowerPercentage("player") > 25 then
+        if mb_UnitPowerPercentage("player") > 10 then
             if count > 3 then
                 mb_Mage_DischargeBlastStacks()
                 return
             end
 
-        elseif mb_UnitPowerPercentage("player") > 10 and mb_UnitPowerPercentage("player") <= 24 then
-            if count >= 3 then
-                mb_Mage_DischargeBlastStacks()
-                return
-            end
         elseif mb_UnitPowerPercentage("player") <= 10 then
             if count >= 2 then
                 mb_Mage_DischargeBlastStacks()
                 return
             end
         end
+    end
+
+    if mb_IsMoving() and mb_CastSpellOnTarget("Arcane Barrage") then
+        return
     end
 
     if mb_CastSpellOnTarget("Arcane Blast") then

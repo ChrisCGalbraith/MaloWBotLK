@@ -1,5 +1,6 @@
 function mb_Priest_Discipline_OnLoad()
     mb_RegisterExclusiveRequestHandler("external", mb_Priest_Discipline_ExternalRequestAcceptor, mb_Priest_Discipline_ExternalRequestExecutor)
+    mb_RegisterExclusiveRequestHandler("power_infusion", mb_Priest_Discipline_PowerInfusionRequestAcceptor, mb_Priest_Discipline_PowerInfusionRequestExecutor)
 end
 
 mb_lastRaptureTime = 0
@@ -97,7 +98,10 @@ function mb_Priest_WeakenedSoulFilter(unit)
     return false
 end
 
+
+-- Pain Suppression
 function mb_Priest_Discipline_ExternalRequestAcceptor(message, from)
+    mb_SayRaid("Inside Acceptor PS")
     if mb_IsUsableSpell("Pain Suppression") and mb_GetRemainingSpellCooldown("Pain Suppression") < 1.5 then
         if mb_IsUnitValidFriendlyTarget(from, "Pain Suppression") then
             return true
@@ -108,6 +112,7 @@ function mb_Priest_Discipline_ExternalRequestAcceptor(message, from)
 end
 
 function mb_Priest_Discipline_ExternalRequestExecutor(message, from)
+    mb_SayRaid("Inside Acceptor PS")
     if not mb_IsReadyForNewCast() then
         return false
     end
@@ -120,3 +125,26 @@ function mb_Priest_Discipline_ExternalRequestExecutor(message, from)
 
     return false
 end
+
+
+-- Power Infusion
+function mb_Priest_Discipline_PowerInfusionRequestAcceptor(message, from)
+    if mb_IsUsableSpell("Power Infusion") then
+        if mb_IsUnitValidFriendlyTarget(from, "Power Infusion") then
+            return true
+        end
+    end
+
+    return false
+end
+
+function mb_Priest_Discipline_PowerInfusionRequestExecutor(message, from)
+    local targetUnit = mb_GetUnitForPlayerName(from)
+    if mb_CastSpellOnFriendly(targetUnit, "Power Infusion") then
+        mb_SayRaid("Casting Power Infusion on " .. from)
+        return true
+    end
+
+    return false
+end
+

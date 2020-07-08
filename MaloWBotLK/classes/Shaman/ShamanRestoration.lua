@@ -1,3 +1,10 @@
+function mb_Shaman_Restoration_OnLoad()
+    mb_Shaman_SetEarthTotem("Tremor Totem")
+    mb_Shaman_SetFireTotem("Searing Totem")
+    mb_Shaman_SetWaterTotem("Healing Stream Totem")
+    mb_Shaman_SetAirTotem("Grounding Totem")
+
+end
 
 mb_earthBindTime = 0
 function mb_Shaman_Restoration_OnUpdate()
@@ -9,14 +16,18 @@ function mb_Shaman_Restoration_OnUpdate()
         return
     end
 
-    --mb_config.mainTank = "Odia"
-    --mb_config.offTank = "Necria"
+   -- mb_config.mainTank = "Elerien"
+  --  mb_config.offTank = "Malowtank"
 
     if mb_ResurrectRaid("Ancestral Spirit") then
         return
     end
 
     if mb_Shaman_ApplyWeaponEnchants("Earthliving Weapon") then
+        return
+    end
+
+    if mb_Shaman_HandleTotems() then
         return
     end
 
