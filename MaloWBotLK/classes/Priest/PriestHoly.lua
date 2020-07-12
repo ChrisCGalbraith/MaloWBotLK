@@ -74,7 +74,7 @@ function mb_Priest_Holy_OnUpdate()
         end
     end
 
-    if mb_UnitHasMyBuff(mb_config.offTank, "Renew") == 0 and UnitAffectingCombat(mb_config.offTank) then
+    if not mb_UnitHasMyBuff(mb_config.offTank, "Renew") and UnitAffectingCombat(mb_config.offTank) then
         if mb_CastSpellOnFriendly(mb_config.offTank, "Renew")then
             return
         end
