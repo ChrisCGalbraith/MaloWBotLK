@@ -2,8 +2,7 @@ function mb_Shaman_Restoration_OnLoad()
     mb_Shaman_SetEarthTotem("Tremor Totem")
     mb_Shaman_SetFireTotem("Searing Totem")
     mb_Shaman_SetWaterTotem("Healing Stream Totem")
-    mb_Shaman_SetAirTotem("Grounding Totem")
-
+    mb_Shaman_SetAirTotem("Wrath of Air Totem")
 end
 
 mb_earthBindTime = 0

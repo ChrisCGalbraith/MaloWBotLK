@@ -1,7 +1,7 @@
 --TODO
 -- Snapshotting of Corruption. Calculate current statistics, crit% based on target debuffs and my buffs
    -- Store current total crit chance as a variable, and check it each frame, if
-
+-- Drain life may not work on mechanicals
 
 mb_Warlock_lastUnstableTime = 0
 function mb_Warlock_Affliction_OnUpdate()
