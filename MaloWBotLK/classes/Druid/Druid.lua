@@ -80,3 +80,13 @@ function mb_Druid_CombatRessHandler(targetPlayerName)
         return
     end
 end
+
+function mb_Druid_Innervate(unit)
+    if mb_UnitPowerPercentage(unit) < 50 then
+        if mb_CastSpellOnFriendly(unit, "Innervate") then
+            return true
+        end
+    end
+
+    return false
+end
