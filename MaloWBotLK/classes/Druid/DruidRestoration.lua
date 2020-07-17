@@ -14,8 +14,8 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
-    --  mb_config.mainTank = "Ceolmar"
-    -- mb_config.offTank = "Maligna"
+    -- mb_config.mainTank = "Malowtank"
+   -- mb_config.offTank = "Elerien"
 
     local nStance = GetShapeshiftForm();
     if nStance ~= 5 then
@@ -98,10 +98,6 @@ function mb_Druid_Restoration_OnUpdate()
 
     if mb_Druid_Restoration_BlanketRaid() then
         return
-    end
-
-    if UnitAffectingCombat("player") and not mb_IsMoving() then
-        mb_Say("I'm bored...")
     end
 end
 

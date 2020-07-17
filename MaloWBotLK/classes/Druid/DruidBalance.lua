@@ -50,10 +50,10 @@ function mb_Druid_Balance_OnUpdate()
         return
     end
 
-  --  if UnitHealth("target") > 100000 and mb_CanCastSpell("Faerie Fire") and mb_GetMyDebuffTimeRemaining("target", "Faerie Fire") == 0 then
-  --     CastSpellByName("Faerie Fire")
-   --     return
-  --  end
+    if UnitHealth("target") > 100000 and mb_CanCastSpell("Faerie Fire") and mb_GetMyDebuffTimeRemaining("target", "Faerie Fire") == 0 then
+        CastSpellByName("Faerie Fire")
+        return
+    end
 
     if UnitBuff("player", "Eclipse (Solar)") then
         mb_druid_lastEclipseSolar = true

@@ -17,8 +17,8 @@ function mb_Priest_Holy_OnUpdate()
         return
     end
 
-    mb_config.mainTank = "Malowtank"
-    mb_config.offTank = "Elerien"
+  --  mb_config.mainTank = "Maligna"
+  --  mb_config.offTank = "Ceolmar"
 
     local _, _, text = UnitChannelInfo("player")
     if text == "Divine Hymn" or text == "Hymn of Hope" then
