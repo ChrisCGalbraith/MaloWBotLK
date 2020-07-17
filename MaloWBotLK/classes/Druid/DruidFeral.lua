@@ -1,3 +1,4 @@
+
 function mb_Druid_Feral_OnLoad()
 
 end
@@ -27,6 +28,8 @@ end
 
 function mb_Druid_Cat_OnUpdate()
 
+	mb_AcquireOffensiveTarget()
+	
     if not mb_isAutoAttacking then
         InteractUnit("target")
     end
@@ -38,14 +41,16 @@ function mb_Druid_Cat_OnUpdate()
         end
     end
 
-	if not UnitBuff("player", "Savage Roar") and GetComboPoints("player", "target") == 5 then
-        if mb_CastSpellWithoutTarget("Savage Roar") then
-            return
-        end
+    if mb_Druid_Feral_HandleFinisher() then
+        return
     end
 
-    if mb_GetMyDebuffTimeRemaining("target","Rip") == 0 and GetComboPoints("player", "target") == 5 then
-        if mb_CastSpellOnTarget("Rip") then
+    if mb_GetBuffTimeRemaining("player", "Clearcasting") > 0 and mb_CastSpellOnTarget("Shred") then
+        return
+    end
+
+    if mb_GetMyDebuffTimeRemaining("target", "Mangle (Cat)") == 0 then
+        if mb_CastSpellOnTarget("Mangle (Cat)()") then
             return
         end
     end
@@ -56,9 +61,11 @@ function mb_Druid_Cat_OnUpdate()
         end
     end
 
-    if mb_CastSpellOnTarget("Mangle (Cat)()") then
-        return
-    end
+    mb_Druid_Feral_GenerateCombo()
+
+    --if mb_GetMyDebuffTimeRemaining("target", "Mangle (Cat)()") == 0 and mb_CastSpellOnTarget("Mangle (Cat)()") then
+    --    return
+    --end
 end
 
 function mb_Druid_Bear_OnUpdate()
@@ -76,9 +83,9 @@ function mb_Druid_Bear_OnUpdate()
         end
     end
 
-    if not mb_isAutoAttacking then
-        InteractUnit("target")
-    end
+ --   if not mb_isAutoAttacking then
+ --       InteractUnit("target")
+ --   end
 
     if UnitPower("player") > 60 then
         CastSpellByName("Maul")
@@ -86,6 +93,12 @@ function mb_Druid_Bear_OnUpdate()
 
     if mb_CastSpellOnTarget("Mangle (Bear)()") then
         return
+    end
+
+    if mb_GetDebuffTimeRemaining("target", "Demoralizing Shout") < 3 or mb_GetDebuffTimeRemaining("target", "Demoralizing Roar") < 3 then
+        if mb_CastSpellWithoutTarget("Demoralizing Roar") then
+            return
+        end
     end
 
     if mb_CastSpellOnTarget("Lacerate") then
@@ -96,4 +109,58 @@ function mb_Druid_Bear_OnUpdate()
         CastSpellByName("Swipe (Bear)()")
         return
     end
+end
+
+function mb_Druid_Feral_HandleFinisher()
+
+    if mb_GetBuffTimeRemaining("player", "Savage Roar") < 2.0 then
+        if mb_GetBuffTimeRemaining("player", "Savage Roar") == 0 then
+            if mb_CastSpellWithoutTarget("Savage Roar") then
+                return true
+            end
+        end
+
+        return true
+    end
+
+    if GetComboPoints("player", "target") < 5 then
+        return false
+    end
+
+    if mb_GetMyDebuffTimeRemaining("target", "Rip") < 1.5 then
+        if mb_GetMyDebuffTimeRemaining("target", "Rip") == 0 then
+            if mb_CastSpellOnTarget("Rip") then
+                return true
+            end
+        end
+
+        return true
+    end
+
+    if mb_GetMyDebuffTimeRemaining("target", "Rip") > 10 and mb_GetBuffTimeRemaining("player", "Savage Roar") > 10 then
+        if mb_CastSpellOnTarget("Ferocious Bite") then
+            return true
+        end
+    end
+
+    return false
+end
+
+function mb_Druid_Feral_GenerateCombo()
+
+    if mb_GetMyDebuffTimeRemaining("target", "Rake") < 2.0 then
+        if mb_GetMyDebuffTimeRemaining("target", "Rake") == 0 then
+            if mb_CastSpellOnTarget("Rake") then
+                return true
+            end
+        end
+
+        return true
+    end
+
+    if mb_CastSpellOnTarget("Shred") then
+        return true
+    end
+
+    return false
 end
