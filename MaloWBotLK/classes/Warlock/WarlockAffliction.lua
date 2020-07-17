@@ -2,7 +2,10 @@
 -- Snapshotting of Corruption. Calculate current statistics, crit% based on target debuffs and my buffs
    -- Store current total crit chance as a variable, and check it each frame, if
 -- Drain life may not work on mechanicals
+-- Drain Soul interrupt to refresh affliction debuff
+-- Check if summoning new pet, if pet already exists
 
+mb_Warlock_executeCorruption = false
 mb_Warlock_lastUnstableTime = 0
 function mb_Warlock_Affliction_OnUpdate()
     if not mb_IsReadyForNewCast() then
@@ -35,6 +38,10 @@ function mb_Warlock_Affliction_OnUpdate()
 
     if not mb_AcquireOffensiveTarget() then
         return
+    end
+
+    if mb_UnitHealthPercentage("target") > 35 and mb_Warlock_executeCorruption then
+        mb_Warlock_executeCorruption = false
     end
 
     if UnitExists("playerpet") and mb_Warlock_petAttack then
@@ -72,7 +79,7 @@ function mb_Warlock_Affliction_OnUpdate()
         return
     end
 
-    if mb_GetMyDebuffTimeRemaining("target","Curse of Agony") == 0 and mb_CastSpellOnTarget("Curse of Agony") then
+    if mb_GetMyDebuffTimeRemaining("target", "Curse of Agony") == 0 and mb_CastSpellOnTarget("Curse of Agony") then
         return
     end
 
@@ -80,24 +87,26 @@ function mb_Warlock_Affliction_OnUpdate()
         return
     end
 
-    if mb_UnitHealthPercentage("player") < 40 then
+    if mb_UnitHealthPercentage("player") < 30 then
         if mb_CastSpellOnTarget("Drain Life") then
             return
         end
     end
 
-    if mb_UnitHealthPercentage("target") < 25 then
-        if mb_GetMyDebuffTimeRemaining("target", "Corruption") == 0 then
-            if mb_CastSpellOnTarget("Corruption") then
-                return
-            end
-        end
-        if mb_GetMyDebuffTimeRemaining("target","Drain Soul") == 0 then
-            if mb_CastSpellOnTarget("Drain Soul") then
-                return
-            end
+    if mb_UnitHealthPercentage("target") < 35 and not mb_Warlock_executeCorruption then
+        if mb_CastSpellOnTarget("Corruption") then
+            mb_SayRaid("I cast my execute Corruption.")
+            mb_Warlock_executeCorruption = true
+            return
         end
     end
+
+    if mb_GetMyDebuffTimeRemaining("target","Drain Soul") == 0 then
+        if mb_CastSpellOnTarget("Drain Soul") then
+            return
+        end
+    end
+
 
     CastSpellByName("Shadow Bolt")
 end

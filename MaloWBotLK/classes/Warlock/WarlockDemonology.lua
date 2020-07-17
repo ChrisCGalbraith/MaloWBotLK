@@ -47,6 +47,10 @@ function mb_Warlock_Demonology_OnUpdate()
     if mb_ShouldUseDpsCooldowns("Shadow Bolt") and UnitAffectingCombat("player") then
         mb_UseItemCooldowns()
         CastSpellByName("Demonic Empowerment")
+        if mb_CastSpellWithoutTarget("Metamorphosis") then
+            CastSpellByName("Immolation Aura")
+            return
+        end
     end
 
     if mb_CastSpellWithoutTarget("Demonic Empowerment") then
@@ -63,8 +67,13 @@ function mb_Warlock_Demonology_OnUpdate()
         return
     end
 
+	if UnitBuff("player", "Decimation") then
+		if mb_CastSpellOnTarget("Soul Fire") then
+			return
+		end
+	end	
+	
     if mb_GetMyDebuffTimeRemaining("target", "Corruption") == 0 and mb_CastSpellOnTarget("Corruption") then
-		--mb_SayRaid(crit)
         return
     end
 
@@ -82,6 +91,10 @@ function mb_Warlock_Demonology_OnUpdate()
 
     if mb_GetMyDebuffTimeRemaining("target", "Immolate") < 1.2 and mb_Warlock_lastImmolateTime + 1.5 < mb_time and mb_CastSpellOnTarget("Immolate") then
         mb_Warlock_lastImmolateTime = mb_time
+        return
+    end
+	
+	if mb_GetMyDebuffTimeRemaining("target", "Curse of Agony") == 0 and mb_CastSpellOnTarget("Curse of Agony") then
         return
     end
 
