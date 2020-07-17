@@ -39,9 +39,6 @@ function mb_Priest_Holy_OnUpdate()
 
     if mb_Priest_useCooldownsCommandTime + 20 > mb_time then
         mb_UseItemCooldowns()
-        if mb_CastSpellWithoutTarget("Divine Hymn") then
-            return
-        end
     end
 
     if UnitAffectingCombat(mb_config.mainTank) and mb_UnitHealthPercentage(mb_config.mainTank) <= 30 then

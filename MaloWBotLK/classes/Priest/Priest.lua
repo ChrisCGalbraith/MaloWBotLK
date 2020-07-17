@@ -67,7 +67,11 @@ end
 
 function mb_Priest_HealCdExecutor(message, from)
     mb_SayRaid("Using Divine Hymn!")
-    mb_Say("Do not falter my brave Heroes! Let my music heal your Hearts!")
-    mb_Priest_Holy_useCooldownsCommandTime = mb_time
-    return true
+    mb_Say("Do not falter my brave Heroes! Let my music heal your hearts!")
+    if mb_CastSpellWithoutTarget("Divine Hymn") then
+        mb_Priest_Holy_useCooldownsCommandTime = mb_time
+        return true
+    end
+
+    return false
 end
