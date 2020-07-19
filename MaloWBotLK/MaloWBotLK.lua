@@ -100,6 +100,22 @@ function mb_OnEvent(self, event, arg1, arg2, arg3, arg4, ...)
         if arg1 == "player" and mb_registeredInterruptSpells ~= nil then
             mb_HandleTargetSpellcast()
         end
+    elseif event == "UNIT_SPELLCAST_FAILED" then
+        if arg1 == "player" and (arg2 == "Shred" or arg2 == "Backstab") then
+            mb_lastStrafe = mb_time
+            if mb_lastStrafe + 0.5 > mb_time then
+                StrafeLeftStop()
+                StrafeRightStart()
+            else
+                StrafeLeftStop()
+                StrafeRightStop()
+            end
+        end
+    elseif event == "UNIT_SPELLCAST_SUCCEEDED" then
+        if arg1 == "player" and (arg2 == "Shred" or arg2 == "Backstab") then
+            StrafeLeftStop()
+            StrafeRightStop()
+        end
     end
 end
 f:RegisterEvent("ADDON_LOADED")
@@ -119,6 +135,8 @@ f:RegisterEvent("READY_CHECK")
 f:RegisterEvent("UNIT_SPELLCAST_START")
 f:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START")
 f:RegisterEvent("UNIT_TARGET")
+f:RegisterEvent("UNIT_SPELLCAST_FAILED")
+f:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 f:SetScript("OnEvent", mb_OnEvent)
 mb_hasInitiated = false
 mb_classSpecificRunFunction = nil
@@ -249,8 +267,6 @@ mb_cleaveMode = 0 -- 0 = Single-target, 1 = Cleave, 2 = Full AoE
 mb_GCDSpell = nil
 mb_isCommanding = false
 mb_commanderUnit = nil
-mb_isRoleplaying = false
-mb_roleplayThrottle = 0
 mb_ShouldCombatRess = false
 -- "none" = Never follows, not allowed to move if out of range of target, free to turn to face the right way
 -- "lenient" = Only follow-spams when commander is more than 11 yards away, free to turn or move if out of range of target automatically if within those 11 yards of commander
@@ -260,6 +276,7 @@ mb_isEnabled = false
 mb_isAutoAttacking = false
 mb_time = GetTime()
 mb_shouldStopMovingAt = 0
+mb_lastStrafe = 0
 -- This callback will be called 0.3 seconds before a spell-cast finishes, to let you mb_StopCast() it if you want
 mb_preCastFinishCallback = nil
 mb_shouldCallPreCastFinishCallback = false
