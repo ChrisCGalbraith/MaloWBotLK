@@ -110,9 +110,9 @@ end
 
 -- Checks if target exists, is friendly and if it's dead or ghost, and if the spell is in range if provided
 function mb_IsUnitValidFriendlyTarget(unit, spell)
-    if UnitIsDeadOrGhost(unit) then
-        return false
-    end
+	if UnitIsDeadOrGhost(unit) then
+		return false
+	end
     if UnitCanAttack("player", unit) == 1 then
         return false
     end
@@ -127,70 +127,70 @@ end
 
 -- Scans through the raid or party for the unit missing the most health. If "spell" is provided it will make sure the spell is within range of the target
 function mb_GetMostDamagedFriendly(spell)
-    local healTarget = 0
-    local missingHealthOfTarget = mb_GetMissingHealth("player")
-    local members = mb_GetNumPartyOrRaidMembers()
-    for i = 1, members do
-        local unit = mb_GetUnitFromPartyOrRaidIndex(i)
-        local missingHealth = mb_GetMissingHealth(unit)
-        if missingHealth > missingHealthOfTarget then
-            if mb_IsUnitValidFriendlyTarget(unit, spell) then
+	local healTarget = 0
+	local missingHealthOfTarget = mb_GetMissingHealth("player")
+	local members = mb_GetNumPartyOrRaidMembers()
+	for i = 1, members do
+		local unit = mb_GetUnitFromPartyOrRaidIndex(i)
+		local missingHealth = mb_GetMissingHealth(unit)
+		if missingHealth > missingHealthOfTarget then
+			if mb_IsUnitValidFriendlyTarget(unit, spell) then
                 if mb_Paladin_Holy_beaconUnit == nil or mb_Paladin_Holy_beaconUnit ~= unit then
                     -- Used for Holy paladins to make them never heal their beacon
                     missingHealthOfTarget = missingHealth
                     healTarget = i
                 end
-            end
-        end
-    end
+			end
+		end
+	end
     if UnitExists("focus") then
         local missingHealth = mb_GetMissingHealth("focus")
         if missingHealth > missingHealthOfTarget and mb_IsUnitValidFriendlyTarget("focus", spell) then
             return "focus", missingHealth
         end
     end
-    if healTarget == 0 then
-        return "player", missingHealthOfTarget
-    else
-        return mb_GetUnitFromPartyOrRaidIndex(healTarget), missingHealthOfTarget
-    end
+	if healTarget == 0 then
+		return "player", missingHealthOfTarget
+	else
+		return mb_GetUnitFromPartyOrRaidIndex(healTarget), missingHealthOfTarget
+	end
 end
 
 function mb_GetLowestHealthFriendly(spell, filterFunc)
-    local healTarget = 0
-    local lowestHealthTarget = 9999999999
-    local members = mb_GetNumPartyOrRaidMembers()
-    for i = 1, members do
-        local unit = mb_GetUnitFromPartyOrRaidIndex(i)
-        local lowestHealth = UnitHealth(unit)
-        if filterFunc == nil or not filterFunc(unit) then
-            if lowestHealth < lowestHealthTarget then
-                if mb_IsUnitValidFriendlyTarget(unit, spell) then
-                    if mb_Paladin_Holy_beaconUnit == nil or mb_Paladin_Holy_beaconUnit ~= unit then -- Used for Holy paladins to make them never heal their beacon
-                        lowestHealthTarget = lowestHealth
-                        healTarget = i
-                    end
-                end
-            end
-        end
-    end
-    if UnitExists("focus") then
-        local lowestHealth = UnitHealth("focus")
-        if filterFunc == nil or not filterFunc("focus") then
-            if lowestHealth < lowestHealthTarget and mb_IsUnitValidFriendlyTarget("focus", spell) then
-                return "focus", lowestHealth
-            end
-        end
-    end
-    if healTarget == 0 then
-        if filterFunc == nil or not filterFunc("player") then
-            return "player", lowestHealthTarget
-        end
+	local healTarget = 0
+	local lowestHealthTarget = 9999999999
+	local members = mb_GetNumPartyOrRaidMembers()
+	for i = 1, members do
+		local unit = mb_GetUnitFromPartyOrRaidIndex(i)
+		local lowestHealth = UnitHealth(unit)
+		if filterFunc == nil or not filterFunc(unit) then
+			if lowestHealth < lowestHealthTarget then
+				if mb_IsUnitValidFriendlyTarget(unit, spell) then
+					if mb_Paladin_Holy_beaconUnit == nil or mb_Paladin_Holy_beaconUnit ~= unit then -- Used for Holy paladins to make them never heal their beacon
+						lowestHealthTarget = lowestHealth
+						healTarget = i
+					end
+				end
+			end
+		end
+	end
+	if UnitExists("focus") then
+		local lowestHealth = UnitHealth("focus")
+		if filterFunc == nil or not filterFunc("focus") then
+			if lowestHealth < lowestHealthTarget and mb_IsUnitValidFriendlyTarget("focus", spell) then
+				return "focus", lowestHealth
+			end
+		end
+	end
+	if healTarget == 0 then
+		if filterFunc == nil or not filterFunc("player") then
+			return "player", lowestHealthTarget
+		end
 
-        return nil
-    else
-        return mb_GetUnitFromPartyOrRaidIndex(healTarget), lowestHealthTarget
-    end
+		return nil
+	else
+		return mb_GetUnitFromPartyOrRaidIndex(healTarget), lowestHealthTarget
+	end
 end
 
 function mb_UnitHealthPercentage(unit)
@@ -281,11 +281,11 @@ function mb_CastSpellOnFriendly(unit, spell)
 end
 
 function mb_CastSpellOnSelf(spell)
-    if not mb_CanCastSpell(spell) then
-        return false
-    end
-    CastSpellByName(spell, "player")
-    return true
+	if not mb_CanCastSpell(spell) then
+		return false
+	end
+	CastSpellByName(spell, "player")
+	return true
 end
 
 -- Returns true/false depending on if the unit is capable of resurrecting other players
@@ -296,9 +296,9 @@ end
 
 -- Checks if any friendly unit is resurrecting another raid-member
 function mb_IsSomeoneResurrectingUnit(resurrectUnit)
-    local members = mb_GetNumPartyOrRaidMembers()
-    for i = 1, members do
-        local unit = mb_GetUnitFromPartyOrRaidIndex(i)
+	local members = mb_GetNumPartyOrRaidMembers()
+	for i = 1, members do
+		local unit = mb_GetUnitFromPartyOrRaidIndex(i)
         if UnitName(unit .. "target") == UnitName(resurrectUnit) then
             return true
         end
@@ -432,58 +432,58 @@ end
 
 -- Returns true if you're on Global Cooldown
 function mb_IsOnGCD()
-    if GetSpellCooldown(mb_GCDSpell) ~= 0 then
-        return true
-    end
-    return false
+	if GetSpellCooldown(mb_GCDSpell) ~= 0 then
+		return true
+	end
+	return false
 
 -- Returns true if you're not on GCD and not currently casting
 function mb_IsReadyForNewCast()
-    if mb_IsOnGCD() then
-        return false
-    end
-    local spell, rank, displayName, icon, startTime, endTime, isTradeSkill, castID, interrupt = UnitCastingInfo("player")
-    if spell ~= nil then
-        return false
-    end
-    return true
+	if mb_IsOnGCD() then
+		return false
+	end
+	local spell, rank, displayName, icon, startTime, endTime, isTradeSkill, castID, interrupt = UnitCastingInfo("player")
+	if spell ~= nil then
+		return false
+	end
+	return true
 end
 
 -- Returns the name of your spec
 function mb_GetMySpecName()
-    if mb_cache_specName ~= nil then
-        return mb_cache_specName
-    end
-    local name, _, points = GetTalentTabInfo(1)
-    for i = 2, 3 do
-        local n, _, p = GetTalentTabInfo(i)
-        if p > points then
-            points = p
-            name = n
-        end
-    end
-    mb_cache_specName = name
-    return name
+	if mb_cache_specName ~= nil then
+		return mb_cache_specName
+	end
+	local name, _, points = GetTalentTabInfo(1)
+	for i = 2, 3 do
+		local n, _, p = GetTalentTabInfo(i)
+		if p > points then
+			points = p
+			name = n
+		end
+	end
+	mb_cache_specName = name
+	return name
 end
 
 --
 function mb_UnitHasDebuffOfType(unit, debuffType1, debuffType2, debuffType3)
-    for i = 1, 40 do
-        local name, _, _, _, type = UnitDebuff(unit, i)
-        if name == nil then
-            return false
-        end
-        if debuffType1 ~= nil and debuffType1 == type then
-            return true
-        end
-        if debuffType2 ~= nil and debuffType2 == type then
-            return true
-        end
-        if debuffType3 ~= nil and debuffType3 == type then
-            return true
-        end
-    end
-    return false
+	for i = 1, 40 do
+		local name, _, _, _, type = UnitDebuff(unit, i)
+		if name == nil then
+			return false
+		end
+		if debuffType1 ~= nil and debuffType1 == type then
+			return true
+		end
+		if debuffType2 ~= nil and debuffType2 == type then
+			return true
+		end
+		if debuffType3 ~= nil and debuffType3 == type then
+			return true
+		end
+	end
+	return false
 end
 
 -- Returns true if using CDs is a good idea
@@ -511,10 +511,10 @@ end
 
 -- Returns a spell-id for a spell-name
 function mb_GetSpellIdForName(spellName)
-    local link = GetSpellLink(spellName)
-    link = string.sub(link, string.find(link, "spell:") + 6)
-    local spellId = string.sub(link, 1, string.find(link, "|") - 1)
-    return tonumber(spellId)
+	local link = GetSpellLink(spellName)
+	link = string.sub(link, string.find(link, "spell:") + 6)
+	local spellId = string.sub(link, 1, string.find(link, "|") - 1)
+	return tonumber(spellId)
 end
 
 function mb_GetItemLocation(itemName)
@@ -712,14 +712,14 @@ function mb_Drink(force)
     if UnitAffectingCombat("player") or UnitIsDeadOrGhost("player") then
         return false
     end
-    if mb_IsDrinking() then
-        if mb_UnitPowerPercentage("player") < 99 then
-            return true
-        else
-            SitStandOrDescendStart()
-            return false
-        end
-    end
+	if mb_IsDrinking() then
+		if mb_UnitPowerPercentage("player") < 99 then
+			return true
+		else
+			SitStandOrDescendStart()
+			return false
+		end
+	end
     local waterName = nil
     for _, water in pairs(mb_config.waters) do
         if mb_HasItem(water) then
@@ -756,13 +756,13 @@ function mb_StopCast()
 end
 
 function mb_SplitString(str, char)
-    local strings = {}
-    while string.find(str, char) do
-        table.insert(strings, string.sub(str, 1, string.find(str, char) - 1))
-        str = string.sub(str, string.find(str, char) + 1)
-    end
-    table.insert(strings, str)
-    return strings
+	local strings = {}
+	while string.find(str, char) do
+		table.insert(strings, string.sub(str, 1, string.find(str, char) - 1))
+		str = string.sub(str, string.find(str, char) + 1)
+	end
+	table.insert(strings, str)
+	return strings
 end
 
 function mb_GetRemainingSpellCooldown(spell)
@@ -804,7 +804,7 @@ function mb_IsTank()
 end
 
 function mb_IsHealer()
-    return mb_GetMySpecName() == "Holy" or mb_GetMySpecName() == "Restoration" or mb_GetMySpecName() == "Discipline"
+	return mb_GetMySpecName() == "Holy" or mb_GetMySpecName() == "Restoration" or mb_GetMySpecName() == "Discipline"
 end
 
 function mb_IsUnitStunned(unit)

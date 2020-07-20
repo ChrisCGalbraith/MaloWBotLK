@@ -70,29 +70,29 @@ function mb_LootHandler_HandleLootCouncilRequest(msg)
 end
 
 function mb_LootHandler_GetNormalizedValueForItem(itemLink)
-    local stats = {}
-    GetItemStats(itemLink, stats)
+	local stats = {}
+	GetItemStats(itemLink, stats)
 
-    if mb_config.statWeights[UnitClass("player")] == nil or mb_config.statWeights[UnitClass("player")][mb_GetMySpecName()] == nil then
-        mb_SayRaid("I don't have stat-weights set up for my class/spec")
-        return 0
-    end
+	if mb_config.statWeights[UnitClass("player")] == nil or mb_config.statWeights[UnitClass("player")][mb_GetMySpecName()] == nil then
+		mb_SayRaid("I don't have stat-weights set up for my class/spec")
+		return 0
+	end
 
-    local itemValue = 0
-    for badStatName, statAmount in pairs(stats) do
-        local goodStatName = mb_LootHandler_GetGoodStatName(badStatName)
-        if goodStatName == nil then
-            mb_SayRaid("I didn't have a good-name translation for stat: " .. badStatName)
-        else
-            local statWeight = mb_config.statWeights[UnitClass("player")][mb_GetMySpecName()][goodStatName]
-            if statWeight == nil then
-                mb_SayRaid("I didn't have a stat-weight defined for the stat: " .. goodStatName)
-            else
-                itemValue = itemValue + statAmount * statWeight
-            end
-        end
-    end
-    return itemValue
+	local itemValue = 0
+	for badStatName, statAmount in pairs(stats) do
+		local goodStatName = mb_LootHandler_GetGoodStatName(badStatName)
+		if goodStatName == nil then
+			mb_SayRaid("I didn't have a good-name translation for stat: " .. badStatName)
+		else
+			local statWeight = mb_config.statWeights[UnitClass("player")][mb_GetMySpecName()][goodStatName]
+			if statWeight == nil then
+				mb_SayRaid("I didn't have a stat-weight defined for the stat: " .. goodStatName)
+			else
+				itemValue = itemValue + statAmount * statWeight
+			end
+		end
+	end
+	return itemValue
 end
 
 
@@ -241,7 +241,7 @@ function mb_LootHandler_GetGoodStatName(badStatName)
         return "socketColored"
     end
 
-    return nil
+	return nil
 end
 
 function mb_LootHandler_CanEquipItem(itemSubType, itemEquipLoc)
@@ -330,7 +330,7 @@ function mb_LootHandler_CanEquipItem(itemSubType, itemEquipLoc)
         return false
     end
 
-    return true
+	return true
 end
 
 

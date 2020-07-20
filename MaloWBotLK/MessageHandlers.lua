@@ -5,11 +5,11 @@ function mb_RegisterMessageHandlers()
         return
     end
 
-    mb_RegisterMessageHandler("remoteExecute", mb_RemoteExecuteHandler)
-    mb_RegisterMessageHandler("setCommander", mb_SetCommanderHandler)
-    mb_RegisterMessageHandler("mount", mb_MountHandler)
-    mb_RegisterMessageHandler("accept", mb_AcceptHandler)
-    mb_RegisterMessageHandler("moveForward", mb_MoveForwardHandler)
+	mb_RegisterMessageHandler("remoteExecute", mb_RemoteExecuteHandler)
+	mb_RegisterMessageHandler("setCommander", mb_SetCommanderHandler)
+	mb_RegisterMessageHandler("mount", mb_MountHandler)
+	mb_RegisterMessageHandler("accept", mb_AcceptHandler)
+	mb_RegisterMessageHandler("moveForward", mb_MoveForwardHandler)
 end
 
 function mb_RemoteExecuteHandler(msg, from)
@@ -45,8 +45,8 @@ function mb_AcceptHandler(msg, from)
     if not mb_IsTrustedCharacter(from) then
         return
     end
-    AcceptGuild()
-    RetrieveCorpse()
+	AcceptGuild()
+	RetrieveCorpse()
     AcceptTrade()
 end
 

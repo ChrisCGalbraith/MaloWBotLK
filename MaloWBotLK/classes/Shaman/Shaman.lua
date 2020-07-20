@@ -181,10 +181,10 @@ function mb_Shaman_PurgeTarget()
 end
 
 function mb_Shaman_GetHeroismName()
-    if UnitRace("player") == "Draenei" then
-        return "Heroism"
-    end
-    return "Bloodlust"
+	if UnitRace("player") == "Draenei" then
+		return "Heroism"
+	end
+	return "Bloodlust"
 end
 
 function mb_Shaman_HeroismRequestAcceptor(message, from)
