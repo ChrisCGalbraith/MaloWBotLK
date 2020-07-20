@@ -52,9 +52,11 @@ function mb_Druid_Cat_OnUpdate()
         return
     end
 
-    if mb_GetDebuffTimeRemaining("target", "Trauma") == 0 then
-        if mb_CastSpellOnTarget("Mangle (Cat)()") then
-            return
+    if mb_GetDebuffTimeRemaining("target", "Trauma") == 0 and mb_GetDebuffTimeRemaining("target", "Mangle (Cat)") == 0 then
+        if mb_GetDebuffTimeRemaining("target", "Mangle (Bear)") == 0 then
+            if mb_CastSpellOnTarget("Mangle (Cat)()") then
+                return
+            end
         end
     end
 
@@ -166,9 +168,10 @@ function mb_Druid_Feral_GenerateCombo()
         return true
     end
 
-    if mb_UnitPowerPercentage("player") > 42 and mb_CastSpellOnTarget("Shred") then
+    if mb_UnitPowerPercentage("player") > 95 and mb_CastSpellOnTarget("Mangle (Cat)()") then
         return true
-    elseif mb_UnitPowerPercentage("player") > 95 and mb_CastSpellOnTarget("Mangle (Cat)()") then
+    end
+    if mb_UnitPowerPercentage("player") > 42 and mb_CastSpellOnTarget("Shred") then
         return true
     end
 
