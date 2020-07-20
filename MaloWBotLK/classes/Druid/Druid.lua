@@ -7,7 +7,7 @@ function mb_Druid_OnLoad()
         mb_classSpecificRunFunction = mb_Druid_Restoration_OnUpdate
     end
 
-    if mb_GetMySpecName() == "Balance" then
+    if mb_myClassOrderIndex == 1 then
         mb_RegisterMessageHandler(BUFF_MOTW.requestType, mb_Druid_MotwHandler)
         mb_RegisterMessageHandler(BUFF_THORNS.requestType, mb_Druid_ThornsHandler)
     end
@@ -15,7 +15,6 @@ function mb_Druid_OnLoad()
     if mb_GetMySpecName() == "Feral Combat" then
         mb_RegisterMessageHandler("taunt", mb_Druid_TauntHandler)
     end
-
 
     mb_RegisterDesiredBuff(BUFF_THORNS)
     mb_RegisterDesiredBuff(BUFF_KINGS)

@@ -9,7 +9,7 @@ function mb_Mage_OnLoad()
         mb_SpecNotSupported("Frost Mages are not yet supported")
     end
 
-    if UnitName("player") == "Trudy" then
+    if mb_myClassOrderIndex == 1 then
         mb_RegisterMessageHandler(BUFF_INTELLECT.requestType, mb_Mage_IntellectHandler)
     end
 

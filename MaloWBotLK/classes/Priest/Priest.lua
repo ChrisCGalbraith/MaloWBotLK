@@ -20,7 +20,7 @@ function mb_Priest_OnLoad()
 	mb_RegisterDesiredBuff(BUFF_SPIRIT)
 	mb_RegisterDesiredBuff(BUFF_SHADOW_PROT)
 
-	if UnitName("player") == "Khalia" then
+	if mb_myClassOrderIndex == 1 then
 		mb_RegisterMessageHandler(BUFF_FORT.requestType, mb_Priest_FortHandler)
 		mb_RegisterMessageHandler(BUFF_SPIRIT.requestType, mb_Priest_SpiritHandler)
 		mb_RegisterMessageHandler(BUFF_SHADOW_PROT.requestType, mb_Priest_ShadowHandler)
