@@ -27,6 +27,9 @@ function mb_Druid_Feral_OnUpdate()
 end
 
 function mb_Druid_Cat_OnUpdate()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
 
 	mb_AcquireOffensiveTarget()
 	
@@ -49,7 +52,7 @@ function mb_Druid_Cat_OnUpdate()
         return
     end
 
-    if mb_GetMyDebuffTimeRemaining("target", "Mangle (Cat)") == 0 then
+    if mb_GetDebuffTimeRemaining("target", "Trauma") == 0 then
         if mb_CastSpellOnTarget("Mangle (Cat)()") then
             return
         end
@@ -61,6 +64,9 @@ function mb_Druid_Cat_OnUpdate()
 end
 
 function mb_Druid_Bear_OnUpdate()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
 
     if mb_UnitHealthPercentage("player") < 30 then
         if mb_CastSpellWithoutTarget("Survival Instincts") then
@@ -104,6 +110,13 @@ function mb_Druid_Bear_OnUpdate()
 end
 
 function mb_Druid_Feral_HandleFinisher()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
+
+    if GetComboPoints("player", "target") == 0 then
+        return false
+    end
 
     if mb_GetBuffTimeRemaining("player", "Savage Roar") < 2.0 then
         if mb_GetBuffTimeRemaining("player", "Savage Roar") == 0 then
@@ -139,6 +152,9 @@ function mb_Druid_Feral_HandleFinisher()
 end
 
 function mb_Druid_Feral_GenerateCombo()
+    if not mb_IsReadyForNewCast() then
+        return
+    end
 
     if mb_GetMyDebuffTimeRemaining("target", "Rake") < 2.0 then
         if mb_GetMyDebuffTimeRemaining("target", "Rake") == 0 then
@@ -152,7 +168,7 @@ function mb_Druid_Feral_GenerateCombo()
 
     if mb_UnitPowerPercentage("player") > 42 and mb_CastSpellOnTarget("Shred") then
         return true
-    elseif mb_UnitPowerPercentage("player") > 90 and mb_CastSpellOnTarget("Mangle (Cat)()") then
+    elseif mb_UnitPowerPercentage("player") > 95 and mb_CastSpellOnTarget("Mangle (Cat)()") then
         return true
     end
 

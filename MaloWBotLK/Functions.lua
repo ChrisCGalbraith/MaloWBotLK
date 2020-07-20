@@ -217,7 +217,21 @@ function mb_IsUsableSpell(spell, unit)
     end
 end
 
--- Checks if there's no cooldown and if the spell use useable (have mana to cast it), and that if we're moving that it doesn't have a cast time
+
+mb_finisherMoves = {
+	"Eviscerate",
+	"Rupture",
+	"Kidney Shot",
+	"Slice and Dice",
+	"Expose Armor",
+	"Envenom",
+	"Rip",
+	"Maim",
+	"Ferocious Bite",
+	"Savage Roar"
+}
+
+-- Checks if there's no cooldown and if the spell use usable (have mana to cast it), and that if we're moving that it doesn't have a cast time
 -- Unit is optional, if provided it will check that the spell can be cast on the unit (that it's a valid target and is in range)
 function mb_CanCastSpell(spell, unit, withinNextGlobal)
     if not mb_IsUsableSpell(spell, unit) then
