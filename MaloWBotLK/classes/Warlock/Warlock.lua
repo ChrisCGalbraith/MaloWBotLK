@@ -33,7 +33,7 @@ end
 function mb_Warlock_HandleStones(itemName)
 	local hasMainHandEnchant = GetWeaponEnchantInfo()
 	if not hasMainHandEnchant then
-		if mb_UseItem(itemName) then
+		if not UnitAffectingCombat("player") and mb_UseItem(itemName) then
 			PickupInventoryItem(16)
 			ReplaceEnchant()
 			return true
@@ -72,20 +72,24 @@ function mb_Warlock_HandleFelhunterAutoCasts(spell1, spell2)
 	local _, autostate = GetSpellAutocast(spell1, "pet")
 	local _, autostate2 = GetSpellAutocast(spell2, "pet")
 	if autostate == nil then
-		TogglePetAutocast(6)
+		TogglePetAutocast(4)  -- Toggle Fel Intelligence ON
 	end
 	if autostate2 == nil then
-		TogglePetAutocast(4)
+		TogglePetAutocast(6) -- Toggle Shadow Bite ON
 	end
 end
 
-function mb_Warlock_HandleFelguardAutoCasts(spell1, spell2)
+function mb_Warlock_HandleFelguardAutoCasts(spell1, spell2, spell3)
 	local _, autostate = GetSpellAutocast(spell1, "pet")
 	local _, autostate2 = GetSpellAutocast(spell2, "pet")
-	if autostate ~= nil then
-		TogglePetAutocast(6) -- Toggle Anguish OFF
+	local _, autostate3 = GetSpellAutocast(spell3, "pet")
+	if autostate == nil then
+		TogglePetAutocast(4) -- Toggle Intercept ON
 	end
 	if autostate2 == nil then
 		TogglePetAutocast(5) -- Toggle Cleave ON
+	end
+	if autostate3 == 1 then
+		TogglePetAutocast(6) -- Toggle Anguish OFF
 	end
 end

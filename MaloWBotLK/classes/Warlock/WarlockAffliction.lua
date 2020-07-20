@@ -14,7 +14,7 @@ function mb_Warlock_Affliction_OnUpdate()
 
 	mb_Warlock_HandlePetSummon("Summon Felhunter")
 
-	mb_Warlock_HandleFelhunterAutoCasts("Shadow Bite", "Fel Intelligence")
+	mb_Warlock_HandleFelhunterAutoCasts("Fel Intelligence", "Shadow Bite")
 
 	if not mb_Warlock_HandleStones("Grand Spellstone") then
 		return

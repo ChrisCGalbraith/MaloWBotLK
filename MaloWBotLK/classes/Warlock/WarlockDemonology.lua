@@ -6,7 +6,7 @@ function mb_Warlock_Demonology_OnUpdate()
 	end
 	mb_Warlock_HandlePetSummon("Summon Felguard")
 
-	mb_Warlock_HandleFelhunterAutoCasts("Anguish", "Cleave")
+	mb_Warlock_HandleFelguardAutoCasts("Intercept", "Cleave", "Anguish")
 
 	if not mb_Warlock_HandleStones("Grand Spellstone") then
 		return
