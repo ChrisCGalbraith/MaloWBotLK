@@ -4,6 +4,7 @@
 -- Drain life may not work on mechanicals
 -- Drain Soul interrupt to refresh affliction debuff
 -- Check if summoning new pet, if pet already exists
+-- Possible mb_isMoving() check for Shadowflaming in cleaveMode
 
 mb_Warlock_executeCorruption = false
 mb_Warlock_lastUnstableTime = 0
@@ -57,8 +58,17 @@ function mb_Warlock_Affliction_OnUpdate()
 		mb_UseItemCooldowns()
 	end
 
-	if mb_cleaveMode > 0 and mb_GetMyDebuffTimeRemaining("target", "Seed of Corruption") == 0 and mb_CastSpellOnTarget("Seed of Corruption") then
-		return
+	if mb_cleaveMode > 0 then
+		local range = CheckInteractDistance("target", 2)
+		if range then
+			if mb_CastSpellWithoutTarget("Shadowflame") then
+				return
+			end
+		end
+
+		if mb_GetMyDebuffTimeRemaining("target", "Seed of Corruption") == 0 and mb_CastSpellOnTarget("Seed of Corruption") then
+			return
+		end
 	end
 
 	local _, _, text = UnitChannelInfo("player")

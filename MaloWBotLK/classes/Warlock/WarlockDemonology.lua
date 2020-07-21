@@ -57,8 +57,17 @@ function mb_Warlock_Demonology_OnUpdate()
 		return
 	end
 
-	if mb_cleaveMode > 0 and mb_GetMyDebuffTimeRemaining("target", "Seed of Corruption") == 0 and mb_CastSpellOnTarget("Seed of Corruption") then
-		return
+	if mb_cleaveMode > 0 then
+		local range = CheckInteractDistance("target", 2)
+		if range then
+			if mb_CastSpellWithoutTarget("Shadowflame") then
+				return
+			end
+		end
+
+		if mb_GetMyDebuffTimeRemaining("target", "Seed of Corruption") == 0 and mb_CastSpellOnTarget("Seed of Corruption") then
+			return
+		end
 	end
 
 	-- First spell cast is Shadow Bolt to apply 5% crit debuff to target, then the affliction locks get better Corruptions.
