@@ -50,9 +50,14 @@ function mb_Mage_Arcane_OnUpdate()
         mb_UseItem("Mana Sapphire")
     end
 
---	if mb_cleaveMode > 0 and mb_CastSpellWithoutTarget("Arcane Explosion") then
- --       return
- --   end
+    if mb_cleaveMode > 1 then
+        local range = CheckInteractDistance("target", 2)
+        if range then
+            if mb_CastSpellWithoutTarget("Arcane Explosion") then
+                return
+            end
+        end
+    end
 
     if mb_ShouldUseDpsCooldowns("Arcane Blast") and UnitAffectingCombat("player") then
         mb_UseItemCooldowns()
