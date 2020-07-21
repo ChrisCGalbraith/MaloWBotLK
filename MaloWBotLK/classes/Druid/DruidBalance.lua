@@ -10,15 +10,18 @@ function mb_Druid_Balance_OnUpdate()
         return
     end
 
-    if not UnitBuff("player", "Moonkin Form") then
-        CastSpellByName("Moonkin Form")
+    local nStance = GetShapeshiftForm();
+
+    if nStance == 5 then
+        mb_Druid_Moonkin_OnUpdate()
         return
     end
+end
 
-    if UnitAffectingCombat("player") and UnitPower("Arethel") < 10000 then
-        if mb_CastSpellOnFriendly("Arethel", "Innervate") then
-            return
-        end
+function mb_Druid_Moonkin_OnUpdate()
+
+    if mb_Druid_Innervate(mb_GetUnitForPlayerName("Arethel")) then
+        return
     end
 
     if mb_CleanseRaid("Remove Curse", "Curse") then
@@ -30,10 +33,10 @@ function mb_Druid_Balance_OnUpdate()
     end
 
     if mb_ShouldUseDpsCooldowns("Wrath") and UnitAffectingCombat("player") then
-		mb_UseItemCooldowns()
-		if mb_CastSpellWithoutTarget("Starfall") then
-			return
-		end
+        mb_UseItemCooldowns()
+        if mb_CastSpellWithoutTarget("Starfall") then
+            return
+        end
     end
 
     if mb_cleaveMode > 0 and mb_CastSpellWithoutTarget("Starfall") then
