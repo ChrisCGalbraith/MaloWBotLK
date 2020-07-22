@@ -73,6 +73,12 @@ function mb_Warlock_Affliction_OnUpdate()
 
 	local _, _, text = UnitChannelInfo("player")
 	if text == "Channeling" then
+		if mb_GetMyDebuffTimeRemaining("target", "Haunt") < 2.5 then
+			if mb_CastSpellOnTarget("Haunt") then
+				return
+			end
+		end
+
 		return
 	end
 
