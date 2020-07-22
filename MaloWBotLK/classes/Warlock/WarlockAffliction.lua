@@ -111,7 +111,7 @@ function mb_Warlock_Affliction_OnUpdate()
 		end
 	end
 
-	if mb_GetMyDebuffTimeRemaining("target","Drain Soul") == 0 then
+	if mb_GetMyDebuffTimeRemaining("target","Drain Soul") == 0 and mb_UnitHealthPercentage("target") < 25 then
 		if mb_CastSpellOnTarget("Drain Soul") then
 			return
 		end
