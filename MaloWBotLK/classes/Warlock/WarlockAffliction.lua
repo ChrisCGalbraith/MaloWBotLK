@@ -103,7 +103,7 @@ function mb_Warlock_Affliction_OnUpdate()
 		end
 	end
 
-	if mb_UnitHealthPercentage("target") < 35 and not mb_Warlock_executeCorruption then
+	if mb_UnitHealthPercentage("target") < 35 and UnitHealth("target") > 150000 and not mb_Warlock_executeCorruption then
 		if mb_CastSpellOnTarget("Corruption") then
 			mb_SayRaid("I cast my execute Corruption.")
 			mb_Warlock_executeCorruption = true

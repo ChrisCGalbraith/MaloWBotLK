@@ -31,8 +31,11 @@ function mb_Warlock_Demonology_OnUpdate()
 	end
 
 	if not mb_AcquireOffensiveTarget() then
-		mb_Warlock_shadowMastery = false
 		return
+	end
+
+	if mb_GetDebuffTimeRemaining("target", "Shadow Mastery") == 0 then
+		mb_Warlock_shadowMastery = false
 	end
 
 	if UnitExists("playerpet") and mb_Warlock_petAttack then
