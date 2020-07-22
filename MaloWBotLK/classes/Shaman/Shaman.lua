@@ -10,13 +10,12 @@ function mb_Shaman_OnLoad()
 
     if mb_GetMySpecName() == "Elemental" then
         mb_classSpecificRunFunction = mb_Shaman_Elemental_OnUpdate
-        mb_SpecNotSupported("Elemental Shamans are not yet supported")
     elseif mb_GetMySpecName() == "Enhancement" then
         mb_classSpecificRunFunction = mb_Shaman_Enhancement_OnUpdate
         mb_Shaman_Enhancement_OnLoad()
     else
         mb_classSpecificRunFunction = mb_Shaman_Restoration_OnUpdate
-        mb_SpecNotSupported("Restoration Shamans are not yet supported")
+        mb_Shaman_Restoration_OnLoad()
     end
 
     mb_RegisterExclusiveRequestHandler("heroism", mb_Shaman_HeroismRequestAcceptor, mb_Shaman_HeroismRequestExecutor)
