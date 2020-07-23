@@ -16,7 +16,7 @@ function mb_Mage_OnLoad()
     mb_RegisterDesiredBuff(BUFF_KINGS)
     mb_RegisterDesiredBuff(BUFF_WISDOM)
     mb_RegisterDesiredBuff(BUFF_SANCTUARY)
-	mb_RegisterDesiredBuff(BUFF_MIGHT)    -- Warlock pets count as mages, they need might
+    mb_RegisterDesiredBuff(BUFF_MIGHT)    -- Warlock pets count as mages, they need might
     mb_RegisterDesiredBuff(BUFF_INTELLECT)
     mb_RegisterDesiredBuff(BUFF_MOTW)
     mb_RegisterDesiredBuff(BUFF_FORT)
@@ -26,7 +26,8 @@ function mb_Mage_OnLoad()
     mb_CheckReagentAmount("Arcane Powder", 200)
 end
 
-function mb_Mage_HandleIntellect(targetPlayerName, greaterSpell)--, singleSpell)
+function mb_Mage_HandleIntellect(targetPlayerName, greaterSpell)
+    --, singleSpell)
     if not mb_ShouldBuff() then
         return
     end

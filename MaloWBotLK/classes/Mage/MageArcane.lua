@@ -95,7 +95,6 @@ function mb_Mage_Arcane_OnUpdate()
     end
 end
 
-
 function mb_Mage_DischargeBlastStacks()
     if UnitBuff("player", "Missile Barrage") then
         if mb_CastSpellOnTarget("Arcane Missiles") then

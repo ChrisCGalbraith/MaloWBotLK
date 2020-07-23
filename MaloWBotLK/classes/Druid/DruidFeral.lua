@@ -1,4 +1,3 @@
-
 function mb_Druid_Feral_OnLoad()
 
 end
@@ -20,7 +19,7 @@ function mb_Druid_Feral_OnUpdate()
     end
 
     if nStance == 3 then
-		mb_EnableIWTDistanceClosing("Claw")
+        mb_EnableIWTDistanceClosing("Claw")
         mb_Druid_Cat_OnUpdate()
         return
     end
@@ -31,8 +30,8 @@ function mb_Druid_Cat_OnUpdate()
         return
     end
 
-	mb_AcquireOffensiveTarget()
-	
+    mb_AcquireOffensiveTarget()
+
     if not mb_isAutoAttacking then
         InteractUnit("target")
     end
@@ -83,9 +82,9 @@ function mb_Druid_Bear_OnUpdate()
         end
     end
 
- --   if not mb_isAutoAttacking then
- --       InteractUnit("target")
- --   end
+    --   if not mb_isAutoAttacking then
+    --       InteractUnit("target")
+    --   end
 
     if UnitPower("player") > 60 then
         CastSpellByName("Maul")
