@@ -436,6 +436,7 @@ function mb_IsOnGCD()
 		return true
 	end
 	return false
+end
 
 -- Returns true if you're not on GCD and not currently casting
 function mb_IsReadyForNewCast()

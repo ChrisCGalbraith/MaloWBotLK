@@ -1,18 +1,20 @@
-table.insert(mb_TrustedCharacters, "Odia")
-table.insert(mb_TrustedCharacters, "Maligna")
-table.insert(mb_TrustedCharacters, "Necria")
-table.insert(mb_TrustedCharacters, "Charnel")
-table.insert(mb_TrustedCharacters, "Umbria")
-table.insert(mb_TrustedCharacters, "Pestilina")
-table.insert(mb_TrustedCharacters, "Khalia")
-table.insert(mb_TrustedCharacters, "Gwethriel")
-table.insert(mb_TrustedCharacters, "Kisaana")
-table.insert(mb_TrustedCharacters, "Trudy")
-table.insert(mb_TrustedCharacters, "Arethel")
-table.insert(mb_TrustedCharacters, "Elerien")
+mb_config = {}
+
 
 
 mb_config.trustedCharacters = {}
+table.insert(mb_config.trustedCharacters, "Odia")
+table.insert(mb_config.trustedCharacters, "Maligna")
+table.insert(mb_config.trustedCharacters, "Necria")
+table.insert(mb_config.trustedCharacters, "Charnel")
+table.insert(mb_config.trustedCharacters, "Umbria")
+table.insert(mb_config.trustedCharacters, "Pestilina")
+table.insert(mb_config.trustedCharacters, "Khalia")
+table.insert(mb_config.trustedCharacters, "Gwethriel")
+table.insert(mb_config.trustedCharacters, "Kisaana")
+table.insert(mb_config.trustedCharacters, "Trudy")
+table.insert(mb_config.trustedCharacters, "Arethel")
+table.insert(mb_config.trustedCharacters, "Elerien")
 
 function mb_IsTrustedCharacter(charName)
     for _, name in pairs(mb_config.trustedCharacters) do
