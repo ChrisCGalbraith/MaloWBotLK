@@ -8,6 +8,11 @@
 
 mb_Warlock_executeCorruption = false
 mb_Warlock_lastUnstableTime = 0
+
+function mb_Warlock_Affliction_OnLoad()
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Warlock_Affliction_ReadyCheck)
+end
+
 function mb_Warlock_Affliction_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -32,14 +37,16 @@ function mb_Warlock_Affliction_OnUpdate()
         return
     end
 
-    --  if UnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
-    --       CastSpellByName("Demon Armor")
-    --       return
-    --  end
+   -- if UnitName("player") == "Maligna" and not UnitBuff("player", "Demon Armor") then
+   --      CastSpellByName("Demon Armor")
+   --      return
+   -- end
 
     if not mb_AcquireOffensiveTarget() then
         return
     end
+
+	mb_HandleAutomaticSalvationRequesting()
 
     if mb_UnitHealthPercentage("target") > 35 and mb_Warlock_executeCorruption then
         mb_Warlock_executeCorruption = false
@@ -111,7 +118,6 @@ function mb_Warlock_Affliction_OnUpdate()
 
     if mb_UnitHealthPercentage("target") < 35 and UnitHealth("target") > 150000 and not mb_Warlock_executeCorruption then
         if mb_CastSpellOnTarget("Corruption") then
-            mb_SayRaid("I cast my execute Corruption.")
             mb_Warlock_executeCorruption = true
             return
         end
@@ -124,4 +130,13 @@ function mb_Warlock_Affliction_OnUpdate()
     end
 
     CastSpellByName("Shadow Bolt")
+end
+
+function mb_Warlock_Affliction_ReadyCheck()
+    local ready = true
+    if mb_GetBuffTimeRemaining("player", "Fel Armor") < 540 then
+        CancelUnitBuff("player", "Fel Armor")
+        ready = false
+    end
+    return ready
 end

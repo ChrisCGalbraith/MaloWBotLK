@@ -1,3 +1,7 @@
+function mb_Mage_Arcane_OnLoad()
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Mage_Arcane_ReadyCheck)
+end
+
 function mb_Mage_Arcane_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -23,8 +27,8 @@ function mb_Mage_Arcane_OnUpdate()
         return
     end
 
-    if not UnitBuff("Ceolmar", "Focus Magic") then
-        if mb_CastSpellOnFriendly("Ceolmar", "Focus Magic") then
+    if not UnitBuff("Arethel", "Focus Magic") then
+        if mb_CastSpellOnFriendly("Arethel", "Focus Magic") then
             return
         end
     end
@@ -36,6 +40,8 @@ function mb_Mage_Arcane_OnUpdate()
     if not mb_AcquireOffensiveTarget() then
         return
     end
+
+	mb_HandleAutomaticSalvationRequesting()
 
     if mb_UnitPowerPercentage("player") < 35 and mb_CanCastSpell("Evocation") then
         if count ~= nil then
@@ -104,4 +110,14 @@ function mb_Mage_DischargeBlastStacks()
     elseif mb_CastSpellOnTarget("Arcane Barrage") then
         return
     end
+end
+
+function mb_Mage_Arcane_ReadyCheck()
+    local ready = true
+    if mb_GetBuffTimeRemaining("player", "Molten Armor") < 540 then
+        CancelUnitBuff("player", "Molten Armor")
+        ready = false
+    end
+
+    return ready
 end

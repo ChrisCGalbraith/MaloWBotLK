@@ -1,6 +1,10 @@
 mb_druid_lastEclipseSolar = false
 mb_druid_lastEclipseLunar = false
 
+function mb_Druid_Balance_OnLoad()
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Druid_ReadyCheck)
+end
+
 function mb_Druid_Balance_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -12,6 +16,11 @@ function mb_Druid_Balance_OnUpdate()
 
     local nStance = GetShapeshiftForm();
 
+    if nStance ~= 5 then
+        CastShapeshiftForm(5)
+        return
+    end
+
     if nStance == 5 then
         mb_Druid_Moonkin_OnUpdate()
         return
@@ -20,7 +29,7 @@ end
 
 function mb_Druid_Moonkin_OnUpdate()
 
-    if mb_Druid_Innervate(mb_GetUnitForPlayerName("Arethel")) then
+    if mb_Druid_Innervate("Arethel") then
         return
     end
 
@@ -31,6 +40,8 @@ function mb_Druid_Moonkin_OnUpdate()
     if not mb_AcquireOffensiveTarget() then
         return
     end
+	
+	mb_HandleAutomaticSalvationRequesting()
 
     if mb_ShouldUseDpsCooldowns("Wrath") and UnitAffectingCombat("player") then
         mb_UseItemCooldowns()

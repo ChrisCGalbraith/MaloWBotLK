@@ -1,6 +1,6 @@
 function mb_Shaman_Restoration_OnLoad()
     mb_Shaman_SetEarthTotem("Tremor Totem")
-    mb_Shaman_SetFireTotem("Searing Totem")
+    mb_Shaman_SetFireTotem("Flametongue Totem")
     mb_Shaman_SetWaterTotem("Healing Stream Totem")
     mb_Shaman_SetAirTotem("Wrath of Air Totem")
 end
@@ -15,8 +15,8 @@ function mb_Shaman_Restoration_OnUpdate()
         return
     end
 
-    -- mb_config.mainTank = "Elerien"
-    --  mb_config.offTank = "Malowtank"
+    --mb_config.mainTank = "Elerien"
+    --mb_config.offTank = "Malowtank"
 
     if mb_ResurrectRaid("Ancestral Spirit") then
         return
@@ -97,6 +97,12 @@ function mb_Shaman_Restoration_OnUpdate()
 
     if mb_Shaman_ChainHealRaid() then
         return
+    end
+
+    if mb_UnitPowerPercentage("player") > 80 and mb_AcquireOffensiveTarget() then
+        if mb_CastSpellOnTarget("Lightning Bolt") then
+            return
+        end
     end
 end
 

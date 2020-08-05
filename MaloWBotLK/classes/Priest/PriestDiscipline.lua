@@ -1,4 +1,5 @@
 function mb_Priest_Discipline_OnLoad()
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Priest_ReadyCheck)
     mb_RegisterExclusiveRequestHandler("external", mb_Priest_Discipline_ExternalRequestAcceptor, mb_Priest_Discipline_ExternalRequestExecutor)
     mb_RegisterExclusiveRequestHandler("power_infusion", mb_Priest_Discipline_PowerInfusionRequestAcceptor, mb_Priest_Discipline_PowerInfusionRequestExecutor)
 end
@@ -30,6 +31,13 @@ function mb_Priest_Discipline_OnUpdate()
     if mb_Priest_useCooldownsCommandTime + 20 > mb_time then
         mb_UseItemCooldowns()
         if mb_CastSpellWithoutTarget("Divine Hymn") then
+            return
+        end
+    end
+
+	if mb_UnitPowerPercentage("player") < 50 and UnitAffectingCombat("player") and mb_CanCastSpell("Shadowfiend") then
+        AssistUnit(mb_commanderUnit)
+        if mb_CastSpellOnTarget("Shadowfiend") then
             return
         end
     end
@@ -101,7 +109,6 @@ end
 
 -- Pain Suppression
 function mb_Priest_Discipline_ExternalRequestAcceptor(message, from)
-    mb_SayRaid("Inside Acceptor PS")
     if mb_IsUsableSpell("Pain Suppression") and mb_GetRemainingSpellCooldown("Pain Suppression") < 1.5 then
         if mb_IsUnitValidFriendlyTarget(from, "Pain Suppression") then
             return true
@@ -112,7 +119,6 @@ function mb_Priest_Discipline_ExternalRequestAcceptor(message, from)
 end
 
 function mb_Priest_Discipline_ExternalRequestExecutor(message, from)
-    mb_SayRaid("Inside Acceptor PS")
     if not mb_IsReadyForNewCast() then
         return false
     end

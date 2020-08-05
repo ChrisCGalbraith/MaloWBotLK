@@ -76,3 +76,12 @@ function mb_Priest_HealCdExecutor(message, from)
 
     return false
 end
+
+function mb_Priest_ReadyCheck()
+    local ready = true
+    if mb_GetBuffTimeRemaining("player", "Inner Fire") < 540 then
+        CancelUnitBuff("player", "Inner Fire")
+        ready = false
+    end
+    return ready
+end

@@ -5,7 +5,6 @@ function mb_Shaman_Elemental_OnLoad()
 	mb_Shaman_SetAirTotem("Wrath of Air Totem")
 end
 
-
 function mb_Shaman_Elemental_OnUpdate()
 	if not mb_IsReadyForNewCast() then
 		return
@@ -45,17 +44,15 @@ function mb_Shaman_Elemental_OnUpdate()
 	if mb_cleaveMode > 0 then
 		local range = CheckInteractDistance("target", 2)
 		if range then
-			if mb_CastSpellWithoutTarget("Fire Nova") then
+			if mb_CastSpellOnTarget("Fire Nova") then
 				return
 			end
+
 		end
 	end
 
 	if mb_ShouldUseDpsCooldowns("Lightning Bolt") and UnitAffectingCombat("player") then
 		mb_UseItemCooldowns()
-		if mb_CastSpellWithoutTarget("Fire Elemental Totem") then
-			return
-		end
 		mb_CastSpellWithoutTarget("Elemental Mastery")
 	end
 

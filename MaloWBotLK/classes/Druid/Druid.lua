@@ -16,7 +16,6 @@ function mb_Druid_OnLoad()
         mb_RegisterMessageHandler("taunt", mb_Druid_TauntHandler)
     end
 
-    mb_RegisterDesiredBuff(BUFF_THORNS)
     mb_RegisterDesiredBuff(BUFF_KINGS)
     mb_RegisterDesiredBuff(BUFF_WISDOM)
     mb_RegisterDesiredBuff(BUFF_MIGHT)
@@ -60,11 +59,6 @@ function mb_Druid_ThornsHandler(msg, from)
     mb_Druid_HandleThorns(from, "Thorns")
 end
 
-function mb_Druid_TauntHandler(msg, from)
-    mb_SayRaid("Im taunting!")
-    mb_CastSpellOnTarget("Growl")
-end
-
 function mb_Druid_HandleCombatRess(msg, from)
     mb_Druid_CombatRessHandler(from)
 end
@@ -88,4 +82,13 @@ function mb_Druid_Innervate(unit)
     end
 
     return false
+end
+
+function mb_Druid_ReadyCheck()
+    local ready = true
+    if mb_GetBuffTimeRemaining("player", "Omen of Clarity") < 540 then
+        CancelUnitBuff("player", "Omen of Clarity")
+        ready = false
+    end
+    return ready
 end

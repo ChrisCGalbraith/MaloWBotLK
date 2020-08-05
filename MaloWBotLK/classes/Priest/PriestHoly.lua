@@ -1,4 +1,5 @@
 function mb_Priest_Holy_OnLoad()
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Priest_ReadyCheck)
     mb_RegisterExclusiveRequestHandler("external", mb_Priest_Holy_ExternalRequestAcceptor, mb_Priest_Holy_ExternalRequestExecutor)
 end
 
@@ -17,8 +18,8 @@ function mb_Priest_Holy_OnUpdate()
         return
     end
 
-    --  mb_config.mainTank = "Maligna"
-    --  mb_config.offTank = "Ceolmar"
+    --mb_config.mainTank = "Maligna"
+    --mb_config.offTank = "Ceolmar"
 
     local _, _, text = UnitChannelInfo("player")
     if text == "Divine Hymn" or text == "Hymn of Hope" then
@@ -30,9 +31,11 @@ function mb_Priest_Holy_OnUpdate()
         return
     end
 
-    if mb_UnitPowerPercentage("player") < 50 and UnitAffectingCombat("player") and mb_CanCastSpell("Shadowfiend)") then
+    if mb_UnitPowerPercentage("player") < 50 and UnitAffectingCombat("player") and mb_CanCastSpell("Shadowfiend") then
         AssistUnit(mb_commanderUnit)
         if mb_CastSpellOnTarget("Shadowfiend") then
+            return
+        elseif mb_CastSpellWithoutTarget("Hymn of Hope") then
             return
         end
     end
@@ -46,18 +49,6 @@ function mb_Priest_Holy_OnUpdate()
             return
         end
     end
-
-    --  if UnitAffectingCombat(mb_config.mainTank) and mb_GetDebuffTimeRemaining(mb_config.mainTank, "Weakened Soul") == 0 then
-    --      if mb_CastSpellOnFriendly(mb_config.mainTank, "Power Word: Shield") then
-    --          return
-    --      end
-    --  end
-
-    --  if UnitAffectingCombat(mb_config.offTank) and mb_GetDebuffTimeRemaining(mb_config.offTank, "Weakened Soul") == 0 then
-    --      if mb_CastSpellOnFriendly(mb_config.offTank, "Power Word: Shield") then
-    --          return
-    --      end
-    --  end
 
     if not mb_UnitHasMyBuff(mb_config.mainTank, "Prayer of Mending") and UnitAffectingCombat(mb_config.mainTank) then
         if mb_CastSpellOnFriendly(mb_config.mainTank, "Prayer of Mending") then

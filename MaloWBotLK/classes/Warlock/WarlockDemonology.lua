@@ -1,5 +1,10 @@
 mb_Warlock_lastImmolateTime = 0
 mb_Warlock_shadowMastery = false
+
+function mb_Warlock_Demonology_OnLoad()
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Warlock_Demonology_ReadyCheck)
+end
+
 function mb_Warlock_Demonology_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -27,6 +32,11 @@ function mb_Warlock_Demonology_OnUpdate()
 
     if not UnitBuff("player", "Fel Armor") then
         CastSpellByName("Fel Armor")
+        return
+    end
+
+    if not UnitBuff("player", "Soul Link") then
+        CastSpellByName("Soul Link")
         return
     end
 
@@ -119,3 +129,12 @@ function mb_Warlock_Demonology_OnUpdate()
     CastSpellByName("Shadow Bolt")
 end
 
+function mb_Warlock_Demonology_ReadyCheck()
+    local ready = true
+    if mb_GetBuffTimeRemaining("player", "Fel Armor") < 540 then
+        CancelUnitBuff("player", "Fel Armor")
+        ready = false
+    end
+
+    return ready
+end

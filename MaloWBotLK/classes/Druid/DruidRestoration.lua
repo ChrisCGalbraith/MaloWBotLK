@@ -1,6 +1,10 @@
 --TODO
 -- Implement stop-casting from Paladin
 
+function mb_Druid_Restoration_OnLoad()
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Druid_ReadyCheck)
+end
+
 function mb_Druid_Restoration_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -14,8 +18,8 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
-    -- mb_config.mainTank = "Malowtank"
-    -- mb_config.offTank = "Elerien"
+    --mb_config.mainTank = "Maligna"
+    --mb_config.offTank = "Ceolmar"
 
     local nStance = GetShapeshiftForm();
     if nStance ~= 5 then
@@ -23,7 +27,7 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
-    if mb_Druid_Innervate(mb_GetUnitForPlayerName("Khalia")) then
+    if mb_Druid_Innervate("Khalia") then
         return
     end
 
@@ -102,6 +106,10 @@ function mb_Druid_Restoration_OnUpdate()
 end
 
 function mb_Druid_Restoration_BlanketRaid()
+	if not UnitAffectingCombat("player") then
+		return false
+	end
+	
     local healUnit, missingHealth = mb_GetMostDamagedFriendly("Rejuvenation")
 
     if mb_UnitHasMyBuff(healUnit, "Rejuvenation") and missingHealth > mb_GetSpellEffect("Swiftmend") then

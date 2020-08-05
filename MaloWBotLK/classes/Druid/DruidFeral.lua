@@ -1,5 +1,7 @@
 function mb_Druid_Feral_OnLoad()
-
+    mb_RegisterDesiredBuff(BUFF_THORNS)
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Druid_ReadyCheck)
+    mb_RegisterExclusiveRequestHandler("taunt", mb_Druid_Feral_TauntAcceptor, mb_Druid_Feral_TauntExecutor)
 end
 
 function mb_Druid_Feral_OnUpdate()
@@ -94,7 +96,7 @@ function mb_Druid_Bear_OnUpdate()
         return
     end
 
-    if mb_GetDebuffTimeRemaining("target", "Demoralizing Shout") < 3 or mb_GetDebuffTimeRemaining("target", "Demoralizing Roar") < 3 then
+    if mb_GetDebuffTimeRemaining("target", "Demoralizing Shout") < 3 and mb_GetDebuffTimeRemaining("target", "Demoralizing Roar") < 3 then
         if mb_CastSpellWithoutTarget("Demoralizing Roar") then
             return
         end
@@ -174,5 +176,24 @@ function mb_Druid_Feral_GenerateCombo()
         return true
     end
 
+    return false
+end
+
+function mb_Feral_Druid_TauntAcceptor(message, from)
+    if UnitExists("target") and UnitIsUnit("target", mb_GetUnitForPlayerName(from) .. "target") then
+        if mb_CanCastSpell("Growl", "target") then
+            return true
+        end
+        return false
+    end
+end
+
+function mb_Druid_Feral_TauntExecutor(message, from)
+    if UnitExists("target") and UnitIsUnit("target", mb_GetUnitForPlayerName(from) .. "target") then
+        if mb_CastSpellOnTarget("Growl") then
+            mb_SayRaid("Im Taunting!")
+            return true
+        end
+    end
     return false
 end

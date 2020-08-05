@@ -10,6 +10,7 @@ function mb_Shaman_OnLoad()
 
     if mb_GetMySpecName() == "Elemental" then
         mb_classSpecificRunFunction = mb_Shaman_Elemental_OnUpdate
+		mb_Shaman_Elemental_OnLoad()
     elseif mb_GetMySpecName() == "Enhancement" then
         mb_classSpecificRunFunction = mb_Shaman_Enhancement_OnUpdate
         mb_Shaman_Enhancement_OnLoad()
