@@ -1,6 +1,6 @@
 mb_config = {}
 
-
+mb_config.tanks = {"Malowtank", "Elerien", "Tunbert", "Maligna"}
 
 mb_config.trustedCharacters = {}
 table.insert(mb_config.trustedCharacters, "Odia")
@@ -24,7 +24,6 @@ function mb_IsTrustedCharacter(charName)
     end
     return false
 end
-
 
 -- List of waters that should be drunk
 mb_config.waters = {}

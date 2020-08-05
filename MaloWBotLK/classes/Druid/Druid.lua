@@ -1,10 +1,13 @@
 function mb_Druid_OnLoad()
     if mb_GetMySpecName() == "Balance" then
         mb_classSpecificRunFunction = mb_Druid_Balance_OnUpdate
+        mb_Druid_Balance_OnLoad()
     elseif mb_GetMySpecName() == "Feral Combat" then
         mb_classSpecificRunFunction = mb_Druid_Feral_OnUpdate
+        mb_Druid_Feral_OnLoad()
     else
         mb_classSpecificRunFunction = mb_Druid_Restoration_OnUpdate
+        mb_Druid_Restoration_OnLoad()
     end
 
     if mb_myClassOrderIndex == 1 then
