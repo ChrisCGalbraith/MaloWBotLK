@@ -1,5 +1,6 @@
 mb_Warlock_lastImmolateTime = 0
 mb_Warlock_shadowMastery = false
+mb_Warlock_shadowMasteryTimer = 0
 
 function mb_Warlock_Demonology_OnLoad()
     mb_RegisterClassSpecificReadyCheckFunction(mb_Warlock_Demonology_ReadyCheck)
@@ -44,7 +45,7 @@ function mb_Warlock_Demonology_OnUpdate()
         return
     end
 
-    if mb_GetDebuffTimeRemaining("target", "Shadow Mastery") == 0 then
+    if mb_GetDebuffTimeRemaining("target", "Shadow Mastery") == 0 and mb_Warlock_shadowMasteryTimer < mb_time then
         mb_Warlock_shadowMastery = false
     end
 
@@ -84,8 +85,9 @@ function mb_Warlock_Demonology_OnUpdate()
     end
 
     -- First spell cast is Shadow Bolt to apply 5% crit debuff to target, then the affliction locks get better Corruptions.
-    if not mb_Warlock_shadowMastery and mb_CastSpellOnTarget("Shadow Bolt") then
+    if not mb_Warlock_shadowMastery and mb_CastSpellOnTarget("Shadow Bolt") and mb_Warlock_shadowMasteryTimer < mb_time then
         mb_Warlock_shadowMastery = true
+        mb_Warlock_shadowMasteryTimer = mb_time + 2.5
         return
     end
 
