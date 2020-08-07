@@ -15,10 +15,6 @@ function mb_Druid_OnLoad()
         mb_RegisterMessageHandler(BUFF_THORNS.requestType, mb_Druid_ThornsHandler)
     end
 
-    if mb_GetMySpecName() == "Feral Combat" then
-        mb_RegisterMessageHandler("taunt", mb_Druid_TauntHandler)
-    end
-
     mb_RegisterDesiredBuff(BUFF_KINGS)
     mb_RegisterDesiredBuff(BUFF_WISDOM)
     mb_RegisterDesiredBuff(BUFF_MIGHT)
@@ -62,19 +58,25 @@ function mb_Druid_ThornsHandler(msg, from)
     mb_Druid_HandleThorns(from, "Thorns")
 end
 
-function mb_Druid_HandleCombatRess(msg, from)
-    mb_Druid_CombatRessHandler(from)
+function mb_Druid_CombatRessRequestAcceptor(message, from)
+    mb_SayRaid("Inside acceptor")
+    if mb_CanCastSpell("Rebirth") then
+        return true
+    end
+
+    return false
 end
 
-function mb_Druid_CombatRessHandler(targetPlayerName)
-    if mb_ShouldCombatRess == false then
-        return
+function mb_Druid_CombatRessRequestExecutor(message, from)
+    if not mb_IsReadyForNewCast() then
+        mb_SayRaid("Not ready for new cast")
+        return false
     end
 
-    if mb_CastSpellOnFriendly(targetPlayerName, "Rebirth") then
-        mb_SayRaid("Combat Resurrecting " .. targetPlayerName)
-        return
-    end
+    local target = mb_GetUnitForPlayerName(message)
+
+    CastSpellByName("Rebirth", target)
+    return true
 end
 
 function mb_Druid_Innervate(unit)

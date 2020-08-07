@@ -5,7 +5,6 @@ function mb_Shaman_Restoration_OnLoad()
     mb_Shaman_SetAirTotem("Wrath of Air Totem")
 end
 
-mb_earthBindTime = 0
 function mb_Shaman_Restoration_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
@@ -14,9 +13,6 @@ function mb_Shaman_Restoration_OnUpdate()
     if mb_Drink() then
         return
     end
-
-    --mb_config.mainTank = "Elerien"
-    --mb_config.offTank = "Malowtank"
 
     if mb_ResurrectRaid("Ancestral Spirit") then
         return
@@ -35,41 +31,33 @@ function mb_Shaman_Restoration_OnUpdate()
         return
     end
 
-    -- if mb_canCastSpell("Earthbind Totem") then
-    --     if mb_earthBindTime + 45 < mb_time then
-    --          if mb_castSpellOnSelf("Earthbind Totem") then
-    --             mb_earthBindTime = mb_time
-    --             return
-    --         end
-    --     end
-    --end
-
-    if not mb_UnitHasMyBuff(mb_config.mainTank, "Earth Shield") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Earth Shield") then
+    local tanks = mb_GetTanks("Healing Wave")
+    if not mb_UnitHasMyBuff(tanks[1], "Earth Shield") then
+        if mb_CastSpellOnFriendly(tanks[1], "Earth Shield") then
             return
         end
     end
 
-    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Riptide") and not mb_UnitHasMyBuff(mb_config.mainTank, "Riptide") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Riptide") then
+    if tanks[1] ~= nil and mb_GetMissingHealth(tanks[1]) > mb_GetSpellEffect("Riptide") and not mb_UnitHasMyBuff(tanks[1], "Riptide") then
+        if mb_CastSpellOnFriendly(tanks[1], "Riptide") then
             return
         end
     end
 
-    if mb_GetMissingHealth(mb_config.offTank) > mb_GetSpellEffect("Riptide") and not mb_UnitHasMyBuff(mb_config.offTank, "Riptide") then
-        if mb_CastSpellOnFriendly(mb_config.offTank, "Riptide") then
+    if tanks[2] ~= nil and mb_GetMissingHealth(tanks[2]) > mb_GetSpellEffect("Riptide") and not mb_UnitHasMyBuff(tanks[2], "Riptide") then
+        if mb_CastSpellOnFriendly(tanks[2], "Riptide") then
             return
         end
     end
 
-    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Healing Wave") and UnitBuff("player", "Tidal Waves") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Healing Wave") then
+    if tanks[1] ~= nil and mb_GetMissingHealth(tanks[1]) > mb_GetSpellEffect("Healing Wave") and UnitBuff("player", "Tidal Waves") then
+        if mb_CastSpellOnFriendly(tanks[1], "Healing Wave") then
             return
         end
     end
 
-    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Lesser Healing Wave") and UnitBuff("player", "Tidal Waves") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Lesser Healing Wave") then
+    if tanks[1] ~= nil and mb_GetMissingHealth(tanks[1]) > mb_GetSpellEffect("Lesser Healing Wave") and UnitBuff("player", "Tidal Waves") then
+        if mb_CastSpellOnFriendly(tanks[1], "Lesser Healing Wave") then
             return
         end
     end
@@ -83,14 +71,14 @@ function mb_Shaman_Restoration_OnUpdate()
         return
     end
 
-    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Lesser Healing Wave") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Lesser Healing Wave") then
+    if tanks[1] ~= nil and mb_GetMissingHealth(tanks[1]) > mb_GetSpellEffect("Lesser Healing Wave") then
+        if mb_CastSpellOnFriendly(tanks[1], "Lesser Healing Wave") then
             return
         end
     end
 
-    if mb_GetMissingHealth(mb_config.offTank) > mb_GetSpellEffect("Lesser Healing Wave") then
-        if mb_CastSpellOnFriendly(mb_config.offTank, "Lesser Healing Wave") then
+    if tanks[2] ~= nil and mb_GetMissingHealth(tanks[2]) > mb_GetSpellEffect("Lesser Healing Wave") then
+        if mb_CastSpellOnFriendly(tanks[2], "Lesser Healing Wave") then
             return
         end
     end

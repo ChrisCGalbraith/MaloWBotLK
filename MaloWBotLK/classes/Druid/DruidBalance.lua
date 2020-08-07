@@ -3,6 +3,7 @@ mb_druid_lastEclipseLunar = false
 
 function mb_Druid_Balance_OnLoad()
     mb_RegisterClassSpecificReadyCheckFunction(mb_Druid_ReadyCheck)
+    mb_RegisterExclusiveRequestHandler("cr", mb_Druid_CombatRessRequestAcceptor, mb_Druid_CombatRessRequestExecutor)
 end
 
 function mb_Druid_Balance_OnUpdate()

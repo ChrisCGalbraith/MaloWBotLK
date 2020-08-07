@@ -18,9 +18,6 @@ function mb_Priest_Holy_OnUpdate()
         return
     end
 
-    --mb_config.mainTank = "Maligna"
-    --mb_config.offTank = "Ceolmar"
-
     local _, _, text = UnitChannelInfo("player")
     if text == "Divine Hymn" or text == "Hymn of Hope" then
         return
@@ -44,32 +41,33 @@ function mb_Priest_Holy_OnUpdate()
         mb_UseItemCooldowns()
     end
 
-    if UnitAffectingCombat(mb_config.mainTank) and mb_UnitHealthPercentage(mb_config.mainTank) <= 30 then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Guardian Spirit") then
+    local tanks = mb_GetTanks("Flash Heal")
+    if tanks[1] ~= nil and UnitAffectingCombat(tanks[1]) and mb_UnitHealthPercentage(tanks[1]) <= 30 then
+        if mb_CastSpellOnFriendly(tanks[1], "Guardian Spirit") then
             return
         end
     end
 
-    if not mb_UnitHasMyBuff(mb_config.mainTank, "Prayer of Mending") and UnitAffectingCombat(mb_config.mainTank) then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Prayer of Mending") then
+    if tanks[1] ~= nil and not mb_UnitHasMyBuff(tanks[1], "Prayer of Mending") and UnitAffectingCombat(tanks[1]) then
+        if mb_CastSpellOnFriendly(tanks[1], "Prayer of Mending") then
             return
         end
     end
 
-    if not mb_UnitHasMyBuff(mb_config.mainTank, "Renew") and UnitAffectingCombat(mb_config.mainTank) then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Renew") then
+    if tanks[1] ~= nil and not mb_UnitHasMyBuff(tanks[1], "Renew") and UnitAffectingCombat(tanks[1]) then
+        if mb_CastSpellOnFriendly(tanks[1], "Renew") then
             return
         end
     end
 
-    if not mb_UnitHasMyBuff(mb_config.offTank, "Renew") and UnitAffectingCombat(mb_config.offTank) then
-        if mb_CastSpellOnFriendly(mb_config.offTank, "Renew") then
+    if tanks[2] ~= nil and not mb_UnitHasMyBuff(tanks[2], "Renew") and UnitAffectingCombat(tanks[2]) then
+        if mb_CastSpellOnFriendly(tanks[2], "Renew") then
             return
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.mainTank) < 65 and UnitAffectingCombat(mb_config.mainTank) then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Flash Heal") then
+    if tanks[1] ~= nil and mb_UnitHealthPercentage(tanks[1]) < 65 and UnitAffectingCombat(tanks[1]) then
+        if mb_CastSpellOnFriendly(tanks[1], "Flash Heal") then
             return
         end
     end

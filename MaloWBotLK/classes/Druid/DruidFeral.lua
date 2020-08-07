@@ -16,6 +16,7 @@ function mb_Druid_Feral_OnUpdate()
     local nStance = GetShapeshiftForm();
 
     if nStance == 1 then
+        mb_IWTDistanceClosingRangeCheckSpell = nil
         mb_Druid_Bear_OnUpdate()
         return
     end
@@ -179,7 +180,7 @@ function mb_Druid_Feral_GenerateCombo()
     return false
 end
 
-function mb_Feral_Druid_TauntAcceptor(message, from)
+function mb_Druid_Feral_TauntAcceptor(message, from)
     if UnitExists("target") and UnitIsUnit("target", mb_GetUnitForPlayerName(from) .. "target") then
         if mb_CanCastSpell("Growl", "target") then
             return true

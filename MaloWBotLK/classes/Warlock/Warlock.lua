@@ -95,3 +95,19 @@ function mb_Warlock_HandleFelguardAutoCasts(spell1, spell2, spell3)
         TogglePetAutocast(6) -- Toggle Anguish OFF
     end
 end
+
+function mb_Warlock_ReadyCheck()
+    local ready = true
+    if mb_GetBuffTimeRemaining("player", "Fel Armor") < 540 then
+        CancelUnitBuff("player", "Fel Armor")
+        ready = false
+    end
+
+    local _, mainHandExpiration = GetWeaponEnchantInfo()
+    if mainHandExpiration / 1000 < 540 then
+        CancelItemTempEnchantment(1)
+        ready = false
+    end
+
+    return ready
+end

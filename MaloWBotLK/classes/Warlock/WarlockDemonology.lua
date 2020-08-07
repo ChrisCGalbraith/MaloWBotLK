@@ -3,7 +3,7 @@ mb_Warlock_shadowMastery = false
 mb_Warlock_shadowMasteryTimer = 0
 
 function mb_Warlock_Demonology_OnLoad()
-    mb_RegisterClassSpecificReadyCheckFunction(mb_Warlock_Demonology_ReadyCheck)
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Warlock_ReadyCheck)
 end
 
 function mb_Warlock_Demonology_OnUpdate()
@@ -131,12 +131,3 @@ function mb_Warlock_Demonology_OnUpdate()
     CastSpellByName("Shadow Bolt")
 end
 
-function mb_Warlock_Demonology_ReadyCheck()
-    local ready = true
-    if mb_GetBuffTimeRemaining("player", "Fel Armor") < 540 then
-        CancelUnitBuff("player", "Fel Armor")
-        ready = false
-    end
-
-    return ready
-end

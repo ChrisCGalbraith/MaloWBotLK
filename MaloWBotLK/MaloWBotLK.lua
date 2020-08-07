@@ -627,20 +627,20 @@ end
 
 mb_acceptedPendingExclusiveRequests = {}
 function mb_HandleIncomingExclusiveRequest(message, from)
-	local strings = mb_SplitString(message, ":")
-	local requestType = strings[2]
-	if mb_registeredExclusiveRequestHandlers[requestType] ~= nil then
-		local requestId = tonumber(strings[1])
-		local message = strings[3]
-		if mb_registeredExclusiveRequestHandlers[requestType].acceptor(message, from) then
-			local exclusiveRequest = {}
-			exclusiveRequest.type = requestType
-			exclusiveRequest.message = message
-			exclusiveRequest.from = from
-			mb_acceptedPendingExclusiveRequests[requestId] = exclusiveRequest
-			mb_SendMessage("acceptExclusiveRequest", requestId)
-		end
-	end
+    local strings = mb_SplitString(message, ":")
+    local requestType = strings[2]
+    if mb_registeredExclusiveRequestHandlers[requestType] ~= nil then
+        local requestId = tonumber(strings[1])
+        local message = strings[3]
+        if mb_registeredExclusiveRequestHandlers[requestType].acceptor(message, from) then
+            local exclusiveRequest = {}
+            exclusiveRequest.type = requestType
+            exclusiveRequest.message = message
+            exclusiveRequest.from = from
+            mb_acceptedPendingExclusiveRequests[requestId] = exclusiveRequest
+            mb_SendMessage("acceptExclusiveRequest", requestId)
+        end
+    end
 end
 
 mb_desiredBuffs = {}

@@ -10,7 +10,7 @@ mb_Warlock_executeCorruption = false
 mb_Warlock_lastUnstableTime = 0
 
 function mb_Warlock_Affliction_OnLoad()
-    mb_RegisterClassSpecificReadyCheckFunction(mb_Warlock_Affliction_ReadyCheck)
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Warlock_ReadyCheck)
 end
 
 function mb_Warlock_Affliction_OnUpdate()
@@ -130,13 +130,4 @@ function mb_Warlock_Affliction_OnUpdate()
     end
 
     CastSpellByName("Shadow Bolt")
-end
-
-function mb_Warlock_Affliction_ReadyCheck()
-    local ready = true
-    if mb_GetBuffTimeRemaining("player", "Fel Armor") < 540 then
-        CancelUnitBuff("player", "Fel Armor")
-        ready = false
-    end
-    return ready
 end

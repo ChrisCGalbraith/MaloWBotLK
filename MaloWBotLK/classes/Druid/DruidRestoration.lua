@@ -3,6 +3,7 @@
 
 function mb_Druid_Restoration_OnLoad()
     mb_RegisterClassSpecificReadyCheckFunction(mb_Druid_ReadyCheck)
+    mb_RegisterExclusiveRequestHandler("cr", mb_Druid_CombatRessRequestAcceptor, mb_Druid_CombatRessRequestExecutor)
 end
 
 function mb_Druid_Restoration_OnUpdate()
@@ -18,9 +19,6 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
-    --mb_config.mainTank = "Maligna"
-    --mb_config.offTank = "Ceolmar"
-
     local nStance = GetShapeshiftForm();
     if nStance ~= 5 then
         CastShapeshiftForm(5)
@@ -31,6 +29,7 @@ function mb_Druid_Restoration_OnUpdate()
         return
     end
 
+    local tanks = mb_GetTanks("Rejuvenation")
     if mb_CanCastSpell("Wild Growth") then
         local healUnit, missingHealth = mb_GetMostDamagedFriendly("Wild Growth")
         if missingHealth > 3000 then
@@ -39,59 +38,59 @@ function mb_Druid_Restoration_OnUpdate()
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.mainTank) <= 25 then
-        if mb_CanCastSpell("Nature's Swiftness", mb_config.mainTank) then
+    if tanks[1] ~= nil and mb_UnitHealthPercentage(tanks[1]) <= 25 then
+        if mb_CanCastSpell("Nature's Swiftness", tanks[1]) then
             CastSpellByName("Nature's Swiftness")
-            if mb_CastSpellOnFriendly(mb_config.mainTank, "Healing Touch") then
+            if mb_CastSpellOnFriendly(tanks[1], "Healing Touch") then
                 return
             end
         end
     end
 
-    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Regrowth") and not mb_UnitHasMyBuff(mb_config.mainTank, "Regrowth") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Regrowth") then
+    if tanks[1] ~= nil and mb_GetMissingHealth(tanks[1]) > mb_GetSpellEffect("Regrowth") and not mb_UnitHasMyBuff(tanks[1], "Regrowth") then
+        if mb_CastSpellOnFriendly(tanks[1], "Regrowth") then
             return
         end
     end
 
-    if mb_UnitHealthPercentage(mb_config.offTank) <= 80 and not mb_UnitHasMyBuff(mb_config.offTank, "Regrowth") then
-        if mb_CastSpellOnFriendly(mb_config.offTank, "Regrowth") then
+    if tanks[2] ~= nil and mb_UnitHealthPercentage(tanks[2]) <= 80 and not mb_UnitHasMyBuff(tanks[1], "Regrowth") then
+        if mb_CastSpellOnFriendly(tanks[2], "Regrowth") then
             return
         end
     end
 
-    if not mb_UnitHasMyBuff(mb_config.mainTank, "Rejuvenation") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Rejuvenation") then
+    if tanks[1] ~= nil and not mb_UnitHasMyBuff(tanks[1], "Rejuvenation") then
+        if mb_CastSpellOnFriendly(tanks[1], "Rejuvenation") then
             return
         end
     end
 
-    if not mb_UnitHasMyBuff(mb_config.offTank, "Rejuvenation") then
-        if mb_CastSpellOnFriendly(mb_config.offTank, "Rejuvenation") then
+    if tanks[2] ~= nil and mb_UnitHasMyBuff(tanks[2], "Rejuvenation") then
+        if mb_CastSpellOnFriendly(tanks[2], "Rejuvenation") then
             return
         end
     end
 
-    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Swiftmend") and mb_UnitHasMyBuff(mb_config.mainTank, "Rejuvenation") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Swiftmend") then
+    if tanks[1] ~= nil and mb_GetMissingHealth(tanks[1]) > mb_GetSpellEffect("Swiftmend") and mb_UnitHasMyBuff(tanks[1], "Rejuvenation") then
+        if mb_CastSpellOnFriendly(tanks[1], "Swiftmend") then
             return
         end
     end
 
-    if not mb_UnitHasMyBuff(mb_config.mainTank, "Lifebloom") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Lifebloom") then
+    if tanks[1] ~= nil and not mb_UnitHasMyBuff(tanks[1], "Lifebloom") then
+        if mb_CastSpellOnFriendly(tanks[1], "Lifebloom") then
             return
         end
     end
 
-    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Nourish") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Nourish") then
+    if tanks[1] ~= nil and mb_GetMissingHealth(tanks[1]) > mb_GetSpellEffect("Nourish") then
+        if mb_CastSpellOnFriendly(tanks[1], "Nourish") then
             return
         end
     end
 
-    if mb_GetMissingHealth(mb_config.offTank) > mb_GetSpellEffect("Nourish") then
-        if mb_CastSpellOnFriendly(mb_config.offTank, "Nourish") then
+    if tanks[2] ~= nil and mb_GetMissingHealth(tanks[2]) > mb_GetSpellEffect("Nourish") then
+        if mb_CastSpellOnFriendly(tanks[2], "Nourish") then
             return
         end
     end

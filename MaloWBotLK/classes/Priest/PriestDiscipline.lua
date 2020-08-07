@@ -42,26 +42,27 @@ function mb_Priest_Discipline_OnUpdate()
         end
     end
 
-    if UnitAffectingCombat(mb_config.mainTank) and mb_GetDebuffTimeRemaining(mb_config.mainTank, "Weakened Soul") == 0 then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Power Word: Shield") then
+    local tanks = mb_GetTanks("Flash Heal")
+    if tanks[1] ~= nil and UnitAffectingCombat(tanks[1]) and mb_GetDebuffTimeRemaining(tanks[1], "Weakened Soul") == 0 then
+        if mb_CastSpellOnFriendly(tanks[1], "Power Word: Shield") then
             return
         end
     end
 
-    if UnitAffectingCombat(mb_config.offTank) and mb_GetDebuffTimeRemaining(mb_config.offTank, "Weakened Soul") == 0 then
-        if mb_CastSpellOnFriendly(mb_config.offTank, "Power Word: Shield") then
+    if tanks[2] ~= nil and UnitAffectingCombat(tanks[2]) and mb_GetDebuffTimeRemaining(tanks[2], "Weakened Soul") == 0 then
+        if mb_CastSpellOnFriendly(tanks[2], "Power Word: Shield") then
             return
         end
     end
 
-    -- if not mb_UnitHasMyBuff(mb_config.mainTank, "Prayer of Mending") and UnitAffectingCombat(mb_config.mainTank) then
-    --    if mb_CastSpellOnFriendly(mb_config.mainTank, "Prayer of Mending") then
+    -- if not mb_UnitHasMyBuff(tanks[1], "Prayer of Mending") and UnitAffectingCombat(tanks[1]) then
+    --    if mb_CastSpellOnFriendly(tanks[1], "Prayer of Mending") then
     --        return
     --    end
     --end
 
-    if mb_GetMissingHealth(mb_config.mainTank) > mb_GetSpellEffect("Penance") then
-        if mb_CastSpellOnFriendly(mb_config.mainTank, "Penance") then
+    if tanks[1] ~= nil and mb_GetMissingHealth(tanks[1]) > mb_GetSpellEffect("Penance") then
+        if mb_CastSpellOnFriendly(tanks[1], "Penance") then
             return
         end
     end
@@ -82,7 +83,7 @@ function mb_Priest_Discipline_OnUpdate()
 end
 
 function mb_Priest_StackRapture()
-    if mb_GetDebuffTimeRemaining(mb_config.mainTank, "Weakened Soul") < 1.5 then
+    if mb_GetDebuffTimeRemaining(tanks[1], "Weakened Soul") < 1.5 then
         return false
     end
 
