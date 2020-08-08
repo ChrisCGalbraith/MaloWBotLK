@@ -32,7 +32,7 @@ function mb_Shaman_Restoration_OnUpdate()
     end
 
     local tanks = mb_GetTanks("Healing Wave")
-    if not mb_UnitHasMyBuff(tanks[1], "Earth Shield") then
+    if tanks[1] ~= nil and not mb_UnitHasMyBuff(tanks[1], "Earth Shield") then
         if mb_CastSpellOnFriendly(tanks[1], "Earth Shield") then
             return
         end
@@ -66,7 +66,7 @@ function mb_Shaman_Restoration_OnUpdate()
         return
     end
 
-    if mb_UnitPowerPercentage("Kisaana") < 50 and UnitAffectingCombat("Khalia") then
+    if mb_UnitPowerPercentage("Kisaana") < 50 and UnitAffectingCombat("Kisaana") then
         CastSpellByName("Mana Tide Totem")
         return
     end

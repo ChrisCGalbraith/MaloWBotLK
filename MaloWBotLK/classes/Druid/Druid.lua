@@ -59,7 +59,6 @@ function mb_Druid_ThornsHandler(msg, from)
 end
 
 function mb_Druid_CombatRessRequestAcceptor(message, from)
-    mb_SayRaid("Inside acceptor")
     if mb_CanCastSpell("Rebirth") then
         return true
     end
@@ -69,7 +68,6 @@ end
 
 function mb_Druid_CombatRessRequestExecutor(message, from)
     if not mb_IsReadyForNewCast() then
-        mb_SayRaid("Not ready for new cast")
         return false
     end
 
