@@ -45,4 +45,4 @@ table.insert(mb_roleplay.fearfulGossip, "Our hope was a lie, an empty lie to lur
 table.insert(mb_roleplay.fearfulGossip, "Oh Light, deliver us from this evil which we have tempted!")
 table.insert(mb_roleplay.fearfulGossip, "Fate has deemed us unworthy, we shall be but lambs to the slaughter!")
 table.insert(mb_roleplay.fearfulGossip, "Flee for your lives! How can we stand against such unfathomable monsters!")
-table.insert(mb_roleplay.fearfulGossip, "The jaws of death are closing about us...I can almost feel them!")
+table.insert(mb_roleplay.fearfulGossip, "The jaws of death are closing about us...I can almost feel them...")

@@ -1,4 +1,7 @@
 -- Outdated, unusable as of 29/06/2020
+function mb_Mage_Fire_OnLoad()
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Mage_ReadyCheck)
+end
 
 function mb_Mage_Fire_OnUpdate()
     if not mb_IsReadyForNewCast() then

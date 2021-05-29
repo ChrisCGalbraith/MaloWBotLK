@@ -4,7 +4,6 @@ function mb_Mage_OnLoad()
         mb_Mage_Arcane_OnLoad()
     elseif mb_GetMySpecName() == "Fire" then
         mb_classSpecificRunFunction = mb_Mage_Fire_OnUpdate
-        mb_SpecNotSupported("Fire Mages are not yet supported")
     else
         mb_classSpecificRunFunction = mb_Mage_Frost_OnUpdate
         mb_SpecNotSupported("Frost Mages are not yet supported")
@@ -60,4 +59,14 @@ function mb_Mage_HandleManaGem(itemName)
     end
 
     return false
+end
+
+function mb_Mage_ReadyCheck()
+    local ready = true
+    if mb_GetBuffTimeRemaining("player", "Molten Armor") < 540 then
+        CancelUnitBuff("player", "Molten Armor")
+        ready = false
+    end
+
+    return ready
 end

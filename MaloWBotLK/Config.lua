@@ -55,7 +55,29 @@ mb_config.blacklistedInterruptSpells = {}
 mb_config.blacklistedInterruptSpells["Malygos"] = { "Arcane Breath" }
 mb_config.blacklistedInterruptSpells["Sartharion"] = { "Flame Breath" }
 
+mb_config.casterList = {}
+table.insert(mb_config.casterList, "Balance")
+table.insert(mb_config.casterList, "Arcane")
+table.insert(mb_config.casterList, "Fire")
+table.insert(mb_config.casterList, "Destruction")
+table.insert(mb_config.casterList, "Affliction")
+table.insert(mb_config.casterList, "Elemental")
+table.insert(mb_config.casterList, "Shadow")
+table.insert(mb_config.casterList, "Holy")
+table.insert(mb_config.casterList, "Disciple")
+table.insert(mb_config.casterList, "Restoration")
 
+mb_config.meleeList = {}
+table.insert(mb_config.casterList, "Assassination")
+table.insert(mb_config.casterList, "Combat")
+table.insert(mb_config.casterList, "Subtlety")
+table.insert(mb_config.casterList, "Arms")
+table.insert(mb_config.casterList, "Fury")
+table.insert(mb_config.casterList, "Blood")
+table.insert(mb_config.casterList, "Unholy")
+table.insert(mb_config.casterList, "Enhancement")
+table.insert(mb_config.casterList, "Feral")
+table.insert(mb_config.casterList, "Retribution")
 
 -- -----------------------------------------------
 -- Raid Layout

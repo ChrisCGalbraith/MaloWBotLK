@@ -63,6 +63,8 @@ bosses\Kelthuzad.lua
 bosses\Gluth.lua
 bosses\Malygos.lua
 bosses\Thaddius.lua
+bosses\FlameLeviathan.lua
+bosses\NorthrendBeasts.lua
 
 
 

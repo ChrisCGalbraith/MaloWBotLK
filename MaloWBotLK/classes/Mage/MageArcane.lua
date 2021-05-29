@@ -1,5 +1,5 @@
 function mb_Mage_Arcane_OnLoad()
-    mb_RegisterClassSpecificReadyCheckFunction(mb_Mage_Arcane_ReadyCheck)
+    mb_RegisterClassSpecificReadyCheckFunction(mb_Mage_ReadyCheck)
 end
 
 function mb_Mage_Arcane_OnUpdate()
@@ -71,10 +71,12 @@ function mb_Mage_Arcane_OnUpdate()
             return
         end
 
-        if mb_CastSpellWithoutTarget("Icy Veins") then
-            mb_SendExclusiveRequest("power_infusion", "")
-        end
+        mb_CastSpellWithoutTarget("Icy Veins")
         mb_CastSpellWithoutTarget("Arcane Power")
+
+        if mb_GetBuffTimeRemaining("player", "Arcane Power") == 0 then
+            mb_SendExclusiveRequestThrottled("power_infusion", "")
+        end
     end
 
     if UnitDebuff("player", "Arcane Blast") ~= nil and UnitAffectingCombat("player") then
@@ -110,14 +112,4 @@ function mb_Mage_DischargeBlastStacks()
     elseif mb_CastSpellOnTarget("Arcane Barrage") then
         return
     end
-end
-
-function mb_Mage_Arcane_ReadyCheck()
-    local ready = true
-    if mb_GetBuffTimeRemaining("player", "Molten Armor") < 540 then
-        CancelUnitBuff("player", "Molten Armor")
-        ready = false
-    end
-
-    return ready
 end

@@ -19,6 +19,7 @@ function mb_Warlock_OnLoad()
     mb_RegisterDesiredBuff(BUFF_FORT)
     mb_RegisterDesiredBuff(BUFF_SPIRIT)
     mb_RegisterDesiredBuff(BUFF_SHADOW_PROT)
+
 end
 
 function mb_Warlock_HandlePetSummon(spell)
@@ -44,17 +45,16 @@ function mb_Warlock_HandleStones(itemName)
         if mb_GetItemLocation(itemName) == nil then
             if itemName == "Grand Spellstone" then
                 CastSpellByName("Create Spellstone")
-                return false
+                return true
             end
 
             if itemName == "Grand Firestone" then
                 CastSpellByName("Create Firestone")
-                return false
+                return true
             end
         end
-
     end
-    return true
+    return false
 end
 
 -- Rank 1 Life Tap out of combat to maintain spellpower buff.

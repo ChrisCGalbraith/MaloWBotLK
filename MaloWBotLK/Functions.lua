@@ -518,21 +518,6 @@ function mb_GetSpellIdForName(spellName)
 	return tonumber(spellId)
 end
 
-function mb_GetItemLocation(itemName)
-	for bag = 0, 4 do
-		for slot = 1, GetContainerNumSlots(bag) do
-			local texture = GetContainerItemInfo(bag, slot)
-			if texture ~= nil then
-				local name = GetItemInfo(mb_GetItemStringFromItemLink(GetContainerItemLink(bag, slot)))
-				if itemName == name then
-					return bag, slot
-				end
-			end
-		end
-	end
-	return nil
-end
-
 function mb_SetPetAutocast(spell, desiredState)
     local _, autoCastState = GetSpellAutocast(spell, "pet")
     autoCastState = autoCastState == 1
@@ -583,24 +568,6 @@ function mb_CheckReagentAmount(itemName, desiredItemCount)
     end
 end
 
--- Returns the count of item with specified name
-function mb_GetItemCount(itemName)
-    local totalItemCount = 0
-    for bag = 0, 4 do
-        for slot = 1, GetContainerNumSlots(bag) do
-            local itemLink = GetContainerItemLink(bag, slot)
-            if itemLink ~= nil then
-                local name = GetItemInfo(itemLink)
-                if name == itemName then
-                    local _, itemCount = GetContainerItemInfo(bag, slot);
-                    totalItemCount = totalItemCount + itemCount
-                end
-            end
-        end
-    end
-    return totalItemCount
-end
-
 -- Makes the character say in raid if durability of any item is lower than 30%
 function mb_CheckDurability()
     local lowestDurability = 1.0
@@ -638,7 +605,6 @@ function mb_RaidHeal(spell, acceptedOverheal)
     return false
 end
 
-
 -- Tries to acquire an offensive target. Will assist the commander unit if it exists.
 -- Returns true/false depending on if a valid offensive target was acquired.
 function mb_AcquireOffensiveTarget()
@@ -652,6 +618,7 @@ function mb_AcquireOffensiveTarget()
     AssistUnit(mb_commanderUnit)
     return mb_IsValidOffensiveUnit("target", true)
 end
+
 -- Checks whether it's a good time to buff, returns true/false
 function mb_ShouldBuff()
     if UnitAffectingCombat("player") or mb_IsDrinking() or mb_UnitPowerPercentage("player") < 30 then
@@ -674,7 +641,7 @@ function mb_ShouldBuff()
     return true
 end
 
--- returns the bag and slot indexes for where an item is located
+-- Returns the bag and slot indexes for where an item is located
 function mb_GetItemLocation(itemName)
     for bag = 0, 4 do
         for slot = 1, GetContainerNumSlots(bag) do
@@ -694,7 +661,7 @@ function mb_HasItem(itemName)
     return GetItemCount(itemName) ~= 0
 end
 
--- tries to use an item in the bags, returns true/false depending on if successful
+-- Tries to use an item in the bags, returns true/false depending on if successful
 function mb_UseItem(itemName)
     if GetItemCount(itemName) == 0 then
         return false
@@ -806,6 +773,14 @@ end
 
 function mb_IsHealer()
 	return mb_GetMySpecName() == "Holy" or mb_GetMySpecName() == "Restoration" or mb_GetMySpecName() == "Discipline"
+end
+
+function mb_IsCaster()
+    for _, spec in pairs(mb_config.casterList) do
+        if spec == mb_GetMySpecName("player") then
+            return spec
+        end
+    end
 end
 
 function mb_IsUnitStunned(unit)
@@ -929,9 +904,7 @@ function mb_FollowUnit(unit)
     mb_isFollowing = false
     return false
 end
-function mb_IsHealer()
-	return mb_GetMySpecName() == "Holy" or mb_GetMySpecName() == "Restoration" or mb_GetMySpecName() == "Discipline"
-end
+
 function mb_BreakFollow()
     mb_isFollowing = false
     TurnLeftStart()
@@ -1074,8 +1047,6 @@ mb_dmgBuffs =
 	{name = "Shadow Embrace", value = 5}
 }
 
-
-
 -- 1: Physical, 2: Holy, 3: Fire, 4: Nature, 5: Frost, 6: Shadow, 7: Arcane
 function mb_GetRealSpellCrit(spellSchool, unit)
 	local crit = GetSpellCritChance(spellSchool)
@@ -1086,4 +1057,12 @@ function mb_GetRealSpellCrit(spellSchool, unit)
 		end
 	end
 	return crit
+end
+
+-- Fisher-Yates shuffle
+function mb_ShuffleTable(tbl)
+    for i = #tbl, 2, -1 do
+        local j = math.random(i)
+        tbl[i], tbl[j] = tbl[j], tbl[i]
+    end
 end

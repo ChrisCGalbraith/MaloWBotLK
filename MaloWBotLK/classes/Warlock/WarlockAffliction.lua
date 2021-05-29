@@ -22,7 +22,7 @@ function mb_Warlock_Affliction_OnUpdate()
 
     mb_Warlock_HandleFelhunterAutoCasts("Fel Intelligence", "Shadow Bite")
 
-    if not mb_Warlock_HandleStones("Grand Spellstone") then
+    if mb_Warlock_HandleStones("Grand Spellstone") then
         return
     end
 

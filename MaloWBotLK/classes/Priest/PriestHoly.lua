@@ -28,7 +28,7 @@ function mb_Priest_Holy_OnUpdate()
         return
     end
 
-    if mb_UnitPowerPercentage("player") < 50 and UnitAffectingCombat("player") and mb_CanCastSpell("Shadowfiend") then
+    if mb_UnitPowerPercentage("player") < 65 and UnitAffectingCombat("player") and mb_CanCastSpell("Shadowfiend") then
         AssistUnit(mb_commanderUnit)
         if mb_CastSpellOnTarget("Shadowfiend") then
             return
@@ -67,6 +67,8 @@ function mb_Priest_Holy_OnUpdate()
     end
 
     if tanks[1] ~= nil and mb_UnitHealthPercentage(tanks[1]) < 65 and UnitAffectingCombat(tanks[1]) then
+
+        UseInventoryItem(13)
         if mb_CastSpellOnFriendly(tanks[1], "Flash Heal") then
             return
         end

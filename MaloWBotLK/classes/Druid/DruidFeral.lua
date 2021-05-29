@@ -39,18 +39,26 @@ function mb_Druid_Cat_OnUpdate()
         InteractUnit("target")
     end
 
-    if UnitAffectingCombat("player") and UnitPower("player") <= 30 then
+    if (mb_commanderUnit == nil or CheckInteractDistance(mb_commanderUnit, 1)) and CheckInteractDistance("target", 4) then
+        if mb_CastSpellOnTarget("Feral Charge - Cat") then
+            return
+        end
+    end
+
+    if UnitAffectingCombat("player") and UnitPower("player") <= 65 then
         if mb_CanCastSpell("Tiger's Fury") then
             CastSpellByName("Tiger's Fury")
             return
         end
     end
 
-    if mb_Druid_Feral_HandleFinisher() then
-        return
+    if mb_ShouldUseDpsCooldowns("Claw") then
+        if mb_CastSpellWithoutTarget("Berserk") then
+            return
+        end
     end
 
-    if mb_GetBuffTimeRemaining("player", "Clearcasting") > 0 and mb_CastSpellOnTarget("Shred") then
+    if mb_Druid_Feral_HandleFinisher() then
         return
     end
 
@@ -85,6 +93,7 @@ function mb_Druid_Bear_OnUpdate()
         end
     end
 
+    mb_AcquireOffensiveTarget()
     --   if not mb_isAutoAttacking then
     --       InteractUnit("target")
     --   end
@@ -132,21 +141,17 @@ function mb_Druid_Feral_HandleFinisher()
         return true
     end
 
-    if GetComboPoints("player", "target") < 5 then
-        return false
-    end
-
     if mb_GetMyDebuffTimeRemaining("target", "Rip") < 1.5 then
-        if mb_GetMyDebuffTimeRemaining("target", "Rip") == 0 then
+        if mb_GetMyDebuffTimeRemaining("target", "Rip") == 0 and GetComboPoints("player", "target") >= 4 then
             if mb_CastSpellOnTarget("Rip") then
                 return true
             end
         end
 
-        return true
+        return false
     end
 
-    if mb_GetMyDebuffTimeRemaining("target", "Rip") > 10 and mb_GetBuffTimeRemaining("player", "Savage Roar") > 10 then
+    if mb_GetMyDebuffTimeRemaining("target", "Rip") > 10 and mb_GetBuffTimeRemaining("player", "Savage Roar") > 10 and mb_UnitPowerPercentage("player") > 90 then
         if mb_CastSpellOnTarget("Ferocious Bite") then
             return true
         end
@@ -160,6 +165,10 @@ function mb_Druid_Feral_GenerateCombo()
         return
     end
 
+    if mb_UnitPowerPercentage("player") < 90 and GetComboPoints("player", "target") == 5 and mb_GetBuffTimeRemaining("player", "Berserk") == 0 then
+        return true
+    end
+
     if mb_GetMyDebuffTimeRemaining("target", "Rake") < 2.0 then
         if mb_GetMyDebuffTimeRemaining("target", "Rake") == 0 then
             if mb_CastSpellOnTarget("Rake") then
@@ -170,10 +179,14 @@ function mb_Druid_Feral_GenerateCombo()
         return true
     end
 
-    if mb_UnitPowerPercentage("player") > 95 and mb_CastSpellOnTarget("Mangle (Cat)()") then
+    if mb_GetBuffTimeRemaining("player", "Clearcasting") > 0 and mb_CastSpellOnTarget("Shred") then
+        return
+    end
+
+    if mb_UnitPowerPercentage("player") > 42 and mb_CastSpellOnTarget("Shred") then
         return true
     end
-    if mb_UnitPowerPercentage("player") > 42 and mb_CastSpellOnTarget("Shred") then
+    if mb_UnitPowerPercentage("player") > 95 and mb_CastSpellOnTarget("Mangle (Cat)()") then
         return true
     end
 

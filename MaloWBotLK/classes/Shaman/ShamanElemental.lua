@@ -44,7 +44,7 @@ function mb_Shaman_Elemental_OnUpdate()
 	if mb_cleaveMode > 0 then
 		local range = CheckInteractDistance("target", 2)
 		if range then
-			if mb_CastSpellOnTarget("Fire Nova") then
+			if mb_CastSpellWithoutTarget("Fire Nova") then
 				return
 			end
 

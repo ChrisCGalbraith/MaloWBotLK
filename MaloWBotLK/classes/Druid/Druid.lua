@@ -59,6 +59,13 @@ function mb_Druid_ThornsHandler(msg, from)
 end
 
 function mb_Druid_CombatRessRequestAcceptor(message, from)
+    local tanks = mb_GetTanks("Rebirth")
+    for _,tank in pairs(tanks) do
+        if tank == UnitName("player") then
+            return false
+        end
+    end
+
     if mb_CanCastSpell("Rebirth") then
         return true
     end
@@ -74,6 +81,7 @@ function mb_Druid_CombatRessRequestExecutor(message, from)
     local target = mb_GetUnitForPlayerName(message)
 
     CastSpellByName("Rebirth", target)
+    mb_SayRaid("Combat Ressing " .. message)
     return true
 end
 

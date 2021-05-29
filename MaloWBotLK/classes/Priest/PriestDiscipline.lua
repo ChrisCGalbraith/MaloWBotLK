@@ -136,16 +136,19 @@ end
 
 -- Power Infusion
 function mb_Priest_Discipline_PowerInfusionRequestAcceptor(message, from)
-    if mb_IsUsableSpell("Power Infusion") then
-        if mb_IsUnitValidFriendlyTarget(from, "Power Infusion") then
-            return true
-        end
+
+    if mb_CanCastSpell("Power Infusion", from, true) then
+        return true
     end
 
     return false
 end
 
 function mb_Priest_Discipline_PowerInfusionRequestExecutor(message, from)
+    if not mb_IsReadyForNewCast() then
+        return false
+    end
+
     local targetUnit = mb_GetUnitForPlayerName(from)
     if mb_CastSpellOnFriendly(targetUnit, "Power Infusion") then
         mb_SayRaid("Casting Power Infusion on " .. from)

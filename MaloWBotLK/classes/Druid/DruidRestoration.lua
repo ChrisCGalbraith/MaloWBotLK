@@ -65,7 +65,7 @@ function mb_Druid_Restoration_OnUpdate()
         end
     end
 
-    if tanks[2] ~= nil and mb_UnitHasMyBuff(tanks[2], "Rejuvenation") then
+    if tanks[2] ~= nil and not mb_UnitHasMyBuff(tanks[2], "Rejuvenation") then
         if mb_CastSpellOnFriendly(tanks[2], "Rejuvenation") then
             return
         end

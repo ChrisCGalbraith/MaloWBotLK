@@ -1,3 +1,6 @@
+--TODO
+-- Nevermelting Ice trinket code
+
 function mb_Priest_OnLoad()
     if mb_GetMySpecName() == "Discipline" then
         mb_classSpecificRunFunction = mb_Priest_Discipline_OnUpdate

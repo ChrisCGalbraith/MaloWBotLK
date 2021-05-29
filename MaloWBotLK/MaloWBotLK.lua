@@ -76,7 +76,7 @@ function mb_OnEvent(self, event, arg1, arg2, arg3, arg4, ...)
             if mb_followMode == "strict" then
                 return
             end
-            mb_shouldStopMovingAt = mb_time + 1.5
+            mb_shouldStopMovingAt = mb_time + 0.5
             StrafeLeftStop()
             StrafeRightStart()
         end
@@ -107,14 +107,14 @@ function mb_OnEvent(self, event, arg1, arg2, arg3, arg4, ...)
                 StrafeLeftStop()
                 StrafeRightStart()
             else
-                StrafeLeftStop()
                 StrafeRightStop()
+                StrafeLeftStop()
             end
         end
     elseif event == "UNIT_SPELLCAST_SUCCEEDED" then
         if arg1 == "player" and (arg2 == "Shred" or arg2 == "Backstab") then
-            StrafeLeftStop()
             StrafeRightStop()
+            StrafeLeftStop()
         end
     end
 end
@@ -371,6 +371,7 @@ function mb_OnUpdate()
     if not mb_hasCheckedProfessionCooldowns then
         mb_HandleProfessionCooldowns()
     end
+    mb_GoToPosition_Update()
 end
 
 mb_lastHandleProfessionCooldowns = 0
@@ -508,12 +509,11 @@ function mb_HandleCommand(msg)
         return true
     end
 
-    matches, remainingString = mb_StringStartsWith(msg, "respec")
+    matches, remainingString = mb_StringStartsWith(msg, "spread")
     if matches then
-        mb_isRespecing = true
+        mb_Spread(remainingString)
         return true
     end
-
     return false
 end
 
@@ -524,6 +524,20 @@ end
 function mb_SendExclusiveRequest(requestType, message)
     if message == nil then
         message = ""
+    end
+    local requestId = tostring(math.random(9999999))
+    mb_SendMessage("exclusiveRequest", requestId .. ":" .. requestType .. ":" .. message)
+end
+
+mb_lastExclusiveRequest = GetTime()
+function mb_SendExclusiveRequestThrottled(requestType, message)
+    if mb_lastExclusiveRequest + 1.5 > mb_time then
+        return
+    end
+    mb_lastExclusiveRequest = mb_time
+
+    if message == nil then
+        message= ""
     end
     local requestId = tostring(math.random(9999999))
     mb_SendMessage("exclusiveRequest", requestId .. ":" .. requestType .. ":" .. message)
@@ -638,6 +652,7 @@ function mb_HandleIncomingExclusiveRequest(message, from)
             exclusiveRequest.message = message
             exclusiveRequest.from = from
             mb_acceptedPendingExclusiveRequests[requestId] = exclusiveRequest
+            mb_Say("I accepted request from: " .. from .. "of type: " .. requestType)
             mb_SendMessage("acceptExclusiveRequest", requestId)
         end
     end
@@ -954,4 +969,32 @@ function mb_Respec()
     mb_lastRespecEquipAttempt = mb_time
     mb_respecEquipAttempts = mb_respecEquipAttempts + 1
     UseEquipmentSet(mySpec)
+end
+
+function mb_Spread(spreadDistance)
+    local curX, curY = mb_GetMapPosition("player")
+    local diff = spreadDistance / 100
+    local members = mb_GetNumPartyOrRaidMembers()
+    local x = curX-(2*diff)
+    local y = curY-(2*diff)
+    local values = {}
+
+    for i=0, 4 do
+        for j=0, 4 do
+            table.insert(values, x..":"..y)
+            mb_Print(values)
+            x = x+diff
+        end
+        y = y+diff
+        x = curX-(2*diff)
+    end
+
+    mb_ShuffleTable(values)
+
+    for i = 1, members do
+        local unit = mb_GetUnitFromPartyOrRaidIndex(i)
+        mb_SendMessage("spread",UnitName(unit)..":"..values[i]) -- Odia:0.0000:0.0000
+    end
+
+    mb_Say("S P R E A D")
 end

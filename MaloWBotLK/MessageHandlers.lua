@@ -1,5 +1,6 @@
 function mb_RegisterMessageHandlers()
     mb_RegisterMessageHandler("lc", mb_LcHandler)
+    mb_RegisterMessageHandler("spread", mb_SpreadHandler)
 
     if mb_isCommanding then
         return
@@ -60,4 +61,11 @@ end
 
 function mb_LcHandler(msg, from)
     mb_LootHandler_HandleLootCouncilRequest(msg)
+end
+
+function mb_SpreadHandler(msg)
+    local strings = mb_SplitString(msg, ":")
+    if strings[1] == UnitName("player") then
+        mb_GoToPosition_SetDestination(strings[2],strings[3],0.005)
+    end
 end

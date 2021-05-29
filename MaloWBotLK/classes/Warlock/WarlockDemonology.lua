@@ -10,15 +10,16 @@ function mb_Warlock_Demonology_OnUpdate()
     if not mb_IsReadyForNewCast() then
         return
     end
+
     mb_Warlock_HandlePetSummon("Summon Felguard")
+
 
     mb_Warlock_HandleFelguardAutoCasts("Intercept", "Cleave", "Anguish")
 
-    if not mb_Warlock_HandleStones("Grand Spellstone") then
+
+    if mb_Warlock_HandleStones("Grand Spellstone") then
         return
     end
-
-    -- local crit = mb_GetRealSpellCrit(6, "target")
 
     if UnitExists("playerpet") then
         PetPassiveMode()
@@ -60,16 +61,13 @@ function mb_Warlock_Demonology_OnUpdate()
 
     if mb_ShouldUseDpsCooldowns("Shadow Bolt") and UnitAffectingCombat("player") then
         mb_UseItemCooldowns()
-        CastSpellByName("Demonic Empowerment")
-        if mb_CastSpellWithoutTarget("Metamorphosis") then
-            CastSpellByName("Immolation Aura")
+        mb_CastSpellWithoutTarget("Metamorphosis")
+        if mb_CastSpellWithoutTarget("Immolation Aura") then
             return
         end
     end
 
-    if mb_CastSpellWithoutTarget("Demonic Empowerment") then
-        return
-    end
+    mb_CastSpellWithoutTarget("Demonic Empowerment")
 
     if mb_cleaveMode > 0 then
         local range = CheckInteractDistance("target", 2)
